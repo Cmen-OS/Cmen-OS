@@ -51,6 +51,7 @@ export class RegisterComponent implements OnInit {
       domicilio: ['', Validators.required],
       correo: ['', Validators.required],
       recibidoPor: ['', Validators.required],
+      ci: ['', Validators.required],
 
 
       image: ['', Validators.required],

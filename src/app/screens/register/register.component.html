@@ -220,9 +220,16 @@
           <strong class="error" *ngIf="isBoxValid('recibidoPor')">Este campo es requerido</strong>
         </div>
         <input class="box" type="text" formControlName="recibidoPor"/>
+
       </div>
 
-
+      <div class="container">
+        <div class="texts">
+          <div class="name">Cedula de identidad</div>
+          <strong class="error" *ngIf="isBoxValid('ci')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="number" formControlName="ci"/>
+      </div>
 
 
     </div>
