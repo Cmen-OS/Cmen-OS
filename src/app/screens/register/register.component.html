@@ -64,7 +64,7 @@
       <div class="container">
         <div class="texts">
           <div class="name">Modalidad de funcionamiento</div>
-          <strong class="error" *ngIf="isBoxValid('modFuncionamiento')">Este campo es requerido</strong>
+
         </div>
         <select class="box" formControlName="modFuncionamiento">
           <option *ngFor="let modFunc of modFuncs"
@@ -139,20 +139,38 @@
         </div>
         <input class="box" type="date" formControlName="fechaRecepcion"/>
       </div>
+
+
+
       <div class="containerRight">
         <div class="texts">
           <div class="name">Sexo</div>
           <strong class="error" *ngIf="isBoxValid('sexo')">Este campo es requerido</strong>
         </div>
-        <input class="box" type="text" formControlName="sexo"/>
+        <select class="box" formControlName="sexo">
+          <option *ngFor="let sexo of sexos"
+                  [value]="sexo">
+            {{sexo}}
+          </option>
+        </select>
       </div>
+
+
+
+
       <div class="containerRight">
         <div class="texts">
           <div class="name">Edad</div>
           <strong class="error" *ngIf="isBoxValid('edad')">Este campo es requerido</strong>
         </div>
-        <input class="box" type="number" formControlName="edad"/>
+        <select class="box" formControlName="sexo">
+          <option *ngFor="let edad of edades"
+                  [value]="edad">
+            {{edad}}
+          </option>
+        </select>
       </div>
+
       <div class="containerRight">
         <div class="texts">
           <div class="name">Nombre criollo</div>

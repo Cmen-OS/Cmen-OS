@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
       lugarExp: ['', Validators.required],
       precedencia: ['', Validators.required],
       numActa: ['', Validators.required],
-      modFuncionamiento: ['', Validators.required],
+      modFuncionamiento: [''],
       codIdentificacion: ['', Validators.required],
       areaIngreso: ['', Validators.required],
       motivoIngreso: ['', Validators.required],
@@ -90,6 +90,18 @@ export class RegisterComponent implements OnInit {
   motivos: string[] = [
     'Rescate',
     'Botado',
+    'Otro'
+  ]
+
+  sexos: string[] = [
+    'M',
+    'F',
+    'Otro'
+  ]
+
+  edades: string[] = [
+    'Joven',
+    'sXD',
     'Otro'
   ]
 
