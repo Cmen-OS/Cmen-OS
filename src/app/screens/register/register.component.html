@@ -1,11 +1,14 @@
-<h1>Registrar animales</h1>
+<h1 style="color:#E7DBDBFF">Registrar animales</h1>
 
 
-<h2>Ingresar datos</h2>
+
 
 <form [formGroup]="form" (ngSubmit)="save($event)">
   <div class="wrapper">
     <div class="wrapperLeft">
+
+      <h2 class="subText">Ingresar datos</h2>
+
       <div class="container">
 
         <div class="texts">
@@ -193,11 +196,14 @@
   </div>
 
 
-  <hr>
+
+
 
 
   <div class="wrapper">
     <div class="wrapperLeft">
+      <h2 class="subText"> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</h2>
+
       <div class="container">
         <div class="texts">
           <div class="name">Nombre o razon social</div>
@@ -257,7 +263,7 @@
     <div class="wrapperRigth">
 
       <p class="containerRight">
-        <button type="submit">Enviar</button>
+        <button class="buttonSubmit" type="submit">Enviar</button>
       </p>
 
     </div>
