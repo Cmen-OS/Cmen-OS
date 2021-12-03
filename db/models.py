@@ -25,6 +25,7 @@ class Operador(models.Model):
     email = models.CharField(max_length=255, help_text="Direccion de correo electronico del trabajador")
     nombre = models.CharField(max_length=255, help_text="Nombre del trabajador")
     root = models.BooleanField(help_text="0 si es un trabajador normal, 1 si es super usuario")
+    autorizado = models.BooleanField(help_text="0 si no esta autorizado, 1 si esta autorizado")
 
 
 class Microchip(models.Model):
@@ -61,8 +62,8 @@ class Registro(models.Model):
     area = models.CharField(max_length=255)
     lugar_exposicion = models.CharField(max_length=255)
     motivo_recepcion = models.CharField(max_length=255)
-    ci_recibido = models.ForeignKey(Operador, on_delete=models.SET_NULL, null=True, blank=True)
-    autorizado_por = models.CharField(max_length=255)  #Preguntar
+    ci_recibido_por = models.ForeignKey(Operador, on_delete=models.SET_NULL, null=True, blank=True, related_name="recibidor")
+    ci_autorizado_por = models.ForeignKey(Operador, on_delete=models.SET_NULL, null=True, blank=True, related_name="autorizador")
     nro_acta_traslado = models.IntegerField()
     nro_MMAA = models.IntegerField()
     id_animal = models.ForeignKey(Animal, on_delete=models.SET_NULL, null=True, blank=True)
