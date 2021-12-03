@@ -1,4 +1,4 @@
-<h1 style="color:#E7DBDBFF">Registrar animales</h1>
+<h1 style="color:#E7DBDBFF;   padding-left: 20px;">Registrar animales</h1>
 
 
 
@@ -123,6 +123,58 @@
 
 
       </div>
+
+      <h2 class="subText"> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</h2>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Nombre o razon social</div>
+          <strong class="error" *ngIf="isBoxValid('nombre')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="nombre"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Telefono</div>
+          <strong class="error" *ngIf="isBoxValid('telefono')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="tel" formControlName="telefono"/>
+      </div>
+      <div class="container">
+        <div class="texts">
+          <div class="name">Nro. formulario M.M.A.A</div>
+          <strong class="error" *ngIf="isBoxValid('numFormMMAA')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="number" formControlName="numFormMMAA"/>
+      </div>
+      <div class="container">
+        <div class="texts">
+          <div class="name">Domicilio</div>
+          <strong class="error" *ngIf="isBoxValid('domicilio')">Este campo es requerido</strong>
+        </div>
+        <input class="box" formControlName="domicilio"/>
+      </div>
+      <div class="container">
+        <div class="texts">
+          <div class="name">Correo</div>
+          <strong class="error" *ngIf="isBoxValid('correo')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="email" formControlName="correo"/>
+      </div>
+      <div class="container">
+        <div class="texts">
+          <div class="name">Recibido por</div>
+          <strong class="error" *ngIf="isBoxValid('recibidoPor')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="recibidoPor"/>
+
+      </div>
+
+
+
+
+
     </div>
     <div class="wrapperRigth">
       <div class="containerRight">
@@ -190,7 +242,15 @@
         </div>
         <input class="box" type="text" formControlName="nombreComun"/>
       </div>
+
+
+      <p class="containerRight">
+        <button class="buttonSubmit" type="submit">Enviar</button>
+      </p>
+
     </div>
+
+
 
 
   </div>
@@ -202,69 +262,14 @@
 
   <div class="wrapper">
     <div class="wrapperLeft">
-      <h2 class="subText"> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</h2>
-
-      <div class="container">
-        <div class="texts">
-          <div class="name">Nombre o razon social</div>
-          <strong class="error" *ngIf="isBoxValid('nombre')">Este campo es requerido</strong>
-        </div>
-        <input class="box" type="text" formControlName="nombre"/>
-      </div>
-
-      <div class="container">
-        <div class="texts">
-          <div class="name">Telefono</div>
-          <strong class="error" *ngIf="isBoxValid('telefono')">Este campo es requerido</strong>
-        </div>
-        <input class="box" type="tel" formControlName="telefono"/>
-      </div>
-      <div class="container">
-        <div class="texts">
-          <div class="name">Nro. formulario M.M.A.A</div>
-          <strong class="error" *ngIf="isBoxValid('numFormMMAA')">Este campo es requerido</strong>
-        </div>
-        <input class="box" type="number" formControlName="numFormMMAA"/>
-      </div>
-      <div class="container">
-        <div class="texts">
-          <div class="name">Domicilio</div>
-          <strong class="error" *ngIf="isBoxValid('domicilio')">Este campo es requerido</strong>
-        </div>
-        <input class="box" formControlName="domicilio"/>
-      </div>
-      <div class="container">
-        <div class="texts">
-          <div class="name">Correo</div>
-          <strong class="error" *ngIf="isBoxValid('correo')">Este campo es requerido</strong>
-        </div>
-        <input class="box" type="email" formControlName="correo"/>
-      </div>
-      <div class="container">
-        <div class="texts">
-          <div class="name">Recibido por</div>
-          <strong class="error" *ngIf="isBoxValid('recibidoPor')">Este campo es requerido</strong>
-        </div>
-        <input class="box" type="text" formControlName="recibidoPor"/>
-
-      </div>
-
-      <div class="container">
-        <div class="texts">
-          <div class="name">Cedula de identidad</div>
-          <strong class="error" *ngIf="isBoxValid('ci')">Este campo es requerido</strong>
-        </div>
-        <input class="box" type="number" formControlName="ci"/>
-      </div>
 
 
     </div>
 
     <div class="wrapperRigth">
 
-      <p class="containerRight">
-        <button class="buttonSubmit" type="submit">Enviar</button>
-      </p>
+
+
 
     </div>
 
