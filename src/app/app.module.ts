@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule} from "@angular/common/http";
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -16,6 +17,7 @@ import { GerencialComponent } from './screens/gerencial/gerencial.component';
 import { TaxonomiaComponent } from './screens/taxonomia/taxonomia.component';
 import { MonitoreoComponent } from './screens/monitoreo/monitoreo.component';
 import { SalirComponent } from './screens/salir/salir.component';
+import { LoginComponent } from './screens/login/login.component';
 
 
 
@@ -32,13 +34,15 @@ import { SalirComponent } from './screens/salir/salir.component';
     GerencialComponent,
     TaxonomiaComponent,
     MonitoreoComponent,
-    SalirComponent
+    SalirComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

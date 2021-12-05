@@ -12,10 +12,15 @@ import { GerencialComponent } from './screens/gerencial/gerencial.component';
 import { TaxonomiaComponent } from './screens/taxonomia/taxonomia.component';
 import { MonitoreoComponent } from './screens/monitoreo/monitoreo.component';
 import { SalirComponent } from './screens/salir/salir.component';
+import {LoginComponent} from "./screens/login/login.component";
 
 
 
 const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent
+  },
   {
     path: 'registro',
     component: RegisterComponent
