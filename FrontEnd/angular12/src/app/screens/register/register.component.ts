@@ -64,9 +64,6 @@ export class RegisterComponent implements OnInit {
 
 
     });
-
-
-
   }
 
   places: string[] = [

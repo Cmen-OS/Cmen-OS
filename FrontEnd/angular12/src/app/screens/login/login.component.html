@@ -1,75 +1,41 @@
-<div class="d-flex flex-row bd-highlight mb-3">
 
-  <div class="form-froup row" style="width: 60%;">
 
-    <label class="col-sm-2 col-form-label">User Name</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="operador.nombre"
-             placeholder="Enter User Name">
+
+
+<form [formGroup]="form" (ngSubmit)="save($event)">
+  <div class="wrapper">
+    <h1 >Bienvenido al sistema del zoologico</h1>
+
+    <div class="wrapperCenter">
+
+
+
+      <h2 class="subText">Inicio de sesion</h2>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">user email</div>
+          <strong class="error" *ngIf="isBoxValid('user')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="email" formControlName="user"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">password</div>
+          <strong class="error" *ngIf="isBoxValid('password')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="password" formControlName="password"/>
+      </div>
+
+
+      <p class="container">
+        <button class="buttonSubmit" type="submit">LogIn</button>
+      </p>
+
+
     </div>
-
-    <label class="col-sm-2 col-form-label">User Last Name</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="operador.apellido"
-             placeholder="Enter Last Name">
-    </div>
-
-    <label class="col-sm-2 col-form-label">User Password</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="operador.password"
-             placeholder="Enter User Password">
-    </div>
-
-    <label class="col-sm-2 col-form-label">User root</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="root"
-             placeholder="Enter User Position">
-    </div>
-
-    <label class="col-sm-2 col-form-label">User email</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="operador.email"
-             placeholder="Enter User Position">
-    </div>
-
-    <label class="col-sm-2 col-form-label">User telefono</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="operador.telefono"
-             placeholder="Enter User Position">
-    </div>
-
-    <label class="col-sm-2 col-form-label">User domicilio</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="operador.domicilio"
-             placeholder="Enter User Position">
-    </div>
-
-    <label class="col-sm-2 col-form-label">User razon socal</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="operador.razon_social"
-             placeholder="Enter User Position">
-    </div>
-
-    <label class="col-sm-2 col-form-label">User ci</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="operador.ci"
-             placeholder="Enter User Position">
-    </div>
-
-    <label class="col-sm-2 col-form-label">User autorizado</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="autorizado"
-             placeholder="Enter User Position">
-    </div>
-
-
-
-    <button (click)="addUser()" class="btn btn-primary">
-      Add User
-    </button>
-
-    <button (click)="addUser()" class="btn btn-primary">
-      Update User
-    </button>
   </div>
-</div>
+
+
+</form>

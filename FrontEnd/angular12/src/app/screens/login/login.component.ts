@@ -1,61 +1,48 @@
 import { Component, OnInit } from '@angular/core';
 import { Operador } from "../../models/operador/operador.model";
 import { OperadorService } from "../../services/operador/operador.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
+
+
 export class LoginComponent implements OnInit {
+  form!: FormGroup;
 
-  operador: Operador = {
-    ci: '',
-    razon_social: '',
-    domicilio: '',
-    telefono: '',
-    email: '',
-    nombre: '',
-    root: false,
-    autorizado: false,
-    apellido: '',
-    password: '',
-  };
-
-  root: string = '';
-  autorizado: string = '';
-  subido: boolean = false;
-
-  constructor(private operadorService: OperadorService) { }
+  constructor(
+    private formBuilder: FormBuilder
+  ) {
+    this.buildForm();
+  }
 
   ngOnInit(): void {
   }
 
-  addUser(): void {
-    this.operador.root = this.root == 'si';
-
-    this.operador.autorizado = this.autorizado == 'si';
-
-    const data = {
-      ci: this.operador.ci,
-      razon_social: this.operador.ci,
-      domicilio: this.operador.domicilio,
-      telefono: this.operador.telefono,
-      email: this.operador.email,
-      nombre: this.operador.nombre,
-      root: this.operador.root,
-      autorizado: this.operador.autorizado,
-      apellido: this.operador.apellido,
-      password: this.operador.password
+  save(event: Event) {
+    if (this.form.valid) {
+      console.log(this.form.value);//con este te da lo del forms de una
+      console.log(this.form.value.user);// este es para especificar los nombres son los de buldforms
+      console.log(this.form.value.password);
+      //todo en este if es en el que se agrega a la db
+    } else {
+      this.form.markAllAsTouched();
     }
-
-    this.operadorService.create(data).subscribe(response => {
-      console.log(response);
-      this.subido = true;
-    },
-      error => {
-        console.log(error);
-      });
   }
 
+  private buildForm() {
+    this.form = this.formBuilder.group({
+      user: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+  }
+
+  isBoxValid(box: String): Boolean {
+    // @ts-ignore
+    return this.form.get(box).touched && this.form.get(box).hasError('required');
+  }
 }

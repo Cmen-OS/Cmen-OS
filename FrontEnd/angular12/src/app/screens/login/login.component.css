@@ -1,0 +1,91 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  height: 100%;
+
+
+}
+.wrapperCenter {
+  grid-column: 2;
+
+  background-color: rgb(184, 194, 174);
+
+
+  width: 100%;
+  height: 100%;
+
+
+}
+.container {
+  display: grid;
+
+  background-color: rgb(184, 194, 174);
+
+  grid-template-rows: repeat(2, 1fr);
+  width: 100%;
+  height: 50%;
+  padding-bottom: 20px;
+  padding-left: 20px;
+}
+
+.box {
+  grid-column: 1;
+  grid-row: 2;
+  border-radius: 40px;
+  text-align: center;
+  text-decoration: none;
+  height: auto;
+}
+
+
+.texts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  height: 100%;
+}
+
+.name {
+  grid-column: 1;
+  grid-row: 1;
+  color: #000000;
+}
+
+.error {
+  grid-column: 2;
+  grid-row: 1;
+  color: #f61111;
+}
+.buttonSubmit {
+  width: 100%;
+
+
+  background-color: rgba(255, 99, 99, 0.89);
+
+
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
+
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 40px;
+}
+
+.subText {
+
+
+  width: 100%;
+
+
+}
+
+h1{
+  grid-column: 2;
+
+  color:#E7DBDBFF;
+  padding-left: 20px;
+  alignment: center;
+}
