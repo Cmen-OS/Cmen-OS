@@ -1,0 +1,75 @@
+<div class="d-flex flex-row bd-highlight mb-3">
+
+  <div class="form-froup row" style="width: 60%;">
+
+    <label class="col-sm-2 col-form-label">User Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="operador.nombre"
+             placeholder="Enter User Name">
+    </div>
+
+    <label class="col-sm-2 col-form-label">User Last Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="operador.apellido"
+             placeholder="Enter Last Name">
+    </div>
+
+    <label class="col-sm-2 col-form-label">User Password</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="operador.password"
+             placeholder="Enter User Password">
+    </div>
+
+    <label class="col-sm-2 col-form-label">User root</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="root"
+             placeholder="Enter User Position">
+    </div>
+
+    <label class="col-sm-2 col-form-label">User email</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="operador.email"
+             placeholder="Enter User Position">
+    </div>
+
+    <label class="col-sm-2 col-form-label">User telefono</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="operador.telefono"
+             placeholder="Enter User Position">
+    </div>
+
+    <label class="col-sm-2 col-form-label">User domicilio</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="operador.domicilio"
+             placeholder="Enter User Position">
+    </div>
+
+    <label class="col-sm-2 col-form-label">User razon socal</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="operador.razon_social"
+             placeholder="Enter User Position">
+    </div>
+
+    <label class="col-sm-2 col-form-label">User ci</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="operador.ci"
+             placeholder="Enter User Position">
+    </div>
+
+    <label class="col-sm-2 col-form-label">User autorizado</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="autorizado"
+             placeholder="Enter User Position">
+    </div>
+
+
+
+    <button (click)="addUser()" class="btn btn-primary">
+      Add User
+    </button>
+
+    <button (click)="addUser()" class="btn btn-primary">
+      Update User
+    </button>
+  </div>
+</div>
