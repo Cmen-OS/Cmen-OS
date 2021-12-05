@@ -74,7 +74,7 @@ export class RegisterComponent implements OnInit {
         edad: this.form.value.edadAnimal,
         procedencia: this.form.value.precedencia,
         fecha_recepcion: this.form.value.fechaRecepcion,
-        sexo: this.form.value.sex,
+        sexo: this.form.value.sexo,
         estado_salud: '',
         detalles_salud: '',
         cod_int_id: this.microchip,

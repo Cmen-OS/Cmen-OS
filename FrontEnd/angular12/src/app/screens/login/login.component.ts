@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       console.log(this.form.value);//con este te da lo del forms de una
       this.email = this.form.value.user;
-      this.getOperadorByEmail()
+      this.getOperadorByEmail();
       // @ts-ignore
       if (this.operador[0].root){
         this.router.navigateByUrl('/admin');
