@@ -45,7 +45,9 @@ class OperadorSerializer(serializers.ModelSerializer):
                   'email',
                   'nombre',
                   'root',
-                  'autorizado'
+                  'autorizado',
+                  'apellido',
+                  'password'
                   )
 
 
