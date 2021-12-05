@@ -24,6 +24,8 @@ class Operador(models.Model):
     telefono = models.CharField(max_length=255, help_text="Numero de telefono del trabajador")
     email = models.CharField(max_length=255, help_text="Direccion de correo electronico del trabajador")
     nombre = models.CharField(max_length=255, help_text="Nombre del trabajador")
+    apellido = models.CharField(max_length=255, help_text="Apellido del trabajador")
+    password = models.CharField(max_length=255)
     root = models.BooleanField(help_text="0 si es un trabajador normal, 1 si es super usuario")
     autorizado = models.BooleanField(help_text="0 si no esta autorizado, 1 si esta autorizado")
 

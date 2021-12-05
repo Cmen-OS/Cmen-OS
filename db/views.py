@@ -15,6 +15,26 @@ from db.serializers import RegistroSerializer
 from rest_framework.decorators import api_view
 
 
+@api_view(['GET', 'POST'])
+def login(request):
+    if request.method == 'GET':
+        logins = Operador.objects.all()
+
+        password = request.GET.get('password', None)
+        if password is not None:
+            logins = logins.filter(password__icontains=password)
+
+        login_serializer = OperadorSerializer(logins, many=True)
+        return JsonResponse(login_serializer, safe=False)
+    elif request.method == 'POST':
+        operador_data = JSONParser().parse(request)
+        operador_serializer = OperadorSerializer(data=operador_data)
+        if operador_serializer.is_valid():
+            operador_serializer.save()
+            return JsonResponse(operador_serializer.data, status=status.HTTP_201_CREATED)
+        return JsonResponse(operador_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 @api_view(['POST'])
 def registro(request):
     if request.method == 'POST':
