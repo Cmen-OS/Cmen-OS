@@ -8,6 +8,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class BajaComponent implements OnInit {
   form!: FormGroup;
+  seachForm!: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder
@@ -28,11 +29,8 @@ export class BajaComponent implements OnInit {
       ccfs: ['', Validators.required],
       numMMAA: ['', Validators.required],
       modalidadFun: ['', Validators.required],
-      especie: ['', Validators.required],
-      nombreComun: ['', Validators.required],
-      codIdentificacion: ['', Validators.required],
-      sexo: ['', Validators.required],
-      edad: ['', Validators.required],
+
+
       fechaDeceso: ['', Validators.required],
       motivoSalida: ['', Validators.required],
       motivoSalidadesc: ['', Validators.required],
@@ -47,14 +45,31 @@ export class BajaComponent implements OnInit {
       nombreGuarda: ['', Validators.required],
       nombreVeterinario: ['', Validators.required],
       nombreDirector: ['', Validators.required],
+      precedencia: ['', Validators.required],
+
 
       informeForense: ['', Validators.required],
       informeLab: ['', Validators.required],
       otro: ['', Validators.required],
 
 
+
+
+
     });
-  }
+
+    this.seachForm = this.formBuilder.group({
+      selectBox: ['', Validators.required],
+      selectedBox: ['', Validators.required],
+
+      codIdentificacion: [''],
+      especie: [''],
+      nombreComun: [''],
+      sexo: [''],
+      edad: [''],
+
+    });
+    }
   modalidades: string[] = [
     'CAD',
     'CR',
@@ -69,8 +84,30 @@ export class BajaComponent implements OnInit {
     'Perdida'
 
   ]
+
+  selectBoxes: string[] = [
+    'Codigo de identificacion',
+    'Nombre comun',
+    'Especie',
+    'Sexo',
+    'Edad'
+  ]
+
   isBoxValid(box: String): Boolean {
     // @ts-ignore
     return this.form.get(box).touched && this.form.get(box).hasError('required');
+  }
+
+  isBoxSearchValid(box: String): Boolean {
+    // @ts-ignore
+    return this.seachForm.get(box).touched && this.seachForm.get(box).hasError('required');
+  }
+
+  onSearch($event: any) {
+    if (this.seachForm.valid) {//este es donde busca
+      console.log(this.seachForm.value);
+    } else {
+      this.seachForm.markAllAsTouched();
+    }
   }
 }

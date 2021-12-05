@@ -52,6 +52,10 @@ export class RegisterComponent implements OnInit {
       correo: ['', Validators.required],
       recibidoPor: ['', Validators.required],
       ci: ['', Validators.required],
+      estadoSaludes: ['', Validators.required],
+      detalleSaludes: ['', Validators.required],
+
+
 
 
       image: ['', Validators.required],
@@ -101,6 +105,13 @@ export class RegisterComponent implements OnInit {
     'sXD',
     'Otro'
   ]
+
+  saludes: string[] = [
+    'Mal',
+    'Bien',
+    'Otro'
+  ]
+
 
   uploadFile(event:any){
     //todo subir a la base de datos
