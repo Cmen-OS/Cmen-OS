@@ -9,6 +9,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class BajaComponent implements OnInit {
   form!: FormGroup;
   seachForm!: FormGroup;
+  showFieldsText:Boolean = false;
+
 
   constructor(
     private formBuilder: FormBuilder
@@ -93,9 +95,45 @@ export class BajaComponent implements OnInit {
     'Edad'
   ]
 
+  showSelectedBox(){
+    if (this.getFormSearchValue("selectBox") == ''){
+      return {'display' : 'none'};
+
+    }else if(this.getFormSearchValue("selectBox") != '' && this.showFieldsText == true){
+      return {'display' : 'none'};
+
+    } else {
+      return {'display' : ''};
+    }
+
+  }
+
+  showComboBox(){
+    if(this.showFieldsText == true){
+      return {'display' : 'none'};
+    }else {
+      return {'display' : ''};
+    }
+  }
+
+  showFieldText(){
+    if (this.showFieldsText == false){
+      return {'display' : 'none'};
+
+    }else {
+      return {'display' : ''};
+    }
+
+  }
+
   isBoxValid(box: String): Boolean {
     // @ts-ignore
     return this.form.get(box).touched && this.form.get(box).hasError('required');
+  }
+
+  getFormSearchValue(value:String)  {
+    // @ts-ignore
+    return this.seachForm.get(value)?.value
   }
 
   isBoxSearchValid(box: String): Boolean {
@@ -106,8 +144,17 @@ export class BajaComponent implements OnInit {
   onSearch($event: any) {
     if (this.seachForm.valid) {//este es donde busca
       console.log(this.seachForm.value);
+      this.showFieldsText = true
     } else {
       this.seachForm.markAllAsTouched();
     }
+  }
+
+  backToSelect() {
+    this.showFieldsText = false;
+  }
+
+  getTextFielValue(){
+    return "Aqui iria el valor"//todo ver coomo pedir de la db
   }
 }
