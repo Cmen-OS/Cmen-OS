@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
       console.log(this.form.value.password);
       //todo en este if es en el que se agrega a la db
     } else {
+
       this.form.markAllAsTouched();
     }
   }
