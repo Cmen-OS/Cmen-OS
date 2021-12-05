@@ -1,6 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 
+import { RegistroService } from "../../services/registro/registro.service";
+import { AnimalService } from "../../services/animal/animal.service";
+import { OperadorService } from "../../services/operador/operador.service";
+import { Operador} from "../../models/operador/operador.model";
+import { Registro } from "../../models/registro/registro.model";
+import { Animal } from "../../models/animal/animal.model";
+import {Microchip} from "../../models/microchip/microchip.model";
+import {Taxonomia} from "../../models/taxonomia/taxonomia.model";
+import {Archivo} from "../../models/archivo/archivo.model";
+
+
 import {Box} from 'src/app/models/box.model';
 
 
@@ -12,6 +23,19 @@ import {Box} from 'src/app/models/box.model';
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
   imagen:any
+
+  date: Date = new Date();
+
+  archivo: Archivo = {};
+
+  microchip: Microchip = {} as Microchip;
+
+  taxonomia: Taxonomia = {};
+
+  operador: Operador = {};
+
+  animal: Animal = {};
+
 
   constructor(
     private formBuilder: FormBuilder
@@ -27,6 +51,37 @@ export class RegisterComponent implements OnInit {
   save(event: Event) {
     if (this.form.valid) {
       console.log(this.form.value);
+
+      const data = {
+        nro_acta_decomiso: this.form.value.numActa,
+        fecha_registro: this.date.getFullYear().toString()+'-'+this.date.getMonth().toString()+'-'+this.date.getDate().toString(),
+        CCFS: this.form.value.ccfs,
+        modalidad_funcionamiento: this.form.value.modFuncionamiento,
+        area: this.form.value.areaIngreso,
+        lugar_exposicion: this.form.value.lugarExp,
+        motivo_recepcion: this.form.value.motivoIngreso,
+        nro_acta_traslado: this.form.value.numAutorizacion,
+        nro_MMAA: this.form.value.numFormMMAA,
+        id_animal_id: this.animal,
+        ci_autorizado_por_id: this.operador,
+        ci_recibido_por_id: this.operador,
+      }
+
+      const animal = {
+        nombre_criollo: this.form.value.nombreCriollo,
+        nombre_comun: this.form.value.nombreComun,
+        nombre_propio: this.form.value.nombrePropio,
+        edad: this.form.value.edadAnimal,
+        procedencia: this.form.value.precedencia,
+        fecha_recepcion: this.form.value.fechaRecepcion,
+        sexo: this.form.value.sex,
+        estado_salud: '',
+        detalles_salud: '',
+        cod_int_id: this.microchip,
+        especie_id: this.taxonomia,
+        ruta_archivo_id: this.archivo
+      };
+
     } else {
       this.form.markAllAsTouched();
     }
