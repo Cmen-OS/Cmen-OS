@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Operador } from "../../models/operador/operador.model";
 import { OperadorService } from "../../services/operador/operador.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private operadorService: OperadorService,
+    private operadorService: OperadorService,private router: Router
   ) {
     this.buildForm();
   }
@@ -32,8 +33,14 @@ export class LoginComponent implements OnInit {
       console.log(this.form.value);//con este te da lo del forms de una
       this.email = this.form.value.user;
       this.getOperadorByEmail()
-      //Con el metodo de arriba deberias pedir los valores de los operadores. y se guardan en la lista operador, como operador solo tendra solo un valor siempre eliges el primer valor
-      //todo en este if es en el que se agrega a la db
+      // @ts-ignore
+      if (this.operador[0].root){
+        this.router.navigateByUrl('/admin');
+      }else {
+        this.router.navigateByUrl('/registro');
+      }
+
+
     } else {
 
       this.form.markAllAsTouched();
