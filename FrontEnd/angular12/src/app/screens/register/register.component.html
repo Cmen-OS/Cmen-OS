@@ -10,16 +10,11 @@
       <h2 class="subText">Ingresar datos</h2>
 
       <div class="container">
-
         <div class="texts">
           <div class="name">Nombre del CCFS</div>
           <strong class="error" *ngIf="isBoxValid('ccfs')">Este campo es requerido</strong>
         </div>
-
-
         <input class="box" type="text" formControlName="ccfs"/>
-
-
       </div>
 
       <div class="container">
@@ -171,8 +166,27 @@
 
       </div>
 
+      <div class="container">
+        <div class="texts">
+          <div class="name"> Estado general de salud</div>
+          <strong class="error" *ngIf="isBoxValid('estadoSaludes')">Este campo es requerido</strong>
+        </div>
+        <select class="box" formControlName="estadoSaludes">
+          <option *ngFor="let salud of saludes"
+                  [value]="salud">
+            {{salud}}
+          </option>
+        </select>
+      </div>
 
+      <div class="container">
+        <div class="texts">
+          <div class="name"> Detalles de salud </div>
+          <strong class="error" *ngIf="isBoxValid('detalleSaludes')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="detalleSaludes"/>
 
+      </div>
 
 
     </div>
