@@ -162,7 +162,7 @@
       <form class="wrapperRigth" [formGroup]="seachForm" (ngSubmit)="onSearch($event)">
 
 
-      <div class="containerRight">
+      <div class="boxLarge" [ngStyle]="showComboBox()">
         <div class="texts">
           <div class="name">Escoger opcion</div>
           <strong class="error" *ngIf="isBoxSearchValid('selectBox')">Este campo es requerido</strong>
@@ -175,19 +175,35 @@
         </select>
       </div>
 
-      <div class="containerRight">
+      <div class="boxLarge" id="SelectedBox" [ngStyle]="showSelectedBox()">
         <div class="texts">
-          <div class="name"> Selected </div>
+          <div class="name">  {{  getFormSearchValue("selectBox") }} </div>
           <strong class="error" *ngIf="isBoxSearchValid('selectedBox')">Este campo es requerido</strong>
         </div>
         <input class="box" type="text" formControlName="selectedBox"/>
       </div>
 
-      <p class="containerRight">
+      <p class="boxLarge"  [ngStyle]="showSelectedBox()" >
         <button class="buttonSubmit" type="submit" >Buscar</button>
       </p>
 
+
+
+
+
+
       </form>
+
+      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Codigo de identificacion: {{ getTextFielValue() }} </h5>
+      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Nombre comun: {{ getTextFielValue() }} </h5>
+      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Especie: {{ getTextFielValue() }} </h5>
+      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Sexo: {{ getTextFielValue() }} </h5>
+      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Edad: {{ getTextFielValue() }} </h5>
+
+      <p class="containerRight" [ngStyle]="showFieldText()"  >
+
+        <button (click)="backToSelect()"  class="buttonSubmit" type="button" >Volver a elegir</button>
+      </p>
 
 
       <h2 class="subTextRight"> Documentos </h2>
