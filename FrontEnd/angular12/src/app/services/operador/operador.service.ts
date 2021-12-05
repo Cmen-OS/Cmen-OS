@@ -19,8 +19,8 @@ export class OperadorService {
     return this.http.get(`${baseUrl}/${id}`);
   }
 
-  findByPassword(email: any): Observable<Operador[]> {
-    return this.http.get<Operador[]>(`${baseUrl}?email=${email}`);
+  findByEmail(email: any): Observable<Operador[]> {
+    return this.http.get<Operador[]>(`${baseUrl}/login?email=${email}`);
   }
 
   create(data: any): Observable<any> {
