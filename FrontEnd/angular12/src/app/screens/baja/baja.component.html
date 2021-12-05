@@ -1,0 +1,229 @@
+<h1 xmlns="http://www.w3.org/1999/html">Registrar animales</h1>
+
+
+
+
+<form [formGroup]="form" (ngSubmit)="save($event)">
+  <div class="wrapper">
+    <div class="wrapperLeft">
+      <h2 class="subText"> Agregue la informacion </h2>
+
+      <div class="container">
+
+        <div class="texts">
+          <div class="name">Nombre del CCFS</div>
+          <strong class="error" *ngIf="isBoxValid('ccfs')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="ccfs"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name"> Nro. formulario M.M.A.A</div>
+          <strong class="error" *ngIf="isBoxValid('numMMAA')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="number" formControlName="numMMAA"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Modalidad de funcionamiento</div>
+          <strong class="error" *ngIf="isBoxValid('modalidadFun')">Este campo es requerido</strong>
+        </div>
+        <select class="box" formControlName="precedencia">
+          <option *ngFor="let modalidad of modalidades"
+                  [value]="modalidad">
+            {{modalidad}}
+          </option>
+        </select>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name"> Fecha de deceso</div>
+          <strong class="error" *ngIf="isBoxValid('fechaDeceso')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="date" formControlName="fechaDeceso"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Motivo de salida</div>
+          <strong class="error" *ngIf="isBoxValid('motivoSalida')">Este campo es requerido</strong>
+        </div>
+        <select class="box" formControlName="motivoSalida">
+          <option *ngFor="let motivo of motivosSalida"
+                  [value]="motivo">
+            {{motivo}}
+          </option>
+        </select>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name"> Motivo de salida</div>
+          <strong class="error" *ngIf="isBoxValid('motivoSalidadesc')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="motivoSalidadesc"/>
+      </div>
+
+      <h2 class="subText"> Persona recepcionante </h2>
+
+
+      <div class="container">
+        <div class="texts">
+          <div class="name"> Nombre o razon social</div>
+          <strong class="error" *ngIf="isBoxValid('nombre')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="nombre"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name"> CI</div>
+          <strong class="error" *ngIf="isBoxValid('ci')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="number" formControlName="ci"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name"> telefono</div>
+          <strong class="error" *ngIf="isBoxValid('telf')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="tel" formControlName="telf"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name"> Email</div>
+          <strong class="error" *ngIf="isBoxValid('email')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="email"/>
+      </div>
+
+      <h2 class="subText"> Detalles </h2>
+
+
+      <div class="boxLarge">
+        <div class="texts">
+          <div class="name"> Causas de deceso</div>
+          <strong class="error" *ngIf="isBoxValid('causasDeceso')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="causasDeceso"/>
+      </div>
+
+      <div class="boxLarge">
+        <div class="texts">
+          <div class="name"> Lesiones encontradas</div>
+          <strong class="error" *ngIf="isBoxValid('lesionesEncontradas')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="lesionesEncontradas"/>
+      </div>
+
+      <div class="boxLarge">
+        <div class="texts">
+          <div class="name"> diagnostico final de deceso</div>
+          <strong class="error" *ngIf="isBoxValid('diagnosticoFinal')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="diagnosticoFinal"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name"> Nombre guarda fauna</div>
+          <strong class="error" *ngIf="isBoxValid('nombreGuarda')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="nombreGuarda"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name"> Nombre veterinario</div>
+          <strong class="error" *ngIf="isBoxValid('nombreVeterinario')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="nombreVeterinario"/>
+      </div>
+
+
+      <div class="container">
+        <div class="texts">
+          <div class="name"> Nombre director</div>
+          <strong class="error" *ngIf="isBoxValid('nombreDirector')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="nombreDirector"/>
+      </div>
+
+    </div>
+    <div class="wrapperRigth">
+
+      <div class="containerRight">
+        <div class="texts">
+          <div class="name"> Codigo de identificacion </div>
+          <strong class="error" *ngIf="isBoxValid('codIdentificacion')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="codIdentificacion"/>
+      </div>
+
+      <div class="containerRight">
+        <div class="texts">
+          <div class="name"> Nombre comun </div>
+          <strong class="error" *ngIf="isBoxValid('nombreComun')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="nombreComun"/>
+      </div>
+
+      <div class="containerRight">
+        <div class="texts">
+          <div class="name"> Especie </div>
+          <strong class="error" *ngIf="isBoxValid('especie')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="especie"/>
+      </div>
+
+      <div class="containerRight">
+        <div class="texts">
+          <div class="name"> Sexo </div>
+          <strong class="error" *ngIf="isBoxValid('sexo')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="sexo"/>
+      </div>
+
+      <div class="containerRight">
+        <div class="texts">
+          <div class="name"> Edad </div>
+          <strong class="error" *ngIf="isBoxValid('edad')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="edad"/>
+      </div>
+
+      <h2 class="subTextRight"> Documentos </h2>
+
+      <div class="containerRight">
+        <div class="texts">
+          <div class="name"> Informe forense </div>
+        </div>
+        <input class="box" type="file" formControlName="informeForense"/>
+      </div>
+
+      <div class="containerRight">
+        <div class="texts">
+          <div class="name"> Informe de laboratorio </div>
+        </div>
+        <input class="box" type="file" formControlName="informeLab"/>
+      </div>
+
+      <div class="containerRight">
+        <div class="texts">
+          <div class="name"> Otro </div>
+        </div>
+        <input class="box" type="file" formControlName="otro"/>
+      </div>
+
+      <p class="containerRight">
+        <button type="submit">Enviar</button>
+      </p>
+
+    </div>
+  </div>
+</form>

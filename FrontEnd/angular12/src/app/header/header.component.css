@@ -1,0 +1,37 @@
+nav{
+  background-color: rgba(52, 166, 68, 0.85);
+  padding: 10px;
+}
+
+nav img{
+  max-width: 70px;
+  width: 100%;
+
+}
+
+nav ul{
+  float: right;
+  list-style-type: none;
+}
+
+ul li{
+  display: inline-block;
+
+}
+
+
+li a{
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-bottom: 5px;
+
+
+}
+.wrapper {
+  display: grid;
+  grid-auto-flow: column;
+  grid-row-gap: 1px;
+  grid-column-gap: 9px;
+}
