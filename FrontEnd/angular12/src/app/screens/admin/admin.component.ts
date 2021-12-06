@@ -13,18 +13,6 @@ import { Location } from '@angular/common';
 export class AdminComponent implements OnInit {
   form!: FormGroup;
 
-  operador: Operador = {
-    ci: '',
-    razon_social: '',
-    domicilio: '',
-    telefono: '',
-    email: '',
-    nombre: '',
-    root: false,
-    autorizado: false,
-    apellido: '',
-    password: '',
-  };
 
   root: string = '';
   autorizado: string = '';
@@ -104,11 +92,48 @@ export class AdminComponent implements OnInit {
   }
 
   btnModificar() {
-    //todo
+    if (this.form.valid) {
+      console.log(this.form.value);
+      const data = {
+        ci: this.form.value.ci,
+        razon_social: this.form.value.ci,
+        domicilio: this.form.value.domicilio,
+        telefono: this.form.value.telefono,
+        email: this.form.value.email,
+        nombre: this.form.value.nombre,
+        root: this.form.value.root,
+        autorizado: this.form.value.autorizado,
+        apellido: this.form.value.apellido,
+        password: this.form.value.password
+      }
+
+      this.operadorService.update(data.ci, data).subscribe(response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        });
+    } else {
+      this.form.markAllAsTouched();
+
+    }
   }
 
   btnBorrar() {
-    //todo
+    if (this.form.valid) {
+      console.log(this.form.value);
+
+      this.operadorService.delete(this.form.value.ci).subscribe(response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        });
+
+    } else {
+      this.form.markAllAsTouched();
+
+    }
   }
 }
 
