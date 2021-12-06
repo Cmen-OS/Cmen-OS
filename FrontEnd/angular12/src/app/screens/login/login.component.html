@@ -12,6 +12,9 @@
 
       <h2 class="subText">Inicio de sesion</h2>
 
+
+
+
       <div class="container">
         <div class="texts">
           <div class="name">user email</div>
@@ -29,9 +32,16 @@
       </div>
 
 
+      <div class="errorconteiner">
+
+      <p class="nameError"  [ngStyle]="showFieldText()" > Error </p>
+    </div>
       <p class="container">
         <button class="buttonSubmit" type="submit">LogIn</button>
       </p>
+
+
+
 
 
     </div>

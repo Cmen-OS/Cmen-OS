@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { Operador } from "../../models/operador/operador.model";
 import { OperadorService } from "../../services/operador/operador.service";
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -28,9 +29,10 @@ export class AdminComponent implements OnInit {
   autorizado: string = '';
   subido: boolean = false;
 
-  constructor(private operadorService: OperadorService) { }
+  constructor(private operadorService: OperadorService,private location:Location) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    console.log(this.location.getState());
   }
 
   addUser(): void {

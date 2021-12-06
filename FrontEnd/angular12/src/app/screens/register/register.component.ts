@@ -10,6 +10,7 @@ import { Animal } from "../../models/animal/animal.model";
 import {Microchip} from "../../models/microchip/microchip.model";
 import {Taxonomia} from "../../models/taxonomia/taxonomia.model";
 import {Archivo} from "../../models/archivo/archivo.model";
+import {DataService} from "../../data.service";
 
 
 import {Box} from 'src/app/models/box.model';
@@ -23,6 +24,9 @@ import {Box} from 'src/app/models/box.model';
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
   imagen:any
+  count = 0;
+
+
 
   date: Date = new Date();
 
@@ -38,18 +42,23 @@ export class RegisterComponent implements OnInit {
 
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private data:DataService,
+
   ) {
     this.buildForm();
   }
 
   ngOnInit(): void {
-
+    this.data.count.subscribe(c => {
+      this.count = c;
+    });
 
   }
 
   save(event: Event) {
     if (this.form.valid) {
+
       console.log(this.form.value);
 
       const data = {
@@ -83,6 +92,9 @@ export class RegisterComponent implements OnInit {
       };
 
     } else {
+
+      console.log(this.count)
+
       this.form.markAllAsTouched();
     }
   }
@@ -182,4 +194,10 @@ export class RegisterComponent implements OnInit {
     // @ts-ignore
     return this.form.get(box).touched && !this.form.get(box).hasError('required');
   }
+
+  nextCount() {
+    this.data.nextCount();
+    console.log(this.count)
+  }
+
 }

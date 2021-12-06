@@ -3,6 +3,11 @@ import { Operador } from "../../models/operador/operador.model";
 import { OperadorService } from "../../services/operador/operador.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { Router } from '@angular/router';
+import {DataService} from "../../data.service";
+import {HeaderComponent} from "../../header/header.component";
+
+
+
 
 @Component({
   selector: 'app-login',
@@ -18,14 +23,32 @@ export class LoginComponent implements OnInit {
   operador?: Operador[];
   email = '';
 
+  showError:Boolean = false;
+
+
+  count = 0;
+
+
+
+
   constructor(
+
+
+    private data:DataService,
     private formBuilder: FormBuilder,
-    private operadorService: OperadorService,private router: Router
+    private operadorService: OperadorService,
+    private router: Router,
   ) {
     this.buildForm();
   }
 
   ngOnInit(): void {
+    this.data.count.subscribe(c => {
+      this.count = c;
+    });
+
+
+
   }
 
   save(event: Event) {
@@ -33,15 +56,35 @@ export class LoginComponent implements OnInit {
       console.log(this.form.value);//con este te da lo del forms de una
       this.email = this.form.value.user;
       this.getOperadorByEmail()
+
+
       // @ts-ignore
-      if (this.operador[0].root){
-        this.router.navigateByUrl('/admin');
+      if (this.operador[0].password == this.form.value.password){
+        // @ts-ignore
+        if (this.operador[0].root){
+
+          localStorage.setItem('user','admin')
+          this.router.navigateByUrl('/admin', { state: { isAdmin: true} });
+
+
+        }else {
+          localStorage.setItem('user','user')
+
+          this.router.navigateByUrl('/registro');
+        }
       }else {
-        this.router.navigateByUrl('/registro');
+
+        this.showError = true
       }
 
 
+
+
     } else {
+
+      // localStorage.setItem('user','admin')
+      // console.log(localStorage.getItem('user'))
+      // this.router.navigateByUrl('/registro', { state: { isAdmin: true} });
 
       this.form.markAllAsTouched();
     }
@@ -69,4 +112,22 @@ export class LoginComponent implements OnInit {
           console.log(error)
         })
   }
+
+  showFieldText() {
+    if (this.showError){
+      return {'display' : ''};
+
+    }else {
+      return {'display' : 'none'};
+    }
+  }
+
+  nextCount() {
+    this.data.nextCount();
+    console.log(this.count)
+  }
+
+
+
+
 }
