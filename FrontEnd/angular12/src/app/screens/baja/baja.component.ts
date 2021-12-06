@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {DataService} from "../../data.service";
 
 @Component({
   selector: 'app-baja',
@@ -10,20 +11,27 @@ export class BajaComponent implements OnInit {
   form!: FormGroup;
   seachForm!: FormGroup;
   showFieldsText:Boolean = false;
+  count = 0;
 
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private data:DataService,
+
   ) {
     this.buildForm();
   }
     ngOnInit(): void {
+      this.data.count.subscribe(c => {
+        this.count = c;
+      });
   }
   save(event: Event) {
     if (this.form.valid) {
       console.log(this.form.value);
     } else {
       this.form.markAllAsTouched();
+      console.log(this.count)
     }
   }
   private buildForm() {
@@ -53,11 +61,6 @@ export class BajaComponent implements OnInit {
       informeForense: ['', Validators.required],
       informeLab: ['', Validators.required],
       otro: ['', Validators.required],
-
-
-
-
-
     });
 
     this.seachForm = this.formBuilder.group({

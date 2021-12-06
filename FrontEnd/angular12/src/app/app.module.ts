@@ -21,6 +21,7 @@ import { LoginComponent } from './screens/login/login.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,14 +36,16 @@ import { LoginComponent } from './screens/login/login.component';
     TaxonomiaComponent,
     MonitoreoComponent,
     SalirComponent,
-    LoginComponent
+    LoginComponent,
+
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
