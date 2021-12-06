@@ -1,18 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
+import {Validators, FormGroup, FormBuilder} from '@angular/forms';
 
 import { RegistroService } from "../../services/registro/registro.service";
 import { AnimalService } from "../../services/animal/animal.service";
 import { OperadorService } from "../../services/operador/operador.service";
+import  { ArchivoService } from "../../services/archivo/archivo.service";
 import { Operador} from "../../models/operador/operador.model";
-import { Registro } from "../../models/registro/registro.model";
+
 import { Animal } from "../../models/animal/animal.model";
 import {Microchip} from "../../models/microchip/microchip.model";
 import {Taxonomia} from "../../models/taxonomia/taxonomia.model";
 import {Archivo} from "../../models/archivo/archivo.model";
 
 
-import {Box} from 'src/app/models/box.model';
+
 
 
 @Component({
@@ -22,22 +23,30 @@ import {Box} from 'src/app/models/box.model';
 })
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
-  imagen:any
+  imagen: any;
 
   date: Date = new Date();
 
   archivo: Archivo = {};
 
-  microchip: Microchip = {} as Microchip;
+  microchip: Microchip = {};
 
   taxonomia: Taxonomia = {};
 
-  operador: Operador = {};
+  operadores?: Operador[];
+
+  operador: Operador = {
+
+  };
 
   animal: Animal = {};
 
 
   constructor(
+    private operadorService: OperadorService,
+    private archivoService: ArchivoService,
+    private animalService: AnimalService,
+    private registroService: RegistroService,
     private formBuilder: FormBuilder
   ) {
     this.buildForm();
@@ -51,6 +60,49 @@ export class RegisterComponent implements OnInit {
   save(event: Event) {
     if (this.form.valid) {
       console.log(this.form.value);
+
+      const archivo ={
+        ruta: "/prueba/prueba",
+        peso: this.imagen.weight,
+        nombre: this.imagen.name,
+        creado: this.date.getFullYear().toString()+'-'+this.date.getMonth().toString()+'-'+this.date.getDate().toString(),
+        tipo: this.imagen.name[-4],
+        file: this.imagen
+      };
+
+      this.archivoService.create(archivo).subscribe(data => console.log(data), error => console.log(error));
+
+      this.archivo = archivo;
+
+      this.operadorService.findByEmail(this.form.value.correo)
+        .subscribe(
+          data => {
+            this.operadores = data;
+            console.log(data);},
+          error => {
+            console.log(error)
+          })
+      // @ts-ignore
+      this.operador = this.operadores[0];
+
+      const animal = {
+        nombre_criollo: this.form.value.nombreCriollo,
+        nombre_comun: this.form.value.nombreComun,
+        nombre_propio: this.form.value.nombrePropio,
+        edad: this.form.value.edad,
+        procedencia: this.form.value.precedencia,
+        fecha_recepcion: this.form.value.fechaRecepcion,
+        sexo: this.form.value.sexo,
+        estado_salud: this.form.value.estadoSaludes,
+        detalles_salud: this.form.value.detalleSaludes,
+        cod_int_id: this.microchip,
+        especie_id: this.taxonomia,
+        ruta_archivo_id: this.archivo
+      };
+
+      this.animal = animal;
+
+      this.animalService.create(animal).subscribe(data => console.log(data), error => console.log(error));
 
       const data = {
         nro_acta_decomiso: this.form.value.numActa,
@@ -67,20 +119,7 @@ export class RegisterComponent implements OnInit {
         ci_recibido_por_id: this.operador,
       }
 
-      const animal = {
-        nombre_criollo: this.form.value.nombreCriollo,
-        nombre_comun: this.form.value.nombreComun,
-        nombre_propio: this.form.value.nombrePropio,
-        edad: this.form.value.edadAnimal,
-        procedencia: this.form.value.precedencia,
-        fecha_recepcion: this.form.value.fechaRecepcion,
-        sexo: this.form.value.sexo,
-        estado_salud: '',
-        detalles_salud: '',
-        cod_int_id: this.microchip,
-        especie_id: this.taxonomia,
-        ruta_archivo_id: this.archivo
-      };
+      this.registroService.create(data).subscribe(data => console.log(data), error => console.log(error))
 
     } else {
       this.form.markAllAsTouched();
@@ -170,8 +209,7 @@ export class RegisterComponent implements OnInit {
 
   uploadFile(event:any){
     //todo subir a la base de datos
-    const file = event.target.file.path
-    this.imagen = file
+    this.imagen = event.target.files[0]
   }
   isBoxValid(box: String): Boolean {
     // @ts-ignore
