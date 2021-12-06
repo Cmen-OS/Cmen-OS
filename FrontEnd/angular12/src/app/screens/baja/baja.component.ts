@@ -61,11 +61,6 @@ export class BajaComponent implements OnInit {
       informeForense: ['', Validators.required],
       informeLab: ['', Validators.required],
       otro: ['', Validators.required],
-
-
-
-
-
     });
 
     this.seachForm = this.formBuilder.group({

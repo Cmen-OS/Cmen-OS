@@ -1,78 +1,127 @@
-<div class="d-flex flex-row bd-highlight mb-3">
+<h1 style="color:#E7DBDBFF;   padding-left: 20px;">Administrador</h1>
 
-  <div class="form-froup row" style="width: 60%;">
 
-    <label class="col-sm-2 col-form-label">User Name</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="operador.nombre"
-             placeholder="Enter User Name">
+<form [formGroup]="form" (ngSubmit)="save($event)">
+  <div class="wrapper">
+    <div class="wrapperLeft">
+      <h2 class="subText"> Agregue la informacion </h2>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Carnet de identidad</div>
+          <strong class="error" *ngIf="isBoxValid('ci')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="number" formControlName="ci"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Razon Social</div>
+          <strong class="error" *ngIf="isBoxValid('razon_social')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="razon_social"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Domicilio</div>
+          <strong class="error" *ngIf="isBoxValid('domicilio')">Este campo es requerido</strong>
+        </div>
+        <input class="box" formControlName="domicilio"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Domicilio</div>
+          <strong class="error" *ngIf="isBoxValid('domicilio')">Este campo es requerido</strong>
+        </div>
+        <input class="box" formControlName="domicilio"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Domicilio</div>
+          <strong class="error" *ngIf="isBoxValid('telefono')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="tel" formControlName="telefono"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Correo electronico</div>
+          <strong class="error" *ngIf="isBoxValid('email')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="email" formControlName="email"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Nombre</div>
+          <strong class="error" *ngIf="isBoxValid('nombre')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="nombre"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Apellido</div>
+          <strong class="error" *ngIf="isBoxValid('apellido')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="apellido"/>
+      </div>
+
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Root</div>
+
+        </div>
+        <input class="box" type="checkbox" formControlName="root"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Autorizado</div>
+
+        </div>
+        <input class="box" type="checkbox" formControlName="autorizado"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Password</div>
+          <strong class="error" *ngIf="isBoxValid('password')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="password" formControlName="password"/>
+      </div>
+
+
     </div>
 
-    <label class="col-sm-2 col-form-label">User Last Name</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="operador.apellido"
-             placeholder="Enter Last Name">
+    <div class="wrapperRigth">
+
+      <p class="containerRight" >
+        <button class="buttonSubmit" type="submit" >Agregar</button>
+      </p>
+
+      <p class="containerRight" >
+        <button (click)="btnModificar()" class="buttonSubmit" type="button" >Modificar</button>
+      </p>
+
+      <p class="containerRight" >
+        <button (click)="btnBorrar()" class="buttonSubmit" type="button" >Borrar</button>
+      </p>
+
+
+
     </div>
-
-    <label class="col-sm-2 col-form-label">User Password</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="operador.password"
-             placeholder="Enter User Password">
-    </div>
-
-    <label class="col-sm-2 col-form-label">User root</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="root"
-             placeholder="Enter User Position">
-    </div>
-
-    <label class="col-sm-2 col-form-label">User email</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="operador.email"
-             placeholder="Enter User Position">
-    </div>
-
-    <label class="col-sm-2 col-form-label">User telefono</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="operador.telefono"
-             placeholder="Enter User Position">
-    </div>
-
-    <label class="col-sm-2 col-form-label">User domicilio</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="operador.domicilio"
-             placeholder="Enter User Position">
-    </div>
-
-    <label class="col-sm-2 col-form-label">User razon socal</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="operador.razon_social"
-             placeholder="Enter User Position">
-    </div>
-
-    <label class="col-sm-2 col-form-label">User ci</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="operador.ci"
-             placeholder="Enter User Position">
-    </div>
-
-    <label class="col-sm-2 col-form-label">User autorizado</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" [(ngModel)]="autorizado"
-             placeholder="Enter User Position">
-    </div>
-
-
-
-    <button (click)="addUser()" class="btn btn-primary">
-      Add User
-    </button>
-
-    <button (click)="addUser()" class="btn btn-primary">
-      Update User
-    </button>
   </div>
-</div>
+</form>
+
+
+
+
+
 
 
 

@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+  form!: FormGroup;
 
   operador: Operador = {
     ci: '',
@@ -29,28 +30,63 @@ export class AdminComponent implements OnInit {
   autorizado: string = '';
   subido: boolean = false;
 
-  constructor(private operadorService: OperadorService,private location:Location) { }
+  constructor(
+    private operadorService: OperadorService,
+    private location:Location,
+    private formBuilder: FormBuilder,
+  ) {
+    this.buildForm();
+  }
 
   ngOnInit() {
     console.log(this.location.getState());
   }
 
-  addUser(): void {
-    this.operador.root = this.root == 'si';
+  save(event: Event) {
+    if (this.form.valid) {
+      console.log(this.form.value);
+      this.addUser()
+    } else {
+      this.form.markAllAsTouched();
 
-    this.operador.autorizado = this.autorizado == 'si';
+    }
+  }
+
+  private buildForm() {
+    this.form = this.formBuilder.group({
+      ci: ['', Validators.required],
+      razon_social: ['', Validators.required],
+      domicilio: ['', Validators.required],
+      telefono: ['', Validators.required],
+      email: ['', Validators.required],
+      nombre: ['', Validators.required],
+      root: [false, Validators.required],
+      autorizado: [false, Validators.required],
+      apellido: ['', Validators.required],
+      password: ['', Validators.required],
+
+    });
+
+
+  }
+
+
+  addUser(): void {
+    //this.operador.root = this.root == 'si';
+
+    //this.operador.autorizado = this.autorizado == 'si';
 
     const data = {
-      ci: this.operador.ci,
-      razon_social: this.operador.ci,
-      domicilio: this.operador.domicilio,
-      telefono: this.operador.telefono,
-      email: this.operador.email,
-      nombre: this.operador.nombre,
-      root: this.operador.root,
-      autorizado: this.operador.autorizado,
-      apellido: this.operador.apellido,
-      password: this.operador.password
+      ci: this.form.value.ci,
+      razon_social: this.form.value.ci,
+      domicilio: this.form.value.domicilio,
+      telefono: this.form.value.telefono,
+      email: this.form.value.email,
+      nombre: this.form.value.nombre,
+      root: this.form.value.root,
+      autorizado: this.form.value.autorizado,
+      apellido: this.form.value.apellido,
+      password: this.form.value.password
     }
 
     this.operadorService.create(data).subscribe(response => {
@@ -62,5 +98,17 @@ export class AdminComponent implements OnInit {
       });
   }
 
+  isBoxValid(box: String): Boolean {
+    // @ts-ignore
+    return this.form.get(box).touched && this.form.get(box).hasError('required');
+  }
+
+  btnModificar() {
+    //todo
+  }
+
+  btnBorrar() {
+    //todo
+  }
 }
 
