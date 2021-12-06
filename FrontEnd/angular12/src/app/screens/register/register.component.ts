@@ -1,19 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-import {Validators, FormGroup, FormBuilder} from '@angular/forms';
+import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 
 import { RegistroService } from "../../services/registro/registro.service";
 import { AnimalService } from "../../services/animal/animal.service";
 import { OperadorService } from "../../services/operador/operador.service";
-import  { ArchivoService } from "../../services/archivo/archivo.service";
 import { Operador} from "../../models/operador/operador.model";
-
+import { Registro } from "../../models/registro/registro.model";
 import { Animal } from "../../models/animal/animal.model";
 import {Microchip} from "../../models/microchip/microchip.model";
 import {Taxonomia} from "../../models/taxonomia/taxonomia.model";
 import {Archivo} from "../../models/archivo/archivo.model";
+import {DataService} from "../../data.service";
 
 
 
+import {Box} from 'src/app/models/box.model';
 
 
 @Component({
@@ -24,6 +25,23 @@ import {Archivo} from "../../models/archivo/archivo.model";
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
   imagen: any;
+  imagen:any
+  count = 0;
+
+
+
+  date: Date = new Date();
+
+  archivo: Archivo = {};
+
+  microchip: Microchip = {} as Microchip;
+
+  taxonomia: Taxonomia = {};
+
+  operador: Operador = {};
+
+  animal: Animal = {};
+
 
   date: Date = new Date();
 
@@ -48,12 +66,17 @@ export class RegisterComponent implements OnInit {
     private animalService: AnimalService,
     private registroService: RegistroService,
     private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private data:DataService,
+
   ) {
     this.buildForm();
   }
 
   ngOnInit(): void {
-
+    this.data.count.subscribe(c => {
+      this.count = c;
+    });
 
   }
 
@@ -220,4 +243,10 @@ export class RegisterComponent implements OnInit {
     // @ts-ignore
     return this.form.get(box).touched && !this.form.get(box).hasError('required');
   }
+
+  nextCount() {
+    this.data.nextCount();
+    console.log(this.count)
+  }
+
 }

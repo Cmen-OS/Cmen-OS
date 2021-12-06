@@ -1,15 +1,63 @@
 import { Component, OnInit } from '@angular/core';
+import {DataService} from "../data.service";
+
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
+
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit(): void {
+  count = 0;
+
+
+
+  constructor(
+    private data:DataService,
+  ) {
   }
+
+  ngOnInit() {
+    this.data.count.subscribe(c => {
+      this.count = c;
+    });
+
+
+  }
+
+
+
+
+  showAdmin() {
+    // @ts-ignore
+    if ( localStorage.getItem('user').toString() == 'admin'){
+
+      return {'display' : ''};
+
+    } else {
+      return {'display' : 'none'};
+    }
+
+  }
+
+  nextCount() {
+    this.data.nextCount();
+    console.log(this.count)
+  }
+
+  showBar() {
+    if ( window.location.href.toString() != "http://localhost:4200/login"){
+      return {'display' : ''};
+
+    } else {
+      return {'display' : 'none'};
+    }
+  }
+
+
 
 }
