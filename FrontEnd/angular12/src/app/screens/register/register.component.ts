@@ -4,6 +4,7 @@ import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import { RegistroService } from "../../services/registro/registro.service";
 import { AnimalService } from "../../services/animal/animal.service";
 import { OperadorService } from "../../services/operador/operador.service";
+import {ArchivoService} from "../../services/archivo/archivo.service";
 import { Operador} from "../../models/operador/operador.model";
 import { Registro } from "../../models/registro/registro.model";
 import { Animal } from "../../models/animal/animal.model";
@@ -25,12 +26,11 @@ import {Box} from 'src/app/models/box.model';
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
   imagen: any;
-  imagen:any
   count = 0;
-
-
-
+/*
   date: Date = new Date();
+
+  operadores: Operador[] = [];
 
   archivo: Archivo = {};
 
@@ -42,30 +42,13 @@ export class RegisterComponent implements OnInit {
 
   animal: Animal = {};
 
-
-  date: Date = new Date();
-
-  archivo: Archivo = {};
-
-  microchip: Microchip = {};
-
-  taxonomia: Taxonomia = {};
-
-  operadores?: Operador[];
-
-  operador: Operador = {
-
-  };
-
-  animal: Animal = {};
-
+*/
 
   constructor(
     private operadorService: OperadorService,
     private archivoService: ArchivoService,
     private animalService: AnimalService,
     private registroService: RegistroService,
-    private formBuilder: FormBuilder
     private formBuilder: FormBuilder,
     private data:DataService,
 
@@ -83,7 +66,7 @@ export class RegisterComponent implements OnInit {
   save(event: Event) {
     if (this.form.valid) {
       console.log(this.form.value);
-
+/*
       const archivo ={
         ruta: "/prueba/prueba",
         peso: this.imagen.weight,
@@ -143,7 +126,7 @@ export class RegisterComponent implements OnInit {
       }
 
       this.registroService.create(data).subscribe(data => console.log(data), error => console.log(error))
-
+*/
     } else {
       this.form.markAllAsTouched();
     }
