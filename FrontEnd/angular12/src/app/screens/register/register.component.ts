@@ -13,6 +13,7 @@ import {Archivo} from "../../models/archivo/archivo.model";
 import {DataService} from "../../data.service";
 
 
+
 import {Box} from 'src/app/models/box.model';
 
 
@@ -26,6 +27,19 @@ export class RegisterComponent implements OnInit {
   imagen:any
   count = 0;
 
+
+
+  date: Date = new Date();
+
+  archivo: Archivo = {};
+
+  microchip: Microchip = {} as Microchip;
+
+  taxonomia: Taxonomia = {};
+
+  operador: Operador = {};
+
+  animal: Animal = {};
 
 
   date: Date = new Date();

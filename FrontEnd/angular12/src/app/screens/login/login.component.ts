@@ -8,7 +8,6 @@ import {HeaderComponent} from "../../header/header.component";
 
 
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -38,6 +37,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private operadorService: OperadorService,
     private router: Router,
+
   ) {
     this.buildForm();
   }
@@ -76,6 +76,7 @@ export class LoginComponent implements OnInit {
 
         this.showError = true
       }
+
 
 
 
