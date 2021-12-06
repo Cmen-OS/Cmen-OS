@@ -151,14 +151,14 @@ export class RegisterComponent implements OnInit {
       domicilio: ['', Validators.required],
       correo: ['', Validators.required],
       recibidoPor: ['', Validators.required],
-      ci: ['', Validators.required],
+
       estadoSaludes: ['', Validators.required],
       detalleSaludes: ['', Validators.required],
 
 
 
 
-      image: ['', Validators.required],
+      image: [''],
       nombrePropio: ['', Validators.required],
       fechaRecepcion: ['', Validators.required],
       sexo: ['', Validators.required],
