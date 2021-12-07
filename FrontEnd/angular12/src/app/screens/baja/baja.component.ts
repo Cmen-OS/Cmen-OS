@@ -229,8 +229,16 @@ export class BajaComponent implements OnInit {
     this.showFieldsText = false;
   }
 
-  getTextFielValue(){
-    return "Aqui iria el valor"//todo ver coomo pedir de la db
+  getTextFielValueID(){
+    return this.seachForm.value.codIdentificacion
+  }
+
+  getTextFielValueNombreComun(){
+    return this.seachForm.value.nombreComun
+  }
+
+  getTextFielValueEspecie(){
+    return this.seachForm.value.especie
   }
 
   uploadFileForense(event: any) {
@@ -250,6 +258,15 @@ export class BajaComponent implements OnInit {
     uploadDataFile1.append('file', this.file1)
     this.archivoService.create(uploadDataFile1).subscribe(data => console.log(data), error => console.log(error));
 
+  getTextFielValueSexo(){
+    return this.seachForm.value.sexo
+  }
+
+  getTextFielValueEdad(){
+    return this.seachForm.value.edad
+  }
+  uploadFileForense($event: Event) {
+    //aqui recibe el fileForense
   }
 
   uploadFilLaboratorioe(event: any) {
