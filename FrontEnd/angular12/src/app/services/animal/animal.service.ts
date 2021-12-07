@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {Operador} from "../../models/operador/operador.model";
+import {Animal} from "../../models/animal/animal.model";
 
 const baseUrl = 'http://localhost:8080'
 
@@ -13,5 +15,9 @@ export class AnimalService {
 
   create(data: any): Observable<any> {
     return this.http.post(`${baseUrl}/animal`,data)
+  }
+
+  findBy(select: any, selected: any): Observable<Animal[]> {
+    return this.http.get<Animal[]>(`${baseUrl}/animal?${select}=${selected}`);
   }
 }

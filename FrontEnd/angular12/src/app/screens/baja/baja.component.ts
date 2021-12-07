@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {DataService} from "../../data.service";
+import {OperadorService} from "../../services/operador/operador.service";
+import {ArchivoService} from "../../services/archivo/archivo.service";
+import {AnimalService} from "../../services/animal/animal.service";
+import {RegistroService} from "../../services/registro/registro.service";
+import {Animal} from "../../models/animal/animal.model";
+import {BajaService} from "../../services/baja/baja.service";
 
 @Component({
   selector: 'app-baja',
@@ -13,10 +19,20 @@ export class BajaComponent implements OnInit {
   showFieldsText:Boolean = false;
   count = 0;
 
+  animal: Animal[] = [];
+
+  file1?: File;
+  file2?: File;
+
   date: Date = new Date();
 
 
   constructor(
+    private operadorService: OperadorService,
+    private archivoService: ArchivoService,
+    private animalService: AnimalService,
+    private registroService: RegistroService,
+    private bajaService: BajaService,
     private formBuilder: FormBuilder,
     private data:DataService,
 
@@ -46,9 +62,11 @@ export class BajaComponent implements OnInit {
       uploadDataReg.append('lesiones', this.form.value.lesionesEncontradas);
       uploadDataReg.append('diagnostico_deceso', this.form.value.diagnosticoFinal);
       uploadDataReg.append('ci', this.form.value.ci);
-      uploadDataReg.append('ruta', this.form.value.numActa);
-      uploadDataReg.append('ruta', this.form.value.numActa);
-      uploadDataReg.append('id_animal_id', this.form.value.numActa);
+      uploadDataReg.append('direccion_archivo', 'C:\\Users\\hpzbook15\\PycharmProjects\\DJANG-OS\\media\\covers\\' + this.file1?.name + '\\' + this.file1?.name);
+      uploadDataReg.append('direccion_archivo_laboratorio', 'C:\\Users\\hpzbook15\\PycharmProjects\\DJANG-OS\\media\\covers\\' + this.file2?.name + '\\' + this.file2?.name);
+      uploadDataReg.append('id_animal_id', this.animal[0].id);
+
+      this.bajaService.create(uploadDataReg).subscribe(data => console.log(data), error => console.log(error))
 
 
     } else {
@@ -170,7 +188,37 @@ export class BajaComponent implements OnInit {
     if (this.seachForm.valid) {//este es donde busca
       console.log(this.seachForm.value);
       this.showFieldsText = true
+        if (this.seachForm.value.selectBox == 'codIdentificacion'){
+          this.animalService.findBy('id', this.seachForm.value.selectedBox).subscribe(
+            data => {
+              this.animal = data;
+              console.log(data);},
+            error => {
+              console.log(error)
+            })
+        }else if(this.seachForm.value.selectBox == 'nombreComun'){
+          this.animalService.findBy('nombre_comun', this.seachForm.value.selectedBox).subscribe(
+            data => {
+              this.animal = data;
+              console.log(data);},
+            error => {
+              console.log(error)
+            })
+        }else{
+          this.animalService.findBy(this.seachForm.value.selectBox, this.seachForm.value.selectedBox).subscribe(
+            data => {
+              this.animal = data;
+              console.log(data);},
+            error => {
+              console.log(error)
+            })
+        }
 
+      this.seachForm.value.codIdentificacion = this.animal[0].id;
+      this.seachForm.value.especie = this.animal[0].especie_id;
+      this.seachForm.value.nombreComun = this.animal[0].nombre_comun;
+      this.seachForm.value.sexo = this.animal[0].sexo;
+      this.seachForm.value.edad = this.animal[0].edad;
 
     } else {
       this.seachForm.markAllAsTouched();
@@ -185,11 +233,39 @@ export class BajaComponent implements OnInit {
     return "Aqui iria el valor"//todo ver coomo pedir de la db
   }
 
-  uploadFileForense($event: Event) {
-    //aqui recibe el fileForense
+  uploadFileForense(event: any) {
+    // @ts-ignore
+    this.file1 = event.target.files[0]
+    const uploadDataFile1 = new FormData();
+
+    uploadDataFile1.append('ruta', 'C:\\Users\\hpzbook15\\PycharmProjects\\DJANG-OS\\media\\covers\\' + this.file1?.name + '\\' + this.file1?.name)
+    // @ts-ignore
+    uploadDataFile1.append('peso', this.file1?.size.toString())
+    // @ts-ignore
+    uploadDataFile1.append('nombre', this.file1?.name)
+    uploadDataFile1.append('creado', this.date.getFullYear().toString()+'-'+this.date.getMonth().toString()+'-'+this.date.getDate().toString())
+    // @ts-ignore
+    uploadDataFile1.append('tipo', this.file1?.name[-4])
+    // @ts-ignore
+    uploadDataFile1.append('file', this.file1)
+    this.archivoService.create(uploadDataFile1).subscribe(data => console.log(data), error => console.log(error));
+
   }
 
-  uploadFilLaboratorioe($event: Event) {
-    //aqui recibe el fileForense
+  uploadFilLaboratorioe(event: any) {
+    this.file2 = event.target.files[0]
+    const uploadDataFile2 = new FormData();
+
+    uploadDataFile2.append('ruta', 'C:\\Users\\hpzbook15\\PycharmProjects\\DJANG-OS\\media\\covers\\' + this.file2?.name + '\\' + this.file2?.name)
+    // @ts-ignore
+    uploadDataFile2.append('peso', this.file2?.size.toString())
+    // @ts-ignore
+    uploadDataFile2.append('nombre', this.file2?.name)
+    uploadDataFile2.append('creado', this.date.getFullYear().toString()+'-'+this.date.getMonth().toString()+'-'+this.date.getDate().toString())
+    // @ts-ignore
+    uploadDataFile2.append('tipo', this.file2?.name[-4])
+    // @ts-ignore
+    uploadDataFile2.append('file', this.file2)
+    this.archivoService.create(uploadDataFile2).subscribe(data => console.log(data), error => console.log(error));
   }
 }

@@ -27,7 +27,6 @@ export class RegisterComponent implements OnInit {
   form!: FormGroup;
   imagen?: File;
   count = 0;
-  auxFile: any;
 
   date: Date = new Date();
 
@@ -202,7 +201,6 @@ export class RegisterComponent implements OnInit {
     uploadDataFile.append('file', this.imagen)
     this.archivoService.create(uploadDataFile).subscribe(data => console.log(data), error => console.log(error));
 
-    this.auxFile = uploadDataFile
   }
   isBoxValid(box: String): Boolean {
     // @ts-ignore
