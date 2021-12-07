@@ -15,18 +15,22 @@ from db.serializers import RegistroSerializer
 from rest_framework.decorators import api_view
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def login(request):
     if request.method == 'GET':
-        logins = Operador.objects.all()
+        operator = Operador.objects.all()
 
-        password = request.GET.get('password', None)
-        if password is not None:
-            logins = logins.filter(password__icontains=password)
+        nombre = request.GET.get('email', None)
+        if nombre is not None:
+            operator = operator.filter(email__icontains=nombre)
 
-        login_serializer = OperadorSerializer(logins, many=True)
-        return JsonResponse(login_serializer, safe=False)
-    elif request.method == 'POST':
+        operador_serializer = OperadorSerializer(operator, many=True)
+        return JsonResponse(operador_serializer.data, safe=False)
+
+
+@api_view(['POST'])
+def admin(request):
+    if request.method == 'POST':
         operador_data = JSONParser().parse(request)
         operador_serializer = OperadorSerializer(data=operador_data)
         if operador_serializer.is_valid():
