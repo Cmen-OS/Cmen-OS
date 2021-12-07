@@ -188,37 +188,19 @@ export class BajaComponent implements OnInit {
     if (this.seachForm.valid) {//este es donde busca
       console.log(this.seachForm.value);
       this.showFieldsText = true
-        if (this.seachForm.value.selectBox == 'codIdentificacion'){
-          this.animalService.findBy('id', this.seachForm.value.selectedBox).subscribe(
-            data => {
-              this.animal = data;
-              console.log(data);},
-            error => {
-              console.log(error)
-            })
-        }else if(this.seachForm.value.selectBox == 'nombreComun'){
-          this.animalService.findBy('nombre_comun', this.seachForm.value.selectedBox).subscribe(
-            data => {
-              this.animal = data;
-              console.log(data);},
-            error => {
-              console.log(error)
-            })
-        }else{
-          this.animalService.findBy(this.seachForm.value.selectBox, this.seachForm.value.selectedBox).subscribe(
-            data => {
-              this.animal = data;
-              console.log(data);},
-            error => {
-              console.log(error)
-            })
-        }
 
-      this.seachForm.value.codIdentificacion = this.animal[0].id;
-      this.seachForm.value.especie = this.animal[0].especie_id;
-      this.seachForm.value.nombreComun = this.animal[0].nombre_comun;
-      this.seachForm.value.sexo = this.animal[0].sexo;
-      this.seachForm.value.edad = this.animal[0].edad;
+      this.animalService.findBy(this.seachForm.value.selectedBox).subscribe(
+        data => {
+          this.animal = data;
+          this.seachForm.value.codIdentificacion = this.animal[0].id;
+          this.seachForm.value.especie = this.animal[0].especie_id;
+          this.seachForm.value.nombreComun = this.animal[0].nombre_comun;
+          this.seachForm.value.sexo = this.animal[0].sexo;
+          this.seachForm.value.edad = this.animal[0].edad;
+          console.log(data);},
+        error => {
+          console.log(error)
+        })
 
     } else {
       this.seachForm.markAllAsTouched();
@@ -257,16 +239,13 @@ export class BajaComponent implements OnInit {
     // @ts-ignore
     uploadDataFile1.append('file', this.file1)
     this.archivoService.create(uploadDataFile1).subscribe(data => console.log(data), error => console.log(error));
-
+}
   getTextFielValueSexo(){
     return this.seachForm.value.sexo
   }
 
   getTextFielValueEdad(){
     return this.seachForm.value.edad
-  }
-  uploadFileForense($event: Event) {
-    //aqui recibe el fileForense
   }
 
   uploadFilLaboratorioe(event: any) {
