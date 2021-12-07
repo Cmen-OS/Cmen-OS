@@ -27,7 +27,9 @@ export class RegisterComponent implements OnInit {
   form!: FormGroup;
   imagen?: File;
   count = 0;
-  aux: any;
+  auxFile: any;
+
+  auxAnimal: any;
 
   date: Date = new Date();
 
@@ -65,54 +67,28 @@ export class RegisterComponent implements OnInit {
     if (this.form.valid) {
       console.log(this.form.value);
 
-      this.operadorService.findByEmail(this.form.value.correo)
-        .subscribe(
-          data => {
-            this.operadores = data;
-            console.log(data);},
-          error => {
-            console.log(error)
-          })
+      this.crearAnimal();
+
+      const uploadDataReg = new FormData();
+      uploadDataReg.append('nro_acta_decomiso', this.form.value.numActa);
+      uploadDataReg.append('fecha_registro', this.date.getFullYear().toString()+'-'+this.date.getMonth().toString()+'-'+this.date.getDate().toString());
+      uploadDataReg.append('CCFS', this.form.value.ccfs);
+      uploadDataReg.append('modalidad_funcionamiento', this.form.value.modFuncionamiento);
+      uploadDataReg.append('area', this.form.value.areaIngreso);
+      uploadDataReg.append('lugar_exposicion', this.form.value.lugarExp);
+      uploadDataReg.append('motivo_recepcion', this.form.value.motivoIngreso);
+      uploadDataReg.append('nro_acta_traslado', this.form.value.numAutorizacion);
+      uploadDataReg.append('nro_MMAA', this.form.value.numFormMMAA);
+      uploadDataReg.append('id_animal_id', this.auxAnimal.nombreCriollo);
+
+      uploadDataReg.append('ci_autorizado_por_id', this.operador.ci);
       // @ts-ignore
-      this.operador = this.operadores[0];
-
-      const uploadDataAnimal = new FormData();
-      uploadDataAnimal.append('nombre_criollo', this.form.value.nombreCriollo);
-      uploadDataAnimal.append('nombre_comun', this.form.value.nombreComun);
-      uploadDataAnimal.append('nombre_propio', this.form.value.nombrePropio);
-      uploadDataAnimal.append('edad', this.form.value.edad);
-      uploadDataAnimal.append('procedencia', this.form.value.procedencia);
-      uploadDataAnimal.append('fecha_recepcion', this.form.value.fechaRecepcion);
-      uploadDataAnimal.append('sexo', this.form.value.sexo);
-      uploadDataAnimal.append('estado_salud', this.form.value.estadoSaludes);
-      uploadDataAnimal.append('detalles_salud', this.form.value.detalleSaludes);
-      uploadDataAnimal.append('cod_int_id', this.form.value.microchip);
-      uploadDataAnimal.append('especie_id', this.form.value.taxonomia);
-      uploadDataAnimal.append('ruta_archivo_id', 'C:\\Users\\hpzbook15\\PycharmProjects\\DJANG-OS\\media\\covers\\' + this.imagen?.name + '\\' + this.imagen?.name)
+      uploadDataReg.append('ci_recibido_por_id', this.operador.ci);
 
 
 
-      this.animalService.create(uploadDataAnimal).subscribe(data => console.log(data), error => console.log(error));
+      this.registroService.create(uploadDataReg).subscribe(data => console.log(data), error => console.log(error))
 
-
-/*
-      const data = {
-        nro_acta_decomiso: this.form.value.numActa,
-        fecha_registro: this.date.getFullYear().toString()+'-'+this.date.getMonth().toString()+'-'+this.date.getDate().toString(),
-        CCFS: this.form.value.ccfs,
-        modalidad_funcionamiento: this.form.value.modFuncionamiento,
-        area: this.form.value.areaIngreso,
-        lugar_exposicion: this.form.value.lugarExp,
-        motivo_recepcion: this.form.value.motivoIngreso,
-        nro_acta_traslado: this.form.value.numAutorizacion,
-        nro_MMAA: this.form.value.numFormMMAA,
-        id_animal_id: this.animal,
-        ci_autorizado_por_id: this.operador,
-        ci_recibido_por_id: this.operador,
-      }
-
-      this.registroService.create(data).subscribe(data => console.log(data), error => console.log(error))
-*/
     } else {
       this.form.markAllAsTouched();
     }
@@ -199,6 +175,38 @@ export class RegisterComponent implements OnInit {
   ]
 
 
+  crearAnimal(){
+    const uploadDataAnimal = new FormData();
+    uploadDataAnimal.append('nombre_criollo', this.form.value.nombreCriollo);
+    uploadDataAnimal.append('nombre_comun', this.form.value.nombreComun);
+    uploadDataAnimal.append('nombre_propio', this.form.value.nombrePropio);
+    uploadDataAnimal.append('edad', this.form.value.edad);
+    uploadDataAnimal.append('procedencia', this.form.value.precedencia);
+    uploadDataAnimal.append('fecha_recepcion', this.form.value.fechaRecepcion);
+    uploadDataAnimal.append('sexo', this.form.value.sexo);
+    uploadDataAnimal.append('estado_salud', this.form.value.estadoSaludes);
+    uploadDataAnimal.append('detalles_salud', this.form.value.detalleSaludes);
+    uploadDataAnimal.append('cod_int_id', this.form.value.microchip);
+    uploadDataAnimal.append('especie_id', this.form.value.taxonomia);
+    uploadDataAnimal.append('ruta_archivo_id', 'C:\\Users\\hpzbook15\\PycharmProjects\\DJANG-OS\\media\\covers\\' + this.imagen?.name + '\\' + this.imagen?.name)
+
+    this.animalService.create(uploadDataAnimal).subscribe(data => console.log(data), error => console.log(error));
+
+    this.auxAnimal = uploadDataAnimal;
+
+    this.operadorService.findByEmail(this.form.value.correo)
+      .subscribe(
+        data => {
+          this.operadores = data;
+          console.log(data);},
+        error => {
+          console.log(error)
+        })
+    // @ts-ignore
+    this.operador = this.operadores[0];
+  }
+
+
   uploadFile(event:any){
     //todo subir a la base de datos
     this.imagen = event.target.files[0]
@@ -215,7 +223,7 @@ export class RegisterComponent implements OnInit {
     uploadDataFile.append('file', this.imagen)
     this.archivoService.create(uploadDataFile).subscribe(data => console.log(data), error => console.log(error));
 
-    this.aux = uploadDataFile
+    this.auxFile = uploadDataFile
   }
   isBoxValid(box: String): Boolean {
     // @ts-ignore
