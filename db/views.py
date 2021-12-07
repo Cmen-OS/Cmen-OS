@@ -7,7 +7,7 @@ from rest_framework import status
 from db.models import Animal
 from db.models import Operador
 from db.models import Archivo
-# from db.models import Registro
+from db.models import Registro
 from db.serializers import AnimalSerializer
 from db.serializers import OperadorSerializer
 from db.serializers import ArchivoSerializer
@@ -42,12 +42,50 @@ def admin(request):
 @api_view(['POST'])
 def registro(request):
     if request.method == 'POST':
-        registro_data = JSONParser().parse(request)
-        registro_serializer = RegistroSerializer(data=registro_data)
-        if registro_serializer.is_valid():
-            registro_serializer.save()
-            return JsonResponse(registro_serializer.data, status=status.HTTP_201_CREATED)
-        return JsonResponse(registro_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        nro_acta_decomiso = request.data['nro_acta_decomiso']
+        fecha_registro = request.data['fecha_registro']
+        CCFS = request.data['CCFS']
+        modalidad_funcionamiento = request.data['modalidad_funcionamiento']
+        area = request.data['area']
+        lugar_exposicion = request.data['lugar_exposicion']
+        motivo_recepcion = request.data['motivo_recepcion']
+        nro_acta_traslado = request.data['nro_acta_traslado']
+        nro_MMAA = request.data['nro_MMAA']
+        id_animal_id = request.data['id_animal_id']
+        ci_autorizado_por_id = request.data['ci_autorizado_por_id']
+        ci_recibido_por_id = request.data['ci_recibido_por_id']
+
+        nombre_criollo = request.data['nombre_criollo']
+        nombre_comun = request.data['nombre_comun']
+        nombre_propio = request.data['nombre_propio']
+        edad = request.data['edad']
+        procedencia = request.data['procedencia']
+        fecha_recepcion = request.data['fecha_recepcion']
+        sexo = request.data['sexo']
+        estado_salud = request.data['estado_salud']
+        detalles_salud = request.data['detalles_salud']
+        cod_int_id = request.data['cod_int_id']
+        especie_id = request.data['especie_id']
+        ruta_archivo_id = request.data['ruta_archivo_id']
+
+        aux = Archivo.objects.get(ruta=ruta_archivo_id)
+
+        b = Animal.objects.create(nombre_criollo=nombre_criollo, nombre_comun=nombre_comun,
+                                  nombre_propio=nombre_propio,
+                                  edad=edad, procedencia=procedencia, fecha_recepcion=fecha_recepcion, sexo=sexo,
+                                  estado_salud=estado_salud, detalles_salud=detalles_salud, cod_int_id=None,
+                                  especie_id=None,
+                                  ruta_archivo=aux)
+
+        aux2 = Operador.objects.get(email__icontains=ci_recibido_por_id)
+        aux3 = Operador.objects.get(nombre=ci_autorizado_por_id)
+
+        c = Registro.objects.create(nro_acta_decomiso=nro_acta_decomiso, fecha_registro=fecha_registro, CCFS=CCFS,
+                                    modalidad_funcionamiento=modalidad_funcionamiento, area=area,
+                                    lugar_exposicion=lugar_exposicion, motivo_recepcion=motivo_recepcion,
+                                    ci_recibido_por=aux2, ci_autorizado_por=aux3, nro_acta_traslado=nro_acta_traslado,
+                                    nro_MMAA=nro_MMAA, id_animal=b)
+        return JsonResponse(data=c, status=status.HTTP_201_CREATED)
 
 
 @api_view(['GET', 'POST'])

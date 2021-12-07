@@ -71,10 +71,9 @@ class RegistroSerializer(serializers.ModelSerializer):
                   'area',
                   'lugar_exposicion',
                   'motivo_recepcion',
-                  'autorizado_por',
                   'nro_acta_traslado',
                   'nro_MMAA',
                   'id_animal_id',
-                  'ci_autorizado_por_id'
+                  'ci_autorizado_por_id',
                   'ci_recibido_por_id'
                   )
