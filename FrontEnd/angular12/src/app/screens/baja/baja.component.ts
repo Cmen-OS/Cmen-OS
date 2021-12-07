@@ -160,4 +160,12 @@ export class BajaComponent implements OnInit {
   getTextFielValue(){
     return "Aqui iria el valor"//todo ver coomo pedir de la db
   }
+
+  uploadFileForense($event: Event) {
+    //aqui recibe el fileForense
+  }
+
+  uploadFilLaboratorioe($event: Event) {
+    //aqui recibe el fileForense
+  }
 }

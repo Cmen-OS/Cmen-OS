@@ -213,22 +213,17 @@
         <div class="texts">
           <div class="name"> Informe forense </div>
         </div>
-        <input class="box" type="file" formControlName="informeForense"/>
+        <input (change)="uploadFileForense($event)" class="box" type="file" formControlName="informeForense"/>
       </div>
 
       <div class="containerRight">
         <div class="texts">
           <div class="name"> Informe de laboratorio </div>
         </div>
-        <input class="box" type="file" formControlName="informeLab"/>
+        <input (change)="uploadFilLaboratorioe($event)" class="box" type="file" formControlName="informeLab"/>
       </div>
 
-      <div class="containerRight">
-        <div class="texts">
-          <div class="name"> Otro </div>
-        </div>
-        <input class="box" type="file" formControlName="otro"/>
-      </div>
+
 
       <p class="containerRight">
         <button class="buttonSubmit" type="submit">Enviar</button>
