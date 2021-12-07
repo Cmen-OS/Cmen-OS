@@ -25,16 +25,15 @@ import {Box} from 'src/app/models/box.model';
 })
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
-  imagen: any;
+  imagen?: File;
   count = 0;
-/*
+  aux: any;
+
   date: Date = new Date();
 
   operadores: Operador[] = [];
 
-  archivo: Archivo = {};
-
-  microchip: Microchip = {} as Microchip;
+  microchip: Microchip = {};
 
   taxonomia: Taxonomia = {};
 
@@ -42,7 +41,6 @@ export class RegisterComponent implements OnInit {
 
   animal: Animal = {};
 
-*/
 
   constructor(
     private operadorService: OperadorService,
@@ -66,19 +64,6 @@ export class RegisterComponent implements OnInit {
   save(event: Event) {
     if (this.form.valid) {
       console.log(this.form.value);
-/*
-      const archivo ={
-        ruta: "/prueba/prueba",
-        peso: this.imagen.weight,
-        nombre: this.imagen.name,
-        creado: this.date.getFullYear().toString()+'-'+this.date.getMonth().toString()+'-'+this.date.getDate().toString(),
-        tipo: this.imagen.name[-4],
-        file: this.imagen
-      };
-
-      this.archivoService.create(archivo).subscribe(data => console.log(data), error => console.log(error));
-
-      this.archivo = archivo;
 
       this.operadorService.findByEmail(this.form.value.correo)
         .subscribe(
@@ -91,25 +76,26 @@ export class RegisterComponent implements OnInit {
       // @ts-ignore
       this.operador = this.operadores[0];
 
-      const animal = {
-        nombre_criollo: this.form.value.nombreCriollo,
-        nombre_comun: this.form.value.nombreComun,
-        nombre_propio: this.form.value.nombrePropio,
-        edad: this.form.value.edad,
-        procedencia: this.form.value.precedencia,
-        fecha_recepcion: this.form.value.fechaRecepcion,
-        sexo: this.form.value.sexo,
-        estado_salud: this.form.value.estadoSaludes,
-        detalles_salud: this.form.value.detalleSaludes,
-        cod_int_id: this.microchip,
-        especie_id: this.taxonomia,
-        ruta_archivo_id: this.archivo
-      };
+      const uploadDataAnimal = new FormData();
+      uploadDataAnimal.append('nombre_criollo', this.form.value.nombreCriollo);
+      uploadDataAnimal.append('nombre_comun', this.form.value.nombreComun);
+      uploadDataAnimal.append('nombre_propio', this.form.value.nombrePropio);
+      uploadDataAnimal.append('edad', this.form.value.edad);
+      uploadDataAnimal.append('procedencia', this.form.value.procedencia);
+      uploadDataAnimal.append('fecha_recepcion', this.form.value.fechaRecepcion);
+      uploadDataAnimal.append('sexo', this.form.value.sexo);
+      uploadDataAnimal.append('estado_salud', this.form.value.estadoSaludes);
+      uploadDataAnimal.append('detalles_salud', this.form.value.detalleSaludes);
+      uploadDataAnimal.append('cod_int_id', this.form.value.microchip);
+      uploadDataAnimal.append('especie_id', this.form.value.taxonomia);
+      uploadDataAnimal.append('ruta_archivo_id', 'C:\\Users\\hpzbook15\\PycharmProjects\\DJANG-OS\\media\\covers\\' + this.imagen?.name + '\\' + this.imagen?.name)
 
-      this.animal = animal;
 
-      this.animalService.create(animal).subscribe(data => console.log(data), error => console.log(error));
 
+      this.animalService.create(uploadDataAnimal).subscribe(data => console.log(data), error => console.log(error));
+
+
+/*
       const data = {
         nro_acta_decomiso: this.form.value.numActa,
         fecha_registro: this.date.getFullYear().toString()+'-'+this.date.getMonth().toString()+'-'+this.date.getDate().toString(),
@@ -216,6 +202,20 @@ export class RegisterComponent implements OnInit {
   uploadFile(event:any){
     //todo subir a la base de datos
     this.imagen = event.target.files[0]
+    const uploadDataFile = new FormData();
+    uploadDataFile.append('ruta', 'C:\\Users\\hpzbook15\\PycharmProjects\\DJANG-OS\\media\\covers\\' + this.imagen?.name + '\\' + this.imagen?.name)
+    // @ts-ignore
+    uploadDataFile.append('peso', this.imagen?.size.toString())
+    // @ts-ignore
+    uploadDataFile.append('nombre', this.imagen?.name)
+    uploadDataFile.append('creado', this.date.getFullYear().toString()+'-'+this.date.getMonth().toString()+'-'+this.date.getDate().toString())
+    // @ts-ignore
+    uploadDataFile.append('tipo', this.imagen?.name[-4])
+    // @ts-ignore
+    uploadDataFile.append('file', this.imagen)
+    this.archivoService.create(uploadDataFile).subscribe(data => console.log(data), error => console.log(error));
+
+    this.aux = uploadDataFile
   }
   isBoxValid(box: String): Boolean {
     // @ts-ignore
