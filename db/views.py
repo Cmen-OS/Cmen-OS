@@ -62,12 +62,28 @@ def animal(request):
         animal_serializer = AnimalSerializer(animals, many=True)
         return JsonResponse(animal_serializer.data, safe=False)
     elif request.method == 'POST':
-        animal_data = JSONParser().parse(request)
-        animal_serializer = AnimalSerializer(data=animal_data)
-        if animal_serializer.is_valid():
-            animal_serializer.save()
-            return JsonResponse(animal_serializer.data, status=status.HTTP_201_CREATED)
-        return JsonResponse(animal_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        nombre_criollo = request.data['nombre_criollo']
+        nombre_comun = request.data['nombre_comun']
+        nombre_propio = request.data['nombre_propio']
+        edad = request.data['edad']
+        procedencia = request.data['procedencia']
+        fecha_recepcion = request.data['fecha_recepcion']
+        sexo = request.data['sexo']
+        estado_salud = request.data['estado_salud']
+        detalles_salud = request.data['detalles_salud']
+        cod_int_id = request.data['cod_int_id']
+        especie_id = request.data['especie_id']
+        ruta_archivo_id = request.data['ruta_archivo_id']
+
+        aux = Archivo.objects.get(ruta=ruta_archivo_id)
+
+        b = Animal.objects.create(nombre_criollo=nombre_criollo, nombre_comun=nombre_comun,
+                                  nombre_propio=nombre_propio,
+                                  edad=edad, procedencia=procedencia, fecha_recepcion=fecha_recepcion, sexo=sexo,
+                                  estado_salud=estado_salud, detalles_salud=detalles_salud, cod_int_id=None,
+                                  especie_id=None,
+                                  ruta_archivo=aux)
+        return JsonResponse(data=b, status=status.HTTP_201_CREATED)
 
 
 @api_view(['POST', 'PUT'])
@@ -113,18 +129,22 @@ def archivo(request):
         archivo_serializer = ArchivoSerializer(file, many=True)
         return JsonResponse(archivo_serializer.data, safe=False)
     elif request.method == 'POST':
-        archivo_data = JSONParser().parse(request)
-        archivo_serializer = ArchivoSerializer(data=archivo_data)
-        if archivo_serializer.is_valid():
-            archivo_serializer.save()
-            return JsonResponse(archivo_serializer.data, status=status.HTTP_201_CREATED)
-        return JsonResponse(archivo_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if request.data['ruta'] is not None:
+            ruta = request.data['ruta']
+            peso = request.data['peso']
+            nombre = request.data['nombre']
+            creado = request.data['creado']
+            tipo = ruta[-4:]
+            file = request.data['file']
+
+            a = Archivo.objects.create(ruta=ruta, peso=peso, nombre=nombre, creado=creado, tipo=tipo, file=file)
+            return JsonResponse(data=a, status=status.HTTP_201_CREATED)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def operador_detail(request, pk):
     try:
-        operador =  Operador.objects.get(pk = pk)
+        operador = Operador.objects.get(pk=pk)
     except Operador.DoesNotExist:
         return JsonResponse({'message': 'El operador no existe'}, status=status.HTTP_404_NOT_FOUND)
 

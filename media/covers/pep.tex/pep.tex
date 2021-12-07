@@ -1,0 +1,327 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+
+%\documentclass[11pt]{article}
+\usepackage[margin =1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[nottoc, notlot, notlof]{tocbibind}
+
+
+\usepackage[spanish,es-tabla]{babel}
+
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{array}
+\usepackage{url}
+\usepackage{keyval}
+\usepackage{lipsum}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{lmodern}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{subfig}
+\usepackage{listings}
+\usepackage{afterpage}
+\usepackage{lscape}
+\lstset{
+language=c++,
+basicstyle=\footnotesize,
+numbers=left,
+numberstyle=\footnotesize,
+stepnumber=1,
+numbersep=5pt,
+backgroundcolor=\color{white},
+showspaces=false,
+showtabs=false,
+showstringspaces=false,
+captionpos=b,
+breaklines=true,
+breakatwhitespace=false,
+escapeinside={\%*}{*)}}
+
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+\vspace*{2cm}
+
+\includegraphics[scale=0.5]{upb.png}
+\vfill
+
+\Huge{\textbf{Preparación y Evaluación\\de Proyectos}}\\[5mm]
+
+\vfill
+
+
+\line(1,0){400}\\[3mm]
+\Huge{\textbf{Core items}}\\[1mm]
+\line(1,0){400}\\[2cm]
+\begin{center}
+\Large {Tordoya Taquichiri Juan Rodrigo : 51453\\Tejerina Flores Miguel Ricardo: 51239\\Cárdenas Rodriguez Mikaela Mar\'ia: 51108}
+
+\end{center}
+
+\vfill
+\large{\today}
+\end{center}
+\end{titlepage}
+\tableofcontents
+\thispagestyle{empty}
+\clearpage
+
+\section{Introducción}
+La universidad es la época en la vida de un estudiante en la cual se obtienen conocimientos más específicos en ciertas áreas que serán aplicadas en su futura vida laboral, los cursos en los cuales estos conocimientos se obtienen se distinguen de la vida escolar en que son más exigentes y muchos de estos requieren una parte práctica que introduce al trabajo que se va a realizar en la vida laboral.
+
+
+En muchas carreras, especialmente en el área de ingeniería, la parte práctica se puede presentar en forma de laboratorios. Estos laboratorios comúnmente requieren de materiales que no se pueden conseguir en cualquier librería y muchas veces las tiendas en las que se puede conseguir están en distintos lugares de la ciudad y bastante alejadas de las universidades.
+
+
+Muchos problemas llegan debido a estas circunstancias, entre ellas podemos mencionar la falta de tiempo debido a la carga horaria que la universidad da a un estudiante, el tiempo que le puede tomar el recorrer la ciudad en busca del material y las posibles actividades extracurriculares que el estudiante puede tener ya sea dentro o fuera de la universidad.
+
+
+Asimismo, otro factor que afecta a los estudiantes en la búsqueda de materiales es la situación actual en la que vivimos, es decir, la pandemia del virus COVID-19; siendo un obstáculo los problemas que este ocasiona a la salud. Debido a que el virus es altamente contagioso el salir a la calle en busca de materiales expone a los estudiantes a una carga viral muy alta sometiéndolos a un gran peligro.
+
+
+De esta problemática nace el deseo de crear una aplicación que ofrezca a los estudiantes la comodidad de acceder a estos materiales de una manera más fácil y segura, brindándoles un servicio de envíos en el que los materiales sean entregados de manera periódica dentro de la universidad, asimismo añadiendo un servicio de delivery extra en caso de extrema necesidad.
+
+\section{Justificación}
+Teniendo en cuenta la situación actual del país; el pasado, presente y futuro de la pandemia, además de los acontecimientos de la vida estudiantil tanto en modalidad virtual como en modalidad presencial, se realizó un árbol de problemas para poder identificar el problema principal en conjunto de las posibles causas y consecuencias que este tenga. Con ayuda de esta herramienta, también se podrá plantear un modelo de solución que se aplique mejor al problema principal.
+\newpage
+%\renewcommand{\theenumi}{\alph{enumi}}
+%\begin{enumerate}
+    \subsection{Árbol de problemas} 
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.39]{arbolproblemas.jpeg}
+        \caption{Arbol de problemas}
+        \label{arbol p}
+    \end{figure}
+    \subsection{Alternativas de solución} 
+    \begin{itemize}
+        \item Solicitud de materiales: Los estudiantes pueden solicitar los materiales que necesiten para la universidad con cierta anticipación para que todos los materiales solicitados lleguen en un mismo transporte, abaratando los costos de entrega
+        \item Delivery express: En caso de extrema urgencia, se dispondrá de movilidades que realicen el delivery de los materiales al lugar que los estudiantes necesiten.
+        \item Implementación de un inventario de los materiales ya existentes en la universidad: De esta manera, los estudiantes podrán ver que materiales tienen a disposición y podrán pedirlos a través de la aplicación.
+    \end{itemize}
+    \subsection{Justificación de elección} 
+    
+    Se desea realizar una aplicación móvil que les brinde comodidad a los estudiantes a la hora de obtener materiales de laboratorio debido a que se entiende que estos materiales no son algo sencillo de encontrar, muchas veces puede tomar un día entero conseguirlos, además que las tiendas que los ofrecen se encuentran en puntos alejados para la población en general. 
+%\end{enumerate}
+
+\newpage
+\section{Alcance}
+
+El presente proyecto incluye el desarrollo de una aplicación móvil destinada a estudiantes y estudios de mercado destinados a obtener una mejor comprensión de las necesidades y preferencias de futuros usuarios.
+
+Como meta inicial de este proyecto se tiene el establecer el
+servicio de entrega desde las tiendas afiliadas hasta las
+diferentes universidades dentro de la ciudad de La Paz.
+A esto se le añadirá el establecer un contrato con
+movilidades particulares para cubrir el servicio de delivery 
+extra ofrecido por la aplicación.
+
+
+Los estudios de mercados permitirán tener información concreta con la que se podrá trabajar para asegurar que la aplicación cumpla con las necesidades de los usuarios. Estos estudios también brindarán un mejor entendimiento de posibles competidores, nuevas tendencias y posibles expansiones de servicio, junto a diversas posibilidades para formar una estrategia comercial.
+ 
+En el caso de cumplir con los objetivos iniciales de manera 
+exitosa, 
+se plantear´ıa la posibilidad de extender el servicio 
+a la venta de de inventarios para las universidades
+ dentro de la ciudad de La Paz y 
+formar más relaciones con nuevas tiendas que ofrezcan 
+productos demandados por estudiantes universitarios.
+
+\section{Estudio de Mercado}
+%\renewcommand{\theenumi}{\alph{enumi}}
+%\begin{enumerate}
+    \subsection{Descripción del Servicio} 
+    
+    Core items, es una aplicación que facilitara la vida de los estudiantes en diferentes aspectos, la cual está diseñada de la siguiente manera:
+    \begin{itemize}
+        \item Servicios que brinda la universidad: La aplicación contará con un inventario de todos los productos que la universidad pueda prestar a los estudiantes, esta parte incluye las herramientas que tiene los laboratorios de física, química y arquitectura y los objetos que ayudan en el esparcimiento de los estudiantes como ser mandos para jugar con la Playstation 4 que se encuentra en la sala de descanso, como también objetos para hacer deportes en la universidad. Este inventario podrá ser visualizado por los estudiantes para que en caso de que ellos requieran utilizarlos puedan verificar si estos están disponibles para su préstamo. Asimismo, podrán ver si los encargados de dichos laboratorios se encuentran en estos lugares para la entrega del objeto en cuestión y así evitar largas esperas. \\
+        
+
+        También se pretende incluir los servicios que brinda la  cafetería de almuerzo, para que los estudiantes puedan reservar su almuerzo a través de la aplicación unas dos horas antes de la hora del almuerzo y estableciendo la hora a la que se recogerá dicho almuerzo. Además, se coordinará con el servicio de fotocopiadora de la universidad para que los estudiantes puedan solicitar la impresión de documentos voluminosos con anticipación y se mostrará una hora aproximada de entrega de dichos documentos, esto con la finalidad de evitar largas filas y esperas innecesarias.
+        
+        \newpage
+        \item Servicios de entrega: La aplicación contará con una parte en la que se pretende incluir inventarios de ciertas tiendas para facilitar la obtención de materiales y libros para las carreras en general, siendo un servicio de envíos hacia la universidad en la que los estudiantes podrán pedir objetos hasta ciertas horas. Una vez pasadas esas horas, los vehículos procederán a la compra dichos objetos y posteriormente realizarán el envío hacia la universidad, abaratando el costo de envío en vista que el servicio sea accesible para todos los estudiantes.
+        
+        Los estudiantes  también podrán pedir objetos de dichas tiendas en un servicio de delivery hacia sus casas ahorrando tiempo en la obtención de estos productos, ya que muchas veces dichos productos se encuentran en zonas muy concurridas y de difícil acceso.
+
+    \end{itemize}
+    
+    \subsection{Descripción del consumidor} 
+    
+    \textbf{Naturaleza:} Los estudiantes, docentes y personal administrativo de la Universidad Privada Boliviana de la ciudad de La Paz.\\
+    
+    \textbf{Cantidad:} Los consumidores serán todos los estudiantes que 
+formen parte de alguna universidad dentro de la ciudad
+de La Paz. Los potenciales consumidores serian los estudiantes
+de ingeniería de primeros años en diferentes carreras, 
+ya que al estar empezando su vida universitaria necesitaran variedad de instrumentos para
+afrontar esta nueva etapa\\
+    
+    \textbf{Ubicación:} Diferentes universidades dentro de la ciudad de La
+Paz
+
+    
+    \subsection{Mercado consumidor} 
+    
+    \textbf{Clientes:} Los clientes serán los padres de familia de algunos estudiantes, estudiantes que tengan ingresos, docentes y personal administrativo de las universidades.\\
+    
+    \textbf{Consumidores:} Inicialmente, los estudiantes de diferentes años y carreras. Eventualmente, el plantel docente y personal administrativo de las diferentes universidades.
+    
+    \subsection{Mercado Proveedor} 
+    
+    Los proveedores serán: las tiendas de electrónica ligadas a la aplicación, los servicio de cafetería y fotocopiadora de la universidad, los distintos laboratorios y las áreas de esparcimiento
+    
+    \subsection{Mercado competidor} 
+    
+    Dentro del mercado competidor se encuentran los diferentes servicios de delivery, como ser pedidos ya, de los cuales se debe recopilar datos sobre el funcionamiento de sus aplicaciones y sus políticas de servicio. Otro competidor son las distintas empresas de radio taxis y es necesario evaluar las tarifas que manejan estos servicios.
+    
+    \subsection{Estrategia Comercial} 
+    
+    \textbf{Objetivo:} Brindar a los estudiantes un servicio que mejore la calidad de la vida universitaria dándoles herramientas para que resuelvan algunos problemas de tiempo que estos puedan llegar a tener.\\
+    
+    \textbf{Servicio:} Actualmente ninguna universidad cuenta con un servicio que facilite en gran manera la vida universitaria, por lo cual es un servicio único. Además, contar con un servicio de inventarios le da a la universidad
+    un valor agregado.\\
+    
+    \textbf{Precio:} El modo de pago del servicio que se utilizar\'a ser\'a el de cobro por transacción, es decir se cobrara un monto pequeño establecido en 30 centavos de boliviano esto con el fin de que no suponga un gran gasto  para la universidad y así tener esta fuente de ingresos a lo largo del tiempo, se realizar\'a el mismo proceso con la parte de la cafeter\'ia y la fotocopiadora de la universidad. También se tendrá el ingreso de la parte de delivery siendo este un porcentaje del envío del producto.  \\
+    
+    \textbf{Distribución:} La distribución de nuestro servicio será a través de las tiendas virtuales App store para iOs y Play Store para Android.\\
+    
+    \textbf{Promoción:} Las partes externas a las universidades pondrán un cartel en sus tiendas donde indiquen que los estudiantes tienen una aplicación en la cual pueden pedir sus productos de manera más cómoda. Por otra parte, los servicios internos en la universidad como ser: laboratorios, cafetería y fotocopiadora mencionarán que sus servicios pueden ser atendidos mediante esta aplicación y por último que en las charlas que da la universidad a estudiantes de nuevo ingreso se mencione esta aplicación como una ventaja para ellos.\\
+    
+    
+    \textbf{Orientación Marketing:} En las tiendas virtuales en las que estarán disponibles esta aplicación se obtendrá una retroalimentación de los usuarios, los cuales se tomarán muy en cuenta para tener una aplicación que satisfaga a todos. También se desea colocar un espacio en el campus donde los estudiantes puedan escribir sus opiniones acerca de la aplicación. Al mismo tiempo, la aplicación pedirá a los usuarios que estos la califiquen y den su opinión.
+%\end{enumerate}
+
+\section{Estudio técnico}
+    \subsection{Proceso productivo}
+        \subsubsection{Diagrama de flujo}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.65]{diaflujo.png}
+            \caption{Diagrama de flujo}
+            \label{Diagrama_flujo}
+        \end{figure}
+        \subsubsection{Descripción del proceso}
+        La aplicación estará disponible para Android y en iOS.\\
+        
+        Después de instalar la aplicación en el dispositivo móvil, los usuarios procederán al correspondiente registro en el cual proveerán datos como: correos electrónicos, nombres, apellidos, dirección de domicilio y n\'umero de teléfono. Estos datos serán guardados en la base de datos de SQL, posteriormente se podrá añadir m\'as direcciones para los envíos del servicio y tendr\'a la ubicación de la universidad por defecto para que puedan ser enviados para all\'a.\\
+        
+        Posterior al registro se pasara a una pantalla que tendrá un buscador en el que se podrá buscar por nombre el producto que uno requiera, saldr\'a una lista que coincida con las palabras que se escriben en el buscador con sus respectivos precios para que se pueda elegir el mismo producto de varias tiendas distintas, una vez que se escoja el producto deseado se pasar\'a a la pantalla de pago donde se detallar\'a el precio del producto y de envío, también se podrá escoger las direcciones que se tengan registradas o se podrá registrar otra nueva, en caso de que se quiera pedir un producto a la Universidad Privada Boliviana este tendrá una opción especial donde se podrá ver los horarios en los que se podrán pedir los productos y su respectiva hora de llegada, en esta opción solo se podr\'a pedir en ciertos horarios ya que de esta forma se podr\'a abaratar los costos de envíos.\\
+        
+        En esta pantalla también se podr\'a escoger entre tiendas especificas para buscar productos en estas tiendas, si se decide comprar un producto en una tienda especifica de igual manera se pasar\'a a la pantalla de pago descrita anteriormente. \\
+        
+        También se podrá escoger ingresar al inventario de la Universidad Privada Boliviana, en este caso se pedirá ingresar con los datos universitarios para que solo puedan ingresar estudiantes de dicha universidad y así evitar malentendidos. Una vez dentro se podrá visualizar una pantalla con los items que tiene la universidad organizado por lugar de procedencia, cuando se elige el producto o item deseado se pasar\'a a una pantalla para poder detallar todo sobre el préstamo o compra de dicho producto.\\
+        
+        Otra opción que se tendrá en esta parte es la opción de ver los horarios de dichos encargados, esto podrá ayudar a los estudiantes en caso de que quieran ir a hablar con estos encargados personalmente.
+        
+    \subsection{Identificación de recursos}
+        \subsubsection{Planilla}
+        Para el desarrollo de la aplicación se tendrá tres desarrolladores, dos que se encargaran de la programaci\'on de la aplicaci\'on y uno que se encargara del diseño, además de una persona encargada de la administraci\'on y los recursos humanos que ver\'a el flujo de caja y aspectos legale.
+        Un gerente que se encargue de las decisiones generales, una persona encargada de la publicidad y una persona que se encargue de la comercializaci\'on.
+        
+        \newpage
+        \subsubsection{Maquinaria}
+        
+        Para el desarrollo se necesitar\'an 2 maquinas: uno con sistema operativo Windows con las capacidades necesarias para soportar Android Studio, las cuales son 8 GB de memoria RAM para un óptimo procesamiento del programa y su correcta emulación y 4 GB de memoria libre para las el correcto manejo de las imágenes y soporte del SDK; otra computadora con sistema operativo macOS que tengan macOS 11 o superior 8 GB de memoria RAM 2.5 GB de memoria libre con un disco de tipo SSD y una resolución de pantalla de 1024x768 como mínimo.
+        
+        Para la parte de diseño se necesitar\'a un tablet de dibujo y para la parte administración se requerirá 4 computadoras con los requisitos mininos de sistema, es decir computadoras con un procesador intel i3 con un mínimo de 4 GB de RAM.
+        
+    \subsection{Programa de producci\'on}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.65]{Plan flujograma.png}
+            \caption{Lista de actividades}
+            \label{actividades}
+        \end{figure}
+    \newpage
+   Se estima que el tiempo que durar\'a el desarrollo de la aplicación es de 36 a 37 semanas empezando por el diseño de Mockups que durar\'a 1 semana en el cual se plasmara el diseño de la aplicaci\'on para poder verla de manera gráfica, este se har\'a en la aplicación Marvel app que sirve para el desarrollo de Mockups.\\
+   
+   Después se proceder\'a con el desarrollo del frontend de la aplicaci\'on en cual se escribir\'a la parte gráfica de la aplicación y como este interactuará con los usuarios para que sea amigable con ellos y de fácil uso, para esto se tomara un tiempo de 8 semanas.\\
+   
+   Una vez terminada la parte de la interfaz del usuario se proceder\'a a la programación de las funcionalidades de la aplicación para que toda la interfaz funcione de manera correcta, este proceso ser\'a el m\'as largo, tendr\'a una duraci\'on de 12 semana y se realizar\'a en los programas de Android Studio para sistemas Android y de AppCode para sistemas iOS.\\
+   
+   Una vez que las bases de la aplicación estén concretadas se comenzar\'a a conectarla a la base de datos para que se guarden los registros, esta estar\'a desarrollada en MySQL y se desarrollar\'a en 8 semanas.\\
+   
+   Ahora que la aplicación este terminada se iniciar\'a con la gesti\'on de calidad para determinar que la aplicaci\'on se encuentre en los estándares requeridos de calidad, este proceso tomar\'a 2 semanas. Esto nos llevar\'a a corregir los posibles errores que puedan surgir en este proceso, para esto se tomara un tiempo de 2 semanas.\\
+   
+   Después es importante realizar una prueba piloto en el cual un grupo de personas se dedicaran a probar la aplicación, este proceso servirá para saber si la aplicación tiene errores y si funciona de la manera esperada, esto tomar\'a un tiempo de 2 semanas.\\
+   
+   Con la aplicaci\'on ya terminada solo falta contratar personas para la parte de los envios y personal para que el negocio empiece a funcionar, como alguien que realize los pagos, alguien que haga publicidad, etc. Para esto se tomar\'a un tiempo de 2 semanas.\\
+   
+   Y finalmente se lanza la aplicaci\'on en las tiendas de los sistemas Andoid y sistemas iOS.
+   
+   \subsection{Estudio de proveedores}
+   La aplicación ser\'a gratuita obteniendo ganancias a través de los costos de pedidos que se hagan a las tiendas, dichas tiendas proveerán sus inventarios los cuales figurar\'an en la aplicación, este acuerdo estar\'a sujeto a un contrato de prestaci\'on de servicios en el que se establezca que no habr\'a ningún costo por ninguna de las partes mientras se cumplan con los compromisos que se asuman, coso contrario se estipular\'a una penalidad por incumplimiento de alguna de las partes con monto que ser\'a igual al monto del servicio incumplido ya que el incumplimiento afecta a la imagen de las partes.
+   
+   También la Universidad Privada Boliviana, la cafetería y la fotocopiadora de esta universidad proveerán sus inventarios para incluirlos a la aplicación, mediante un convenio que estar\'a sujeto a un contrato en el que se especificar\'a el monto a pagar por transacción y bajo que términos se procederá a la implementación de la aplicación.
+   
+   \subsection{Logística de atención al cliente}
+   La aplicación obtendr\'a retroalimentación a través de las tiendas de Android y de iOS, las cuales ser\'an revisados constantemente para poder ir mejorando la aplicación, también se pedirá las opiniones a los usuarios dentro de la aplicación donde se les pedirá sus opiniones.
+   
+   Además se har\'a seguimiento a los pedidos que se hagan con el fin de ver si estos se hacen de manera correcta, si existe algún problema o si se podr\'ia mejorar algo.
+   
+   \subsection{Localizaci\'on}
+   Se contratar\'a una oficina lo m\'as cerca posible al centro de la ciudad para que se pueda acceder a las tiendas de una manera m\'as sencilla y asi ser mas eficientes en las compras de los productos.
+   
+\section{Estudio organizacional y legal}
+   \subsection{Organigrama}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.6]{Organigrama.png}
+            \caption{Organigrama}
+            \label{organigrama}
+        \end{figure}
+    El proyecto contar\'a con dos desarrolladores, uno que se encargara para el desarrollo de la aplicaci\'on en sistemas iOS y el otro se encargar\'a del desarrollo de la aplicaci\'on en el sistema Android, además de un desarrollador que se encargue de la parte de diseño de la aplicaci\'on. Tambi\'en habr\'a un gerente que se encargar\'a de las operaciones generales del proyecto como planificaciones o toma de decisiones importantes. Habr\'a una persona encargada del marketing que se encargar\'a de la difusiónq2 y publicidad de la aplicaci\'on. Otra persona se encargar\'a de la comercializaci\'on y tendr\'a que ver todo lo relacionado a los inventarios y como se manejan las compras. Habr\'a una persona encargada de los recursos humanos y administracion, esta persona se encargara en los aspectos legales de los trabajadores y acerca de los recursos financieros y bienes.
+
+
+\section{Estudio financiero}
+    \subsection{Cuadro de inversiones}
+    En la sección de inversiones, el mayor gasto viene con la maquinaria requerida para desarrollar la aplicación. Debido a que actualmente existen dos sistemas operativos principales (Android e iOS), hay que desarrollar la aplicación para ambas plataformas. El sistema operativo iOS tiene la peculiaridad de requerir un dispositivo con el mismo sistema operativo para realizar las pruebas, por lo que es necesario tener una computadora Mac que permita realizar las pruebas necesarias. Con respecto a Android, una computadora con Windows bastará. Estas computadoras serán utilizadas por los desarrolladores exclusivamente para el desarrollo de la aplicación en ambas plataformas.\\
+    
+    El resto de computadoras serán utilizadas para las áreas de Marketing y Comercialización; Recursos Humanos y Administración; y el Área de Gerencia. Se estima que todas las computadoras deberían tener un tiempo de vida de 4 años. El valor residual es equivalente a la división del valor inicial entre el tiempo de vida útil, mientras que el valor de amortización es la diferencia entre el valor inicial y el valor residual dividido entre la vida útil. Los datos se presentan a continuación:
+
+           \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.46]{Maquinaria.png}
+            \caption{Balance y calendario de inversión en maquinaria}
+            \label{maquinaria}
+        \end{figure}
+    
+    \newpage    
+    \subsection{Cuadro de costos}
+    Costos de operación:
+    Dentro de los costos de operación se incluyen el personal según la cantidad y el sueldo que reciben junto a los materiales, en los que se encuentran materiales de oficina. Estos irán siendo renovados con el paso de los años.
+    \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.46]{matrein.png}
+            \caption{Balance de materiales y calendario de reinversión}
+            \label{calendario reinversion}
+        \end{figure}
+    
+    Para la sección de personal se ve óptimo tener dos personas en el área de desarrollo, una para cada tipo de plataforma. Dentro del área administrativa se encuentran dos personas de igual manera, ya que es necesario dividir el trabajo entre administración y recursos humanos. Las áreas de gerencia, diseño y marketing solo necesitan de una persona para cumplir las tareas requeridas.
+
+    \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.46]{personal.png}
+            \caption{Tabla de personal y pagos respectivos}
+            \label{personal}
+        \end{figure}
+        
+        
+        
+    Costos administrativos:
+    Dentro de los costos administrativos se incluyen el alquiler de la oficina en la que se va a trabajar, estimada con un costo de 700 bs por mes. Asimismo, se consideran los aportes por riesgo común, por comisión, AFP y Aporte Solidario Patronal que son extraídos en diferentes proporciones del sueldo total de los trabajadores.
+
+    \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.65]{costadmin.png}
+            \caption{Cuadro de costos administrativos}
+            \label{personal}
+        \end{figure}
+\end{document}
