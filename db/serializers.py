@@ -6,6 +6,10 @@ from db.models import Archivo
 
 
 class AnimalSerializer(serializers.ModelSerializer):
+    ruta_archivo_id = serializers.RelatedField(source='archivo', read_only=True)
+    cod_int_id = serializers.RelatedField(source='microchip', read_only=True)
+    especie_id = serializers.RelatedField(source='taxonomia', read_only=True)
+
     class Meta:
         model = Animal
         fields = ('id',
@@ -31,7 +35,8 @@ class ArchivoSerializer(serializers.ModelSerializer):
                   'peso',
                   'nombre',
                   'creado',
-                  'tipo'
+                  'tipo',
+                  'file'
                   )
 
 
@@ -52,6 +57,10 @@ class OperadorSerializer(serializers.ModelSerializer):
 
 
 class RegistroSerializer(serializers.ModelSerializer):
+    id_animal_id = serializers.RelatedField(source='animal', read_only=True)
+    ci_autorizado_por_id = serializers.RelatedField(source='operador', read_only=True)
+    ci_recibido_por_id = serializers.RelatedField(source='operador', read_only=True)
+
     class Meta:
         model = Registro
         fields = ('id',
@@ -62,10 +71,9 @@ class RegistroSerializer(serializers.ModelSerializer):
                   'area',
                   'lugar_exposicion',
                   'motivo_recepcion',
-                  'autorizado_por',
                   'nro_acta_traslado',
                   'nro_MMAA',
                   'id_animal_id',
-                  'ci_autorizado_por_id'
+                  'ci_autorizado_por_id',
                   'ci_recibido_por_id'
                   )
