@@ -30,7 +30,7 @@
           <div class="name">Modalidad de funcionamiento</div>
           <strong class="error" *ngIf="isBoxValid('modalidadFun')">Este campo es requerido</strong>
         </div>
-        <select class="box" formControlName="precedencia">
+        <select class="box" formControlName="modalidadFun">
           <option *ngFor="let modalidad of modalidades"
                   [value]="modalidad">
             {{modalidad}}

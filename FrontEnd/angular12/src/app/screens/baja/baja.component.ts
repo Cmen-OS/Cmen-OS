@@ -70,8 +70,8 @@ export class BajaComponent implements OnInit {
 
 
     } else {
-      this.form.markAllAsTouched();
-      console.log(this.count)
+      console.log(this.form.value);
+      this.form.markAllAsTouched()
     }
   }
   private buildForm() {
@@ -91,16 +91,16 @@ export class BajaComponent implements OnInit {
       causasDeceso: ['', Validators.required],
       lesionesEncontradas: ['', Validators.required],
       diagnosticoFinal: ['', Validators.required],
-      documento: ['', Validators.required],
+
       nombreGuarda: ['', Validators.required],
       nombreVeterinario: ['', Validators.required],
       nombreDirector: ['', Validators.required],
-      precedencia: ['', Validators.required],
 
 
-      informeForense: ['', Validators.required],
-      informeLab: ['', Validators.required],
-      otro: ['', Validators.required],
+
+      informeForense: [''],
+      informeLab: [''],
+
     });
 
     this.seachForm = this.formBuilder.group({
