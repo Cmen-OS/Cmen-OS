@@ -13,6 +13,8 @@ export class BajaComponent implements OnInit {
   showFieldsText:Boolean = false;
   count = 0;
 
+  date: Date = new Date();
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,6 +31,26 @@ export class BajaComponent implements OnInit {
   save(event: Event) {
     if (this.form.valid) {
       console.log(this.form.value);
+
+      const uploadDataReg = new FormData();
+      uploadDataReg.append('CCFS', this.form.value.ccfs);
+      uploadDataReg.append('fecha', this.date.getFullYear().toString()+'-'+this.date.getMonth().toString()+'-'+this.date.getDate().toString());
+      uploadDataReg.append('fecha_deceso', this.form.value.fechaDeceso);
+      uploadDataReg.append('modalidad_funcionamiento', this.form.value.modFuncionamiento);
+      uploadDataReg.append('nombre_guarda_fauna', this.form.value.nombreGuarda);
+      uploadDataReg.append('nombre_veterinario', this.form.value.nombreVeterinario);
+      uploadDataReg.append('nombre_director', this.form.value.nombreDirector);
+      uploadDataReg.append('nro_MMAA', this.form.value.numFormMMAA);
+      uploadDataReg.append('motivo_salida', this.form.value.motivoSalida);
+      uploadDataReg.append('causa_deceso', this.form.value.causasDeceso);
+      uploadDataReg.append('lesiones', this.form.value.lesionesEncontradas);
+      uploadDataReg.append('diagnostico_deceso', this.form.value.diagnosticoFinal);
+      uploadDataReg.append('ci', this.form.value.ci);
+      uploadDataReg.append('ruta', this.form.value.numActa);
+      uploadDataReg.append('ruta', this.form.value.numActa);
+      uploadDataReg.append('id_animal_id', this.form.value.numActa);
+
+
     } else {
       this.form.markAllAsTouched();
       console.log(this.count)
@@ -148,6 +170,8 @@ export class BajaComponent implements OnInit {
     if (this.seachForm.valid) {//este es donde busca
       console.log(this.seachForm.value);
       this.showFieldsText = true
+
+
     } else {
       this.seachForm.markAllAsTouched();
     }
