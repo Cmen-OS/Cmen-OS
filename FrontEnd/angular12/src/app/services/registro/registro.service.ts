@@ -12,6 +12,6 @@ export class RegistroService {
   constructor(private http: HttpClient) { }
 
   create(data: any): Observable<any> {
-    return this.http.post(`${baseUrl}/login`,data)
+    return this.http.post(`${baseUrl}/registro`,data)
   }
 }
