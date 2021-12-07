@@ -14,11 +14,11 @@ export class OperadorService {
   getAll(): Observable<Operador[]> {
     return this.http.get<Operador[]>(baseUrl);
   }
-/*
-  get(id: any): Observable<Operador> {
-    return this.http.get(`${baseUrl}/${id}`);
+
+  get(ci: any): Observable<Operador> {
+    return this.http.get(`${baseUrl}/operador/${ci}`);
   }
-*/
+
   findByEmail(email: any): Observable<Operador[]> {
     return this.http.get<Operador[]>(`${baseUrl}/login?email=${email}`);
   }
@@ -28,10 +28,10 @@ export class OperadorService {
   }
 
   update(ci: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/operador?ci=${ci}`, data)
+    return this.http.put(`${baseUrl}/operador/${ci}`, data);
   }
 
   delete(ci: any): Observable<any> {
-    return this.http.delete(`${baseUrl}/operador?ci=${ci}`)
+    return this.http.delete(`${baseUrl}/operador/${ci}`);
   }
 }

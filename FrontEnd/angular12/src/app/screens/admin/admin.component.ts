@@ -18,6 +18,21 @@ export class AdminComponent implements OnInit {
   autorizado: string = '';
   subido: boolean = false;
 
+  operador: Operador = {
+    ci: '',
+    razon_social: '',
+    domicilio: '',
+    telefono: '',
+    email: '',
+    nombre: '',
+    root: false,
+    autorizado: false,
+    apellido: '',
+    password: '',
+  }
+
+  message = '';
+
   constructor(
     private operadorService: OperadorService,
     private location:Location,
@@ -66,7 +81,7 @@ export class AdminComponent implements OnInit {
 
     const data = {
       ci: this.form.value.ci,
-      razon_social: this.form.value.ci,
+      razon_social: this.form.value.razon_social,
       domicilio: this.form.value.domicilio,
       telefono: this.form.value.telefono,
       email: this.form.value.email,
@@ -94,9 +109,10 @@ export class AdminComponent implements OnInit {
   btnModificar() {
     if (this.form.valid) {
       console.log(this.form.value);
+      this.getOperador(this.form.value.ci)
       const data = {
         ci: this.form.value.ci,
-        razon_social: this.form.value.ci,
+        razon_social: this.form.value.razon_social,
         domicilio: this.form.value.domicilio,
         telefono: this.form.value.telefono,
         email: this.form.value.email,
@@ -107,8 +123,11 @@ export class AdminComponent implements OnInit {
         password: this.form.value.password
       }
 
+      this.message = '';
+
       this.operadorService.update(data.ci, data).subscribe(response => {
-          console.log(response);
+        console.log(response);
+        this.message = response.message ? response.message : 'El operador fue actualizado';
         },
         error => {
           console.log(error);
@@ -122,8 +141,8 @@ export class AdminComponent implements OnInit {
   btnBorrar() {
     if (this.form.valid) {
       console.log(this.form.value);
-
-      this.operadorService.delete(this.form.value.ci).subscribe(response => {
+      this.getOperador(this.form.value.ci)
+      this.operadorService.delete(this.operador.ci).subscribe(response => {
           console.log(response);
         },
         error => {
@@ -134,6 +153,18 @@ export class AdminComponent implements OnInit {
       this.form.markAllAsTouched();
 
     }
+  }
+
+  getOperador(ci: string){
+    this.operadorService.get(ci)
+      .subscribe(
+        data => {
+          this.operador = data;
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
   }
 }
 
