@@ -29,8 +29,6 @@ export class RegisterComponent implements OnInit {
   count = 0;
   auxFile: any;
 
-  auxAnimal: any;
-
   date: Date = new Date();
 
   operadores: Operador[] = [];
@@ -38,8 +36,6 @@ export class RegisterComponent implements OnInit {
   microchip: Microchip = {};
 
   taxonomia: Taxonomia = {};
-
-  operador: Operador = {};
 
   animal: Animal = {};
 
@@ -67,7 +63,6 @@ export class RegisterComponent implements OnInit {
     if (this.form.valid) {
       console.log(this.form.value);
 
-      this.crearAnimal();
 
       const uploadDataReg = new FormData();
       uploadDataReg.append('nro_acta_decomiso', this.form.value.numActa);
@@ -79,16 +74,30 @@ export class RegisterComponent implements OnInit {
       uploadDataReg.append('motivo_recepcion', this.form.value.motivoIngreso);
       uploadDataReg.append('nro_acta_traslado', this.form.value.numAutorizacion);
       uploadDataReg.append('nro_MMAA', this.form.value.numFormMMAA);
-      uploadDataReg.append('id_animal_id', this.auxAnimal.nombreCriollo);
+      uploadDataReg.append('id_animal_id', this.form.value.nombreCriollo);
+
+      uploadDataReg.append('nombre_criollo', this.form.value.nombreCriollo);
+      uploadDataReg.append('nombre_comun', this.form.value.nombreComun);
+      uploadDataReg.append('nombre_propio', this.form.value.nombrePropio);
+      uploadDataReg.append('edad', this.form.value.edad);
+      uploadDataReg.append('procedencia', this.form.value.precedencia);
+      uploadDataReg.append('fecha_recepcion', this.form.value.fechaRecepcion);
+      uploadDataReg.append('sexo', this.form.value.sexo);
+      uploadDataReg.append('estado_salud', this.form.value.estadoSaludes);
+      uploadDataReg.append('detalles_salud', this.form.value.detalleSaludes);
+      uploadDataReg.append('cod_int_id', this.form.value.microchip);
+      uploadDataReg.append('especie_id', this.form.value.taxonomia);
+      uploadDataReg.append('ruta_archivo_id', 'C:\\Users\\hpzbook15\\PycharmProjects\\DJANG-OS\\media\\covers\\' + this.imagen?.name + '\\' + this.imagen?.name)
 
       // @ts-ignore
-      uploadDataReg.append('ci_autorizado_por_id', this.operador.ci);
+      uploadDataReg.append('ci_autorizado_por_id', this.form.value.autorizadoPor);
       // @ts-ignore
-      uploadDataReg.append('ci_recibido_por_id', this.operador.ci);
+      uploadDataReg.append('ci_recibido_por_id', this.form.value.correo);
 
 
 
       this.registroService.create(uploadDataReg).subscribe(data => console.log(data), error => console.log(error))
+
 
     } else {
       this.form.markAllAsTouched();
@@ -175,38 +184,6 @@ export class RegisterComponent implements OnInit {
     'Bien',
     'Otro'
   ]
-
-
-  crearAnimal(){
-    const uploadDataAnimal = new FormData();
-    uploadDataAnimal.append('nombre_criollo', this.form.value.nombreCriollo);
-    uploadDataAnimal.append('nombre_comun', this.form.value.nombreComun);
-    uploadDataAnimal.append('nombre_propio', this.form.value.nombrePropio);
-    uploadDataAnimal.append('edad', this.form.value.edad);
-    uploadDataAnimal.append('procedencia', this.form.value.precedencia);
-    uploadDataAnimal.append('fecha_recepcion', this.form.value.fechaRecepcion);
-    uploadDataAnimal.append('sexo', this.form.value.sexo);
-    uploadDataAnimal.append('estado_salud', this.form.value.estadoSaludes);
-    uploadDataAnimal.append('detalles_salud', this.form.value.detalleSaludes);
-    uploadDataAnimal.append('cod_int_id', this.form.value.microchip);
-    uploadDataAnimal.append('especie_id', this.form.value.taxonomia);
-    uploadDataAnimal.append('ruta_archivo_id', 'C:\\Users\\hpzbook15\\PycharmProjects\\DJANG-OS\\media\\covers\\' + this.imagen?.name + '\\' + this.imagen?.name)
-
-    this.animalService.create(uploadDataAnimal).subscribe(data => console.log(data), error => console.log(error));
-
-    this.auxAnimal = uploadDataAnimal;
-
-    this.operadorService.findByEmail(this.form.value.correo)
-      .subscribe(
-        data => {
-          this.operadores = data;
-          console.log(data);},
-        error => {
-          console.log(error)
-        })
-    // @ts-ignore
-    this.operador = this.operadores[0];
-  }
 
 
   uploadFile(event:any){
