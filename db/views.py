@@ -70,31 +70,26 @@ def animal(request):
         return JsonResponse(animal_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'POST'])
+@api_view(['POST', 'PUT'])
 def operador(request):
-    """try:
-        operator = Operador.objects.get(pk=pk)
-    except Operador.DoesNotExist:
-        return JsonResponse({'message': 'The operator does not exist'}, status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        operador_serializer = OperadorSerializer(operator)
-        return JsonResponse(operador_serializer)"""
-    if request.method == 'GET':
-        operator = Operador.objects.all()
-
-        nombre = request.GET.get('ci', None)
-        if nombre is not None:
-            operator = operator.filter(ci__icontains=nombre)
-
-        operador_serializer = OperadorSerializer(operator, many=True)
-        return JsonResponse(operador_serializer.data, safe=False)
-    elif request.method == 'POST':
+    if request.method == 'POST':
         operador_data = JSONParser().parse(request)
         operador_serializer = OperadorSerializer(data=operador_data)
         if operador_serializer.is_valid():
             operador_serializer.save()
             return JsonResponse(operador_serializer.data, status=status.HTTP_201_CREATED)
+        return JsonResponse(operador_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'PUT':
+        operator = Operador.objects.all()
+        operador_data = JSONParser().parse(request)
+        ci = request.GET.get('ci', None)
+        if ci is not None:
+            operator = operator.filter(ci__icontains=ci)
+        operador_serializer = OperadorSerializer(operator, data=operador_data)
+        if operador_serializer.is_valid():
+            operador_serializer.save()
+            return JsonResponse(operador_serializer.data)
         return JsonResponse(operador_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -124,3 +119,25 @@ def archivo(request):
             archivo_serializer.save()
             return JsonResponse(archivo_serializer.data, status=status.HTTP_201_CREATED)
         return JsonResponse(archivo_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def operador_detail(request, pk):
+    try:
+        operador =  Operador.objects.get(pk = pk)
+    except Operador.DoesNotExist:
+        return JsonResponse({'message': 'El operador no existe'}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        operador_serializer = OperadorSerializer(operador)
+        return JsonResponse(operador_serializer.data)
+    elif request.method == 'PUT':
+        operador_data = JSONParser().parse(request)
+        operador_serializer = OperadorSerializer(operador, data=operador_data)
+        if operador_serializer.is_valid():
+            operador_serializer.save()
+            return JsonResponse(operador_serializer.data)
+        return JsonResponse(operador_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        operador.delete()
+        return JsonResponse({'message': 'El operador fue eliminado correctamente!'}, status=status.HTTP_204_NO_CONTENT)

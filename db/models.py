@@ -1,5 +1,7 @@
 from django.db import models
 
+def upload_path(instance, filename):
+    return '/'.join(['covers', str(instance.nombre), filename])
 
 class Taxonomia(models.Model):
     especie = models.CharField(max_length=255, help_text="Especie del animal", primary_key=True)
@@ -15,6 +17,7 @@ class Archivo(models.Model):
     nombre = models.CharField(max_length=255, help_text="Nombre del archivo")
     creado = models.DateField(help_text="Fecha de cracion del archivo")
     tipo = models.CharField(max_length=8, help_text="Extension del archivo para saber su tipo")
+    file = models.FileField(blank=True, null=True, upload_to=upload_path)
 
 
 class Operador(models.Model):
