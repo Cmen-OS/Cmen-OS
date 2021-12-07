@@ -81,6 +81,7 @@ export class RegisterComponent implements OnInit {
       uploadDataReg.append('nro_MMAA', this.form.value.numFormMMAA);
       uploadDataReg.append('id_animal_id', this.auxAnimal.nombreCriollo);
 
+      // @ts-ignore
       uploadDataReg.append('ci_autorizado_por_id', this.operador.ci);
       // @ts-ignore
       uploadDataReg.append('ci_recibido_por_id', this.operador.ci);
@@ -113,6 +114,7 @@ export class RegisterComponent implements OnInit {
       domicilio: ['', Validators.required],
       correo: ['', Validators.required],
       recibidoPor: ['', Validators.required],
+      autorizadoPor: ['', Validators.required],
 
       estadoSaludes: ['', Validators.required],
       detalleSaludes: ['', Validators.required],
