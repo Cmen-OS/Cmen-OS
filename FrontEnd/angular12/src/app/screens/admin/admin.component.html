@@ -30,17 +30,10 @@
         <input class="box" formControlName="domicilio"/>
       </div>
 
-      <div class="container">
-        <div class="texts">
-          <div class="name">Domicilio</div>
-          <strong class="error" *ngIf="isBoxValid('domicilio')">Este campo es requerido</strong>
-        </div>
-        <input class="box" formControlName="domicilio"/>
-      </div>
 
       <div class="container">
         <div class="texts">
-          <div class="name">Domicilio</div>
+          <div class="name">Telefono</div>
           <strong class="error" *ngIf="isBoxValid('telefono')">Este campo es requerido</strong>
         </div>
         <input class="box" type="tel" formControlName="telefono"/>
@@ -70,6 +63,13 @@
         <input class="box" type="text" formControlName="apellido"/>
       </div>
 
+      <div class="container">
+        <div class="texts">
+          <div class="name">Password</div>
+          <strong class="error" *ngIf="isBoxValid('password')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="password" formControlName="password"/>
+      </div>
 
       <div class="container">
         <div class="texts">
@@ -87,13 +87,8 @@
         <input class="box" type="checkbox" formControlName="autorizado"/>
       </div>
 
-      <div class="container">
-        <div class="texts">
-          <div class="name">Password</div>
-          <strong class="error" *ngIf="isBoxValid('password')">Este campo es requerido</strong>
-        </div>
-        <input class="box" type="password" formControlName="password"/>
-      </div>
+
+
 
 
     </div>

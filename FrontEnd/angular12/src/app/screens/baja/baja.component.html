@@ -30,7 +30,7 @@
           <div class="name">Modalidad de funcionamiento</div>
           <strong class="error" *ngIf="isBoxValid('modalidadFun')">Este campo es requerido</strong>
         </div>
-        <select class="box" formControlName="precedencia">
+        <select class="box" formControlName="modalidadFun">
           <option *ngFor="let modalidad of modalidades"
                   [value]="modalidad">
             {{modalidad}}
@@ -194,11 +194,11 @@
 
       </form>
 
-      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Codigo de identificacion: {{ getTextFielValue() }} </h5>
-      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Nombre comun: {{ getTextFielValue() }} </h5>
-      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Especie: {{ getTextFielValue() }} </h5>
-      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Sexo: {{ getTextFielValue() }} </h5>
-      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Edad: {{ getTextFielValue() }} </h5>
+      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Codigo de identificacion: {{ getTextFielValueID() }} </h5>
+      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Nombre comun: {{ getTextFielValueNombreComun() }} </h5>
+      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Especie: {{ getTextFielValueEspecie() }} </h5>
+      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Sexo: {{ getTextFielValueSexo() }} </h5>
+      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Edad: {{ getTextFielValueEdad() }} </h5>
 
       <p class="containerRight" [ngStyle]="showFieldText()"  >
 
@@ -213,22 +213,17 @@
         <div class="texts">
           <div class="name"> Informe forense </div>
         </div>
-        <input class="box" type="file" formControlName="informeForense"/>
+        <input (change)="uploadFileForense($event)" class="box" type="file" formControlName="informeForense"/>
       </div>
 
       <div class="containerRight">
         <div class="texts">
           <div class="name"> Informe de laboratorio </div>
         </div>
-        <input class="box" type="file" formControlName="informeLab"/>
+        <input (change)="uploadFilLaboratorioe($event)" class="box" type="file" formControlName="informeLab"/>
       </div>
 
-      <div class="containerRight">
-        <div class="texts">
-          <div class="name"> Otro </div>
-        </div>
-        <input class="box" type="file" formControlName="otro"/>
-      </div>
+
 
       <p class="containerRight">
         <button class="buttonSubmit" type="submit">Enviar</button>

@@ -7,11 +7,11 @@ const baseUrl = 'http://localhost:8080'
 @Injectable({
   providedIn: 'root'
 })
-export class RegistroService {
+export class BajaService {
 
   constructor(private http: HttpClient) { }
 
   create(data: any): Observable<any> {
-    return this.http.post(`${baseUrl}/registro`,data)
+    return this.http.post(`${baseUrl}/baja`,data)
   }
 }

@@ -165,7 +165,14 @@
         <input class="box" type="text" formControlName="recibidoPor"/>
 
       </div>
+      <div class="container">
+        <div class="texts">
+          <div class="name">Autorizado por por</div>
+          <strong class="error" *ngIf="isBoxValid('autorizadoPor')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="autorizadoPor"/>
 
+      </div>
       <div class="container">
         <div class="texts">
           <div class="name"> Estado general de salud</div>
@@ -234,7 +241,7 @@
           <div class="name">Edad</div>
           <strong class="error" *ngIf="isBoxValid('edad')">Este campo es requerido</strong>
         </div>
-        <select class="box" formControlName="sexo">
+        <select class="box" formControlName="edad">
           <option *ngFor="let edad of edades"
                   [value]="edad">
             {{edad}}

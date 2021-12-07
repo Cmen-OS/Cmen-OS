@@ -4,6 +4,7 @@ import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import { RegistroService } from "../../services/registro/registro.service";
 import { AnimalService } from "../../services/animal/animal.service";
 import { OperadorService } from "../../services/operador/operador.service";
+import {ArchivoService} from "../../services/archivo/archivo.service";
 import { Operador} from "../../models/operador/operador.model";
 import { Registro } from "../../models/registro/registro.model";
 import { Animal } from "../../models/animal/animal.model";
@@ -24,38 +25,25 @@ import {Box} from 'src/app/models/box.model';
 })
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
-  imagen:any
+  imagen?: File;
   count = 0;
 
-
-
   date: Date = new Date();
 
-  archivo: Archivo = {};
+  operadores: Operador[] = [];
 
-  microchip: Microchip = {} as Microchip;
-
-  taxonomia: Taxonomia = {};
-
-  operador: Operador = {};
-
-  animal: Animal = {};
-
-
-  date: Date = new Date();
-
-  archivo: Archivo = {};
-
-  microchip: Microchip = {} as Microchip;
+  microchip: Microchip = {};
 
   taxonomia: Taxonomia = {};
-
-  operador: Operador = {};
 
   animal: Animal = {};
 
 
   constructor(
+    private operadorService: OperadorService,
+    private archivoService: ArchivoService,
+    private animalService: AnimalService,
+    private registroService: RegistroService,
     private formBuilder: FormBuilder,
     private data:DataService,
 
@@ -72,43 +60,45 @@ export class RegisterComponent implements OnInit {
 
   save(event: Event) {
     if (this.form.valid) {
-
       console.log(this.form.value);
 
-      const data = {
-        nro_acta_decomiso: this.form.value.numActa,
-        fecha_registro: this.date.getFullYear().toString()+'-'+this.date.getMonth().toString()+'-'+this.date.getDate().toString(),
-        CCFS: this.form.value.ccfs,
-        modalidad_funcionamiento: this.form.value.modFuncionamiento,
-        area: this.form.value.areaIngreso,
-        lugar_exposicion: this.form.value.lugarExp,
-        motivo_recepcion: this.form.value.motivoIngreso,
-        nro_acta_traslado: this.form.value.numAutorizacion,
-        nro_MMAA: this.form.value.numFormMMAA,
-        id_animal_id: this.animal,
-        ci_autorizado_por_id: this.operador,
-        ci_recibido_por_id: this.operador,
-      }
 
-      const animal = {
-        nombre_criollo: this.form.value.nombreCriollo,
-        nombre_comun: this.form.value.nombreComun,
-        nombre_propio: this.form.value.nombrePropio,
-        edad: this.form.value.edadAnimal,
-        procedencia: this.form.value.precedencia,
-        fecha_recepcion: this.form.value.fechaRecepcion,
-        sexo: this.form.value.sex,
-        estado_salud: '',
-        detalles_salud: '',
-        cod_int_id: this.microchip,
-        especie_id: this.taxonomia,
-        ruta_archivo_id: this.archivo
-      };
+      const uploadDataReg = new FormData();
+      uploadDataReg.append('nro_acta_decomiso', this.form.value.numActa);
+      uploadDataReg.append('fecha_registro', this.date.getFullYear().toString()+'-'+this.date.getMonth().toString()+'-'+this.date.getDate().toString());
+      uploadDataReg.append('CCFS', this.form.value.ccfs);
+      uploadDataReg.append('modalidad_funcionamiento', this.form.value.modFuncionamiento);
+      uploadDataReg.append('area', this.form.value.areaIngreso);
+      uploadDataReg.append('lugar_exposicion', this.form.value.lugarExp);
+      uploadDataReg.append('motivo_recepcion', this.form.value.motivoIngreso);
+      uploadDataReg.append('nro_acta_traslado', this.form.value.numAutorizacion);
+      uploadDataReg.append('nro_MMAA', this.form.value.numFormMMAA);
+      uploadDataReg.append('id_animal_id', this.form.value.nombreCriollo);
+
+      uploadDataReg.append('nombre_criollo', this.form.value.nombreCriollo);
+      uploadDataReg.append('nombre_comun', this.form.value.nombreComun);
+      uploadDataReg.append('nombre_propio', this.form.value.nombrePropio);
+      uploadDataReg.append('edad', this.form.value.edad);
+      uploadDataReg.append('procedencia', this.form.value.precedencia);
+      uploadDataReg.append('fecha_recepcion', this.form.value.fechaRecepcion);
+      uploadDataReg.append('sexo', this.form.value.sexo);
+      uploadDataReg.append('estado_salud', this.form.value.estadoSaludes);
+      uploadDataReg.append('detalles_salud', this.form.value.detalleSaludes);
+      uploadDataReg.append('cod_int_id', this.form.value.microchip);
+      uploadDataReg.append('especie_id', this.form.value.taxonomia);
+      uploadDataReg.append('ruta_archivo_id', 'C:\\Users\\hpzbook15\\PycharmProjects\\DJANG-OS\\media\\covers\\' + this.imagen?.name + '\\' + this.imagen?.name)
+
+      // @ts-ignore
+      uploadDataReg.append('ci_autorizado_por_id', this.form.value.autorizadoPor);
+      // @ts-ignore
+      uploadDataReg.append('ci_recibido_por_id', this.form.value.correo);
+
+
+
+      this.registroService.create(uploadDataReg).subscribe(data => console.log(data), error => console.log(error))
+
 
     } else {
-
-      console.log(this.count)
-
       this.form.markAllAsTouched();
     }
   }
@@ -132,14 +122,15 @@ export class RegisterComponent implements OnInit {
       domicilio: ['', Validators.required],
       correo: ['', Validators.required],
       recibidoPor: ['', Validators.required],
-      ci: ['', Validators.required],
+      autorizadoPor: ['', Validators.required],
+
       estadoSaludes: ['', Validators.required],
       detalleSaludes: ['', Validators.required],
 
 
 
 
-      image: ['', Validators.required],
+      image: [''],
       nombrePropio: ['', Validators.required],
       fechaRecepcion: ['', Validators.required],
       sexo: ['', Validators.required],
@@ -196,8 +187,20 @@ export class RegisterComponent implements OnInit {
 
   uploadFile(event:any){
     //todo subir a la base de datos
-    const file = event.target.file.path
-    this.imagen = file
+    this.imagen = event.target.files[0]
+    const uploadDataFile = new FormData();
+    uploadDataFile.append('ruta', 'C:\\Users\\hpzbook15\\PycharmProjects\\DJANG-OS\\media\\covers\\' + this.imagen?.name + '\\' + this.imagen?.name)
+    // @ts-ignore
+    uploadDataFile.append('peso', this.imagen?.size.toString())
+    // @ts-ignore
+    uploadDataFile.append('nombre', this.imagen?.name)
+    uploadDataFile.append('creado', this.date.getFullYear().toString()+'-'+this.date.getMonth().toString()+'-'+this.date.getDate().toString())
+    // @ts-ignore
+    uploadDataFile.append('tipo', this.imagen?.name[-4])
+    // @ts-ignore
+    uploadDataFile.append('file', this.imagen)
+    this.archivoService.create(uploadDataFile).subscribe(data => console.log(data), error => console.log(error));
+
   }
   isBoxValid(box: String): Boolean {
     // @ts-ignore

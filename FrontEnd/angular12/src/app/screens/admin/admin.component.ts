@@ -13,6 +13,11 @@ import { Location } from '@angular/common';
 export class AdminComponent implements OnInit {
   form!: FormGroup;
 
+
+  root: string = '';
+  autorizado: string = '';
+  subido: boolean = false;
+
   operador: Operador = {
     ci: '',
     razon_social: '',
@@ -24,11 +29,9 @@ export class AdminComponent implements OnInit {
     autorizado: false,
     apellido: '',
     password: '',
-  };
+  }
 
-  root: string = '';
-  autorizado: string = '';
-  subido: boolean = false;
+  message = '';
 
   constructor(
     private operadorService: OperadorService,
@@ -78,7 +81,7 @@ export class AdminComponent implements OnInit {
 
     const data = {
       ci: this.form.value.ci,
-      razon_social: this.form.value.ci,
+      razon_social: this.form.value.razon_social,
       domicilio: this.form.value.domicilio,
       telefono: this.form.value.telefono,
       email: this.form.value.email,
@@ -104,11 +107,64 @@ export class AdminComponent implements OnInit {
   }
 
   btnModificar() {
-    //todo
+    if (this.form.valid) {
+      console.log(this.form.value);
+      this.getOperador(this.form.value.ci)
+      const data = {
+        ci: this.form.value.ci,
+        razon_social: this.form.value.razon_social,
+        domicilio: this.form.value.domicilio,
+        telefono: this.form.value.telefono,
+        email: this.form.value.email,
+        nombre: this.form.value.nombre,
+        root: this.form.value.root,
+        autorizado: this.form.value.autorizado,
+        apellido: this.form.value.apellido,
+        password: this.form.value.password
+      }
+
+      this.message = '';
+
+      this.operadorService.update(data.ci, data).subscribe(response => {
+        console.log(response);
+        this.message = response.message ? response.message : 'El operador fue actualizado';
+        },
+        error => {
+          console.log(error);
+        });
+    } else {
+      this.form.markAllAsTouched();
+
+    }
   }
 
   btnBorrar() {
-    //todo
+    if (this.form.valid) {
+      console.log(this.form.value);
+      this.getOperador(this.form.value.ci)
+      this.operadorService.delete(this.operador.ci).subscribe(response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        });
+
+    } else {
+      this.form.markAllAsTouched();
+
+    }
+  }
+
+  getOperador(ci: string){
+    this.operadorService.get(ci)
+      .subscribe(
+        data => {
+          this.operador = data;
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
   }
 }
 
