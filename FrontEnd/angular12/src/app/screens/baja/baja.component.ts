@@ -188,7 +188,7 @@ export class BajaComponent implements OnInit {
     if (this.seachForm.valid) {//este es donde busca
       console.log(this.seachForm.value);
       this.showFieldsText = true
-      if (this.seachForm.value.selectBox == 'codIdentificacion'){
+      if (this.seachForm.value.selectBox == 'Codigo de identificacion'){
         this.animalService.findBy('id', this.seachForm.value.selectedBox).subscribe(
           data => {
             this.animal = data;
@@ -201,7 +201,7 @@ export class BajaComponent implements OnInit {
           error => {
             console.log(error)
           })
-      }else if(this.seachForm.value.selectBox == 'nombreComun'){
+      }else if(this.seachForm.value.selectBox == 'Nombre comun'){
         this.animalService.findBy('nombre_comun', this.seachForm.value.selectedBox).subscribe(
           data => {
             this.animal = data;
@@ -214,8 +214,36 @@ export class BajaComponent implements OnInit {
           error => {
             console.log(error)
           })
-      }else {
-        this.animalService.findBy(this.seachForm.value.selectBox, this.seachForm.value.selectedBox).subscribe(
+      }else if(this.seachForm.value.selectBox == 'Especie') {
+        this.animalService.findBy('especie', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animal = data;
+            this.seachForm.value.codIdentificacion = this.animal[0].id;
+            this.seachForm.value.especie = this.animal[0].especie_id;
+            this.seachForm.value.nombreComun = this.animal[0].nombre_comun;
+            this.seachForm.value.sexo = this.animal[0].sexo;
+            this.seachForm.value.edad = this.animal[0].edad;
+            console.log(data);
+          },
+          error => {
+            console.log(error)
+          })
+      }else if(this.seachForm.value.selectBox == 'Sexo') {
+        this.animalService.findBy('sexo', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animal = data;
+            this.seachForm.value.codIdentificacion = this.animal[0].id;
+            this.seachForm.value.especie = this.animal[0].especie_id;
+            this.seachForm.value.nombreComun = this.animal[0].nombre_comun;
+            this.seachForm.value.sexo = this.animal[0].sexo;
+            this.seachForm.value.edad = this.animal[0].edad;
+            console.log(data);
+          },
+          error => {
+            console.log(error)
+          })
+      }else if(this.seachForm.value.selectBox == 'Edad') {
+        this.animalService.findBy('edad', this.seachForm.value.selectedBox).subscribe(
           data => {
             this.animal = data;
             this.seachForm.value.codIdentificacion = this.animal[0].id;
