@@ -198,10 +198,17 @@
       </div>
 
 
-
-      <p class="container">
+      <div class="container">
+        <div class="texts" [ngStyle]="showVerifiedText()">
+          <div class="name" [ngStyle]="showVerifiedText()"></div>
+          <strong class="error" *ngIf="isVerified(); else elseBlock">Verificado</strong>
+          <ng-template class="error" #elseBlock>No verificado</ng-template>
+        </div>
         <button (click)="BtnVerificar()" class="buttonSubmit" type="button">Verificar</button>
-      </p>
+      </div>
+
+
+
 
     </div>
     <div class="wrapperRigth">

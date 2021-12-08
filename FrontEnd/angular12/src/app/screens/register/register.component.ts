@@ -28,6 +28,7 @@ export class RegisterComponent implements OnInit {
   imagen?: File;
   count = 0;
   verificado = false
+  showVerifyText = false
 
   aux?: Operador[];
 
@@ -236,5 +237,20 @@ export class RegisterComponent implements OnInit {
     }else{
       this.verificado = false
     }
+    this.showVerifyText == true
+  }
+
+  isVerified() {
+    return this.verificado
+  }
+
+  showVerifiedText(){
+    if (this.showVerifyText == false){
+      return {'display' : 'none'};
+
+    }else {
+      return {'display' : ''};
+    }
+
   }
 }
