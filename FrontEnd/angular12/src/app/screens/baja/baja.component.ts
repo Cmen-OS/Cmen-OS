@@ -52,11 +52,11 @@ export class BajaComponent implements OnInit {
       uploadDataReg.append('CCFS', this.form.value.ccfs);
       uploadDataReg.append('fecha', this.date.getFullYear().toString()+'-'+this.date.getMonth().toString()+'-'+this.date.getDate().toString());
       uploadDataReg.append('fecha_deceso', this.form.value.fechaDeceso);
-      uploadDataReg.append('modalidad_funcionamiento', this.form.value.modFuncionamiento);
+      uploadDataReg.append('modalidad_funcionamiento', this.form.value.modalidadFun);
       uploadDataReg.append('nombre_guarda_fauna', this.form.value.nombreGuarda);
       uploadDataReg.append('nombre_veterinario', this.form.value.nombreVeterinario);
       uploadDataReg.append('nombre_director', this.form.value.nombreDirector);
-      uploadDataReg.append('nro_MMAA', this.form.value.numFormMMAA);
+      uploadDataReg.append('nro_MMAA', this.form.value.numMMAA);
       uploadDataReg.append('motivo_salida', this.form.value.motivoSalida);
       uploadDataReg.append('causa_deceso', this.form.value.causasDeceso);
       uploadDataReg.append('lesiones', this.form.value.lesionesEncontradas);
@@ -188,19 +188,47 @@ export class BajaComponent implements OnInit {
     if (this.seachForm.valid) {//este es donde busca
       console.log(this.seachForm.value);
       this.showFieldsText = true
-
-      this.animalService.findBy(this.seachForm.value.selectedBox).subscribe(
-        data => {
-          this.animal = data;
-          this.seachForm.value.codIdentificacion = this.animal[0].id;
-          this.seachForm.value.especie = this.animal[0].especie_id;
-          this.seachForm.value.nombreComun = this.animal[0].nombre_comun;
-          this.seachForm.value.sexo = this.animal[0].sexo;
-          this.seachForm.value.edad = this.animal[0].edad;
-          console.log(data);},
-        error => {
-          console.log(error)
-        })
+      if (this.seachForm.value.selectBox == 'codIdentificacion'){
+        this.animalService.findBy('id', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animal = data;
+            this.seachForm.value.codIdentificacion = this.animal[0].id;
+            this.seachForm.value.especie = this.animal[0].especie_id;
+            this.seachForm.value.nombreComun = this.animal[0].nombre_comun;
+            this.seachForm.value.sexo = this.animal[0].sexo;
+            this.seachForm.value.edad = this.animal[0].edad;
+            console.log(data);},
+          error => {
+            console.log(error)
+          })
+      }else if(this.seachForm.value.selectBox == 'nombreComun'){
+        this.animalService.findBy('nombre_comun', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animal = data;
+            this.seachForm.value.codIdentificacion = this.animal[0].id;
+            this.seachForm.value.especie = this.animal[0].especie_id;
+            this.seachForm.value.nombreComun = this.animal[0].nombre_comun;
+            this.seachForm.value.sexo = this.animal[0].sexo;
+            this.seachForm.value.edad = this.animal[0].edad;
+            console.log(data);},
+          error => {
+            console.log(error)
+          })
+      }else {
+        this.animalService.findBy(this.seachForm.value.selectBox, this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animal = data;
+            this.seachForm.value.codIdentificacion = this.animal[0].id;
+            this.seachForm.value.especie = this.animal[0].especie_id;
+            this.seachForm.value.nombreComun = this.animal[0].nombre_comun;
+            this.seachForm.value.sexo = this.animal[0].sexo;
+            this.seachForm.value.edad = this.animal[0].edad;
+            console.log(data);
+          },
+          error => {
+            console.log(error)
+          })
+      }
 
     } else {
       this.seachForm.markAllAsTouched();

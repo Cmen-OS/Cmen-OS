@@ -17,7 +17,7 @@ export class AnimalService {
     return this.http.post(`${baseUrl}/animal`,data)
   }
 
-  findBy(selected: any): Observable<Animal[]> {
-    return this.http.get<Animal[]>(`${baseUrl}/animal?nombre_comun=${selected}`);
+  findBy(select: any, selected: any): Observable<Animal[]> {
+    return this.http.get<Animal[]>(`${baseUrl}/animal?${select}=${selected}`);
   }
 }
