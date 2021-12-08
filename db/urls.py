@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^animal$', views.animal),
     url(r'^operador$', views.operador),
     url(r'^archivo$', views.archivo),
-    url(r'^operador/(?P<pk>[0-9]+)$', views.operador_detail)
+    url(r'^operador/(?P<pk>[0-9]+)$', views.operador_detail),
+    url(r'^baja$', views.baja),
 ]

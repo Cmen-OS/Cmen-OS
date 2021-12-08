@@ -57,6 +57,7 @@ class Animal(models.Model):
     sexo = models.CharField(max_length=20)
     estado_salud = models.CharField(max_length=255)
     detalles_salud = models.TextField()
+    vivo = models.BooleanField()
 
 
 class Registro(models.Model):
@@ -80,7 +81,8 @@ class Baja(models.Model):
     CCFS = models.CharField(max_length=255)
     modalidad_funcionamiento = models.CharField(max_length=255)
     ci = models.ForeignKey(Operador, on_delete=models.SET_NULL, null=True, blank=True)
-    direccion_archivo = models.ForeignKey(Archivo, on_delete=models.SET_NULL, null=True, blank=True)
+    direccion_archivo = models.ForeignKey(Archivo, on_delete=models.SET_NULL, null=True, blank=True, related_name="forense")
+    direccion_archivo_laboratorio = models.ForeignKey(Archivo, on_delete=models.SET_NULL, null=True, blank=True, related_name="laboratorio")
     nombre_guarda_fauna = models.CharField(max_length=255)
     nombre_veterinario = models.CharField(max_length=255)
     nombre_director = models.CharField(max_length=255)

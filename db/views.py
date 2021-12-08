@@ -4,7 +4,7 @@ from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework import status
 
-from db.models import Animal
+from db.models import Animal, Baja
 from db.models import Operador
 from db.models import Archivo
 from db.models import Registro
@@ -74,8 +74,7 @@ def registro(request):
                                   nombre_propio=nombre_propio,
                                   edad=edad, procedencia=procedencia, fecha_recepcion=fecha_recepcion, sexo=sexo,
                                   estado_salud=estado_salud, detalles_salud=detalles_salud, cod_int_id=None,
-                                  especie_id=None,
-                                  ruta_archivo=aux)
+                                  especie_id=None, ruta_archivo=aux, vivo=True)
 
         aux2 = Operador.objects.get(email__icontains=ci_recibido_por_id)
         aux3 = Operador.objects.get(nombre=ci_autorizado_por_id)
@@ -93,9 +92,25 @@ def animal(request):
     if request.method == 'GET':
         animals = Animal.objects.all()
 
-        nombre = request.GET.get('nombre_propio', None)
+        nombre = request.GET.get('nombre_comun', None)
         if nombre is not None:
-            animals = animals.filter(nombre_propio__icontains=nombre)
+            animals = animals.filter(nombre_comun__icontains=nombre)
+        else:
+            nombre = request.GET.get('id', None)
+            if nombre is not None:
+                animals = animals.filter(id=nombre)
+            else:
+                nombre = request.GET.get('especie', None)
+                if nombre is not None:
+                    animals = animals.filter(especie=nombre)
+                else:
+                    nombre = request.GET.get('edad', None)
+                    if nombre is not None:
+                        animals = animals.filter(edad__icontains=nombre)
+                    else:
+                        nombre = request.GET.get('sexo', None)
+                        if nombre is not None:
+                            animals = animals.filter(sexo__icontains=nombre)
 
         animal_serializer = AnimalSerializer(animals, many=True)
         return JsonResponse(animal_serializer.data, safe=False)
@@ -119,8 +134,7 @@ def animal(request):
                                   nombre_propio=nombre_propio,
                                   edad=edad, procedencia=procedencia, fecha_recepcion=fecha_recepcion, sexo=sexo,
                                   estado_salud=estado_salud, detalles_salud=detalles_salud, cod_int_id=None,
-                                  especie_id=None,
-                                  ruta_archivo=aux)
+                                  especie_id=None, ruta_archivo=aux, vivo=True)
         return JsonResponse(data=b, status=status.HTTP_201_CREATED)
 
 
@@ -199,3 +213,42 @@ def operador_detail(request, pk):
     elif request.method == 'DELETE':
         operador.delete()
         return JsonResponse({'message': 'El operador fue eliminado correctamente!'}, status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['POST'])
+def baja(request):
+    if request.method == 'POST':
+        CCFS = request.data['CCFS']
+        fecha = request.data['fecha']
+        fecha_deceso = request.data['fecha_deceso']
+        modalidad_funcionamiento = request.data['modalidad_funcionamiento']
+        nombre_guarda_fauna = request.data['nombre_guarda_fauna']
+        nombre_veterinario = request.data['nombre_veterinario']
+        nombre_director = request.data['nombre_director']
+        nro_MMAA = request.data['nro_MMAA']
+        motivo_salida = request.data['motivo_salida']
+        causa_deceso = request.data['causa_deceso']
+        lesiones = request.data['lesiones']
+        diagnostico_deceso = request.data['diagnostico_deceso']
+
+        ci = request.data['ci']
+        direccion_archivo = request.data['direccion_archivo']
+        direccion_archivo_laboratorio = request.data['direccion_archivo_laboratorio']
+        id_animal_id = request.data['id_animal_id']
+
+        aux = Archivo.objects.get(ruta=direccion_archivo)
+        aux2 = Archivo.objects.get(ruta=direccion_archivo_laboratorio)
+        Animal.objects.filter(id=id_animal_id).update(vivo=False)
+        aux4 = Operador.objects.get(ci=ci)
+
+        aux3 = Animal.objects.get(id=id_animal_id)
+
+        c = Baja.objects.create(CCFS=CCFS, fecha=fecha, fecha_deceso=fecha_deceso,
+                                modalidad_funcionamiento=modalidad_funcionamiento,
+                                nombre_guarda_fauna=nombre_guarda_fauna, nombre_veterinario=nombre_veterinario,
+                                nombre_director=nombre_director, nro_MMAA=nro_MMAA, motivo_salida=motivo_salida,
+                                causa_deceso=causa_deceso, lesiones=lesiones, diagnostico_deceso=diagnostico_deceso,
+                                ci=aux4, direccion_archivo=aux, direccion_archivo_laboratorio=aux2,
+                                id_animal=aux3)
+
+        return JsonResponse(data=c, status=status.HTTP_201_CREATED)
