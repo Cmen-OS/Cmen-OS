@@ -234,10 +234,16 @@ export class RegisterComponent implements OnInit {
     // @ts-ignore
     if (this.aux[0].autorizado) {
       this.verificado = true
+      this.showVerifyText == true
+
     }else{
       this.verificado = false
+      this.showVerifyText == true
+
     }
-    this.showVerifyText == true
+    console.log(this.showVerifyText)
+    console.log(this.verificado)
+
   }
 
   isVerified() {

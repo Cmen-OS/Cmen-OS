@@ -200,7 +200,7 @@
 
       <div class="container">
         <div class="texts" [ngStyle]="showVerifiedText()">
-          <div class="name" [ngStyle]="showVerifiedText()"></div>
+          <div class="name" ></div>
           <strong class="error" *ngIf="isVerified(); else elseBlock">Verificado</strong>
           <ng-template class="error" #elseBlock>No verificado</ng-template>
         </div>
