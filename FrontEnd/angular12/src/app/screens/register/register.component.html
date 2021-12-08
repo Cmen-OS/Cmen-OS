@@ -165,14 +165,8 @@
         <input class="box" type="text" formControlName="recibidoPor"/>
 
       </div>
-      <div class="container">
-        <div class="texts">
-          <div class="name">Autorizado por por</div>
-          <strong class="error" *ngIf="isBoxValid('autorizadoPor')">Este campo es requerido</strong>
-        </div>
-        <input class="box" type="text" formControlName="autorizadoPor"/>
 
-      </div>
+
       <div class="container">
         <div class="texts">
           <div class="name"> Estado general de salud</div>
@@ -195,6 +189,19 @@
 
       </div>
 
+      <div class="container">
+        <div class="texts">
+          <div class="name">Autorizado por(mail)</div>
+          <strong class="error" *ngIf="isBoxValid('autorizadoPor')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="email" formControlName="autorizadoPor"/>
+      </div>
+
+
+
+      <p class="container">
+        <button (click)="BtnVerificar()" class="buttonSubmit" type="button">Verificar</button>
+      </p>
 
     </div>
     <div class="wrapperRigth">

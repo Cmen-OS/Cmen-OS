@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit {
   form!: FormGroup;
   imagen?: File;
   count = 0;
+  verificado = false
 
   date: Date = new Date();
 
@@ -59,7 +60,7 @@ export class RegisterComponent implements OnInit {
   }
 
   save(event: Event) {
-    if (this.form.valid) {
+    if (this.form.valid && this.verificado) {
       console.log(this.form.value);
 
 
@@ -217,4 +218,8 @@ export class RegisterComponent implements OnInit {
     console.log(this.count)
   }
 
+  BtnVerificar() {
+    //Aqui va lo de verificar
+    this.verificado = true//poner esto si se verifico
+  }
 }
