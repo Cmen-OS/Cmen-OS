@@ -29,6 +29,8 @@ export class RegisterComponent implements OnInit {
   count = 0;
   verificado = false
 
+  aux?: Operador[];
+
   date: Date = new Date();
 
   operadores: Operador[] = [];
@@ -219,7 +221,20 @@ export class RegisterComponent implements OnInit {
   }
 
   BtnVerificar() {
-    //Aqui va lo de verificar
-    this.verificado = true//poner esto si se verifico
+    this.operadorService.findByEmail(this.form.value.autorizadoPor)
+      .subscribe(
+        data => {
+          this.aux = data;
+          console.log(data);},
+        error => {
+          console.log(error)
+        })
+
+    // @ts-ignore
+    if (this.aux[0].autorizado) {
+      this.verificado = true
+    }else{
+      this.verificado = false
+    }
   }
 }
