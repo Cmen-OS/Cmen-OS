@@ -1,1 +1,73 @@
-<p>taxonomia works!</p>
+<h1 style="color:#E7DBDBFF;   padding-left: 20px;">Gestion de clasificacion taxonomica</h1>
+
+
+
+
+<form [formGroup]="form" (ngSubmit)="save($event)">
+  <div class="wrapper">
+    <div class="wrapperLeft">
+
+      <h2 class="subText">Seleccione su clasificacion</h2>
+      <h2 class="subText">---------------------------</h2>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Orden</div>
+          <strong class="error" *ngIf="isBoxValid('orden')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="orden"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Familia</div>
+          <strong class="error" *ngIf="isBoxValid('familia')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="familia"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Genero</div>
+          <strong class="error" *ngIf="isBoxValid('genero')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="genero"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Especie</div>
+          <strong class="error" *ngIf="isBoxValid('especie')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="especie"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Subespecie</div>
+          <strong class="error" *ngIf="isBoxValid('subespecie')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="subespecie"/>
+      </div>
+
+    </div>
+
+
+    <div class="wrapperRigth">
+
+
+    <p class="containerRight">
+        <button class="buttonSubmit" type="submit">Agregar</button>
+      </p>
+
+      <p class="containerRight">
+        <button (click)="modificar()" class="buttonSubmit" type="button">Modificar</button>
+      </p>
+
+      <p class="containerRight">
+        <button (click)="baja()" class="buttonSubmit" type="button">Dar de baja</button>
+      </p>
+
+    </div>
+  </div>
+</form>
