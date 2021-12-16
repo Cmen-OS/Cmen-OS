@@ -1,1 +1,73 @@
-<p>inventario works!</p>
+<h1 style="color:#E7DBDBFF;   padding-left: 20px;">Reporte gerencial</h1>
+
+<form [formGroup]="form" (ngSubmit)="save($event)">
+
+  <div class="wrapper">
+    <div class="wrapperLeft">
+
+      <h1 class="subText">Datos</h1>
+      <h2 class="subText">----------------------------------------------</h2>
+
+      <div >
+        <h2 class="subText">Saldos</h2>
+        <img [src]="myVar">
+      </div>
+
+      <div >
+        <h2 class="subText">Movimientos</h2>
+        <img [src]="myVar">
+      </div>
+
+      <div >
+        <h2 class="subText">Saldo fecha de inicio</h2>
+        <img [src]="myVar">
+      </div>
+
+      <div >
+        <h2 class="subText">Saldos fecha fin</h2>
+        <img [src]="myVar">
+      </div>
+
+    </div>
+
+    <div class="wrapperRigth">
+
+      <h1 class="subTextRight">Agregue la informacion</h1>
+      <h1 class="subTextRight">-------------</h1>
+
+      <div class="containerRight">
+        <div class="texts">
+          <div class="name">Fecha Fin</div>
+          <strong class="error" *ngIf="isBoxValid('fechaFin')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="fechaFin"/>
+      </div>
+      <div class="containerRight">
+        <div class="texts">
+          <div class="name">FEcha inicio</div>
+          <strong class="error" *ngIf="isBoxValid('fechaInicio')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="fechaInicio"/>
+      </div>
+
+      <div class="containerRight">
+        <div class="texts">
+          <div class="name">Tipo de animal</div>
+          <strong class="error" *ngIf="isBoxValid('tipoAnimal')">Este campo es requerido</strong>
+        </div>
+        <select class="box" formControlName="tipoAnimal">
+          <option *ngFor="let animal of animales"
+                  [value]="animal">
+            {{animal}}
+          </option>
+        </select>
+      </div>
+
+
+      <p class="containerRight">
+        <button class="buttonSubmit" type="submit">Enviar</button>
+      </p>
+
+    </div>
+  </div>
+</form>
