@@ -8,10 +8,11 @@ from db.models import Animal, Baja
 from db.models import Operador
 from db.models import Archivo
 from db.models import Registro
+from db.models import Taxonomia
+from db.serializers import TaxonomiaSerializer
 from db.serializers import AnimalSerializer
 from db.serializers import OperadorSerializer
 from db.serializers import ArchivoSerializer
-from db.serializers import RegistroSerializer
 from rest_framework.decorators import api_view
 
 
@@ -70,14 +71,16 @@ def registro(request):
 
         aux = Archivo.objects.get(ruta=ruta_archivo_id)
 
+        esp = Taxonomia.objects.get(especie=especie_id)
+
         b = Animal.objects.create(nombre_criollo=nombre_criollo, nombre_comun=nombre_comun,
                                   nombre_propio=nombre_propio,
                                   edad=edad, procedencia=procedencia, fecha_recepcion=fecha_recepcion, sexo=sexo,
                                   estado_salud=estado_salud, detalles_salud=detalles_salud, cod_int_id=None,
-                                  especie_id=None, ruta_archivo=aux, vivo=True)
+                                  especie=esp, ruta_archivo=aux, vivo=True)
 
         aux2 = Operador.objects.get(email__icontains=ci_recibido_por_id)
-        aux3 = Operador.objects.get(nombre=ci_autorizado_por_id)
+        aux3 = Operador.objects.get(email__icontains=ci_autorizado_por_id)
 
         c = Registro.objects.create(nro_acta_decomiso=nro_acta_decomiso, fecha_registro=fecha_registro, CCFS=CCFS,
                                     modalidad_funcionamiento=modalidad_funcionamiento, area=area,
@@ -252,3 +255,36 @@ def baja(request):
                                 id_animal=aux3)
 
         return JsonResponse(data=c, status=status.HTTP_201_CREATED)
+
+
+@api_view(['POST'])
+def taxonomia(request):
+    if request.method == 'POST':
+        taxonomia_data = JSONParser().parse(request)
+        taxonomia_serializer = TaxonomiaSerializer(data=taxonomia_data)
+        if taxonomia_serializer.is_valid():
+            taxonomia_serializer.save()
+            return JsonResponse(taxonomia_serializer.data, status=status.HTTP_201_CREATED)
+        return JsonResponse(taxonomia_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def taxonomia_detail(request, pk):
+    try:
+        taxonomi = Taxonomia.objects.get(pk=pk)
+    except Taxonomia.DoesNotExist:
+        return JsonResponse({'message': 'La taxonomia no existe'}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        taxonomia_serializer = TaxonomiaSerializer(taxonomi)
+        return JsonResponse(taxonomia_serializer.data)
+    elif request.method == 'PUT':
+        taxonomia_data = JSONParser().parse(request)
+        taxonomia_serializer = TaxonomiaSerializer(taxonomi, data=taxonomia_data)
+        if taxonomia_serializer.is_valid():
+            taxonomia_serializer.save()
+            return JsonResponse(taxonomia_serializer.data)
+        return JsonResponse(taxonomia_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        taxonomi.delete()
+        return JsonResponse({'message': 'La taxonomia fue eliminado correctamente!'}, status=status.HTTP_204_NO_CONTENT)

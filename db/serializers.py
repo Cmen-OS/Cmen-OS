@@ -3,6 +3,7 @@ from db.models import Animal
 from db.models import Operador
 from db.models import Registro
 from db.models import Archivo
+from db.models import Taxonomia
 
 
 class AnimalSerializer(serializers.ModelSerializer):
@@ -53,6 +54,17 @@ class OperadorSerializer(serializers.ModelSerializer):
                   'autorizado',
                   'apellido',
                   'password'
+                  )
+
+
+class TaxonomiaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Taxonomia
+        fields = ('especie',
+                  'familia',
+                  'orden',
+                  'genero',
+                  'subespecie'
                   )
 
 
