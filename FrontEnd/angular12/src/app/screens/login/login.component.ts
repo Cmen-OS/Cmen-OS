@@ -55,31 +55,31 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       console.log(this.form.value);//con este te da lo del forms de una
       this.email = this.form.value.user;
-      this.getOperadorByEmail()
+      this.operadorService.findByEmail(this.email)
+        .subscribe(
+          data => {
+            this.operador = data;
+            if (this.operador[0].password == this.form.value.password){
+              // @ts-ignore
+              if (this.operador[0].root){
+
+                localStorage.setItem('user','admin')
+                this.router.navigateByUrl('/admin', { state: { isAdmin: true} });
 
 
-      // @ts-ignore
-      if (this.operador[0].password == this.form.value.password){
-        // @ts-ignore
-        if (this.operador[0].root){
+              }else {
+                localStorage.setItem('user','user')
 
-          localStorage.setItem('user','admin')
-          this.router.navigateByUrl('/admin', { state: { isAdmin: true} });
+                this.router.navigateByUrl('/registro');
+              }
+            }else {
 
-
-        }else {
-          localStorage.setItem('user','user')
-
-          this.router.navigateByUrl('/registro');
-        }
-      }else {
-
-        this.showError = true
-      }
-
-
-
-
+              this.showError = true
+            }
+            console.log(data);},
+          error => {
+            console.log(error)
+          })
 
     } else {
 
@@ -104,14 +104,7 @@ export class LoginComponent implements OnInit {
   }
 
   getOperadorByEmail(): void {
-    this.operadorService.findByEmail(this.email)
-      .subscribe(
-        data => {
-          this.operador = data;
-        console.log(data);},
-        error => {
-          console.log(error)
-        })
+
   }
 
   showFieldText() {
