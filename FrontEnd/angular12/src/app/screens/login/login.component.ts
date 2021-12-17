@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Operador } from "../../models/operador/operador.model";
 import { OperadorService } from "../../services/operador/operador.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import { Router } from '@angular/router';
+
 import {DataService} from "../../data.service";
 import {HeaderComponent} from "../../header/header.component";
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 
 
@@ -31,12 +33,13 @@ export class LoginComponent implements OnInit {
 
 
   constructor(
+    private router: Router,
 
-
+    private  cookieService:CookieService,
     private data:DataService,
     private formBuilder: FormBuilder,
     private operadorService: OperadorService,
-    private router: Router,
+
 
   ) {
     this.buildForm();
@@ -64,15 +67,20 @@ export class LoginComponent implements OnInit {
         if (this.operador[0].root){
 
           localStorage.setItem('user','admin')
+          this.cookieService.set('logged', "admin", 4, "/")
           this.router.navigateByUrl('/admin', { state: { isAdmin: true} });
-
+          console.log("Log as admin")
 
         }else {
           localStorage.setItem('user','user')
+          this.cookieService.set('logged', "user", 4, "/")
 
           this.router.navigateByUrl('/registro');
+          console.log("Log as user")
+
         }
       }else {
+
 
         this.showError = true
       }
@@ -86,6 +94,13 @@ export class LoginComponent implements OnInit {
       // localStorage.setItem('user','admin')
       // console.log(localStorage.getItem('user'))
       // this.router.navigateByUrl('/registro', { state: { isAdmin: true} });
+      //
+      // localStorage.setItem('user','user')
+      // this.cookieService.set('logged', "user", 4, "/")
+      //
+      // this.router.navigateByUrl('/registro');
+      // console.log("Log as " + this.cookieService.get('logged'))
+
 
       this.form.markAllAsTouched();
     }

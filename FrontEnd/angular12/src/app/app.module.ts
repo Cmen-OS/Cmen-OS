@@ -19,6 +19,8 @@ import { MonitoreoComponent } from './screens/monitoreo/monitoreo.component';
 import { SalirComponent } from './screens/salir/salir.component';
 import { LoginComponent } from './screens/login/login.component';
 
+import { CookieService } from 'ngx-cookie-service';
+
 
 
 
@@ -47,7 +49,9 @@ import { LoginComponent } from './screens/login/login.component';
     HttpClientModule,
 
   ],
-  providers: [],
+  providers:
+    [CookieService],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }
