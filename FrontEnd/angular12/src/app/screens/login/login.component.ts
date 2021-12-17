@@ -90,15 +90,17 @@ export class LoginComponent implements OnInit {
 
     } else {
 
-      // localStorage.setItem('user','admin')
-      // console.log(localStorage.getItem('user'))
-      // this.router.navigateByUrl('/registro', { state: { isAdmin: true} });
-      //
-      // localStorage.setItem('user','user')
-      // this.cookieService.set('logged', "user", 4, "/")
-      //
-      // this.router.navigateByUrl('/registro');
-      // console.log("Log as " + this.cookieService.get('logged'))
+      //Descomentar para poder loguearte sin conectar la bd
+
+      /*
+      var temp = "admin"//poner "user" si se quiere ser usuario, si se pone otra cosa s=no dejara
+      localStorage.setItem('user',temp)
+      this.cookieService.set('logged', temp, 4, "/")
+
+      this.router.navigateByUrl('/registro');
+      console.log("Log as " + this.cookieService.get('logged'))
+      */
+
 
 
       this.form.markAllAsTouched();
