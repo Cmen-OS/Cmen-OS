@@ -115,7 +115,7 @@ export class RegisterComponent implements OnInit {
       precedencia: ['', Validators.required],
       numActa: ['', Validators.required],
       modFuncionamiento: [''],
-      codIdentificacion: ['', Validators.required],
+      codIdentificacion: ['', ],
       areaIngreso: ['', Validators.required],
       motivoIngreso: ['', Validators.required],
       numAutorizacion: ['', Validators.required],

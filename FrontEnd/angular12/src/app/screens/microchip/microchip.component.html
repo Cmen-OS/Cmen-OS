@@ -104,10 +104,10 @@
 
       <div class="container">
         <div class="texts">
-          <div class="name">Nombre de encargado</div>
-          <strong class="error" *ngIf="isBoxValid('encargado')">Este campo es requerido</strong>
+          <div class="name">CI de encargado</div>
+          <strong class="error" *ngIf="isBoxValid('ciEncargado')">Este campo es requerido</strong>
         </div>
-        <input class="box" type="text" formControlName="encargado"/>
+        <input class="box" type="num" formControlName="ciEncargado"/>
       </div>
 
 
@@ -120,51 +120,51 @@
 
       <h2 class="subTextRight"> - - - - - - - - - - - - - - - -  </h2>
 
-      <div class="containerRight">
-        <div class="texts">
-          <div class="name">Nombre</div>
-          <strong class="error" *ngIf="isBoxValid('nombre')">Este campo es requerido</strong>
-        </div>
-        <input class="box" type="text" formControlName="nombre"/>
-      </div>
+      <form class="wrapperRigth" [formGroup]="seachForm" (ngSubmit)="onSearch($event)">
 
 
-      <div class="containerRight">
-        <div class="texts">
-          <div class="name">Especie</div>
-          <strong class="error" *ngIf="isBoxValid('especie')">Este campo es requerido</strong>
+        <div class="boxLarge" [ngStyle]="showComboBox()">
+          <div class="texts">
+            <div class="name">Escoger opcion</div>
+            <strong class="error" *ngIf="isBoxSearchValid('selectBox')">Este campo es requerido</strong>
+          </div>
+          <select class="box" formControlName="selectBox">
+            <option *ngFor="let selected of selectBoxes"
+                    [value]="selected">
+              {{selected}}
+            </option>
+          </select>
         </div>
-        <input class="box" type="text" formControlName="especie"/>
-      </div>
 
-      <div class="containerRight">
-        <div class="texts">
-          <div class="name">Nombre cientifico</div>
-          <strong class="error" *ngIf="isBoxValid('nombreCientifico')">Este campo es requerido</strong>
+        <div class="boxLarge" id="SelectedBox" [ngStyle]="showSelectedBox()">
+          <div class="texts">
+            <div class="name">  {{  getFormSearchValue("selectBox") }} </div>
+            <strong class="error" *ngIf="isBoxSearchValid('selectedBox')">Este campo es requerido</strong>
+          </div>
+          <input class="box" type="text" formControlName="selectedBox"/>
         </div>
-        <input class="box" type="text" formControlName="nombreCientifico"/>
-      </div>
 
-      <div class="containerRight">
-        <div class="texts">
-          <div class="name">Edad</div>
-          <strong class="error" *ngIf="isBoxValid('edad')">Este campo es requerido</strong>
-        </div>
-        <input class="box" type="number" formControlName="edad"/>
-      </div>
+        <p class="boxLarge"  [ngStyle]="showSelectedBox()" >
+          <button class="buttonSubmit" type="submit" >Buscar</button>
+        </p>
 
-      <div class="containerRight">
-        <div class="texts">
-          <div class="name">Sexo</div>
-          <strong class="error" *ngIf="isBoxValid('sexo')">Este campo es requerido</strong>
-        </div>
-        <select class="box" formControlName="sexo">
-          <option *ngFor="let sexo of sexos"
-                  [value]="sexo">
-            {{sexo}}
-          </option>
-        </select>
-      </div>
+
+
+
+
+
+      </form>
+
+      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Nombre: {{ getTextFielValueNombre() }} </h5>
+      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Nombre cientifico: {{ getTextFielValueNombreCientifico() }} </h5>
+      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Especie: {{ getTextFielValueEspecie() }} </h5>
+      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Sexo: {{ getTextFielValueSexo() }} </h5>
+      <h5 class="subTextRight" [ngStyle]="showFieldText()"> Edad: {{ getTextFielValueEdad() }} </h5>
+
+      <p class="containerRight" [ngStyle]="showFieldText()"  >
+
+        <button (click)="backToSelect()"  class="buttonSubmit" type="button" >Volver a elegir</button>
+      </p>
 
       <p class="containerRight">
         <button class="buttonSubmit" type="submit">Enviar</button>

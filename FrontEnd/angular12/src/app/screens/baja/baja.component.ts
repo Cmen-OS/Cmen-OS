@@ -7,6 +7,8 @@ import {AnimalService} from "../../services/animal/animal.service";
 import {RegistroService} from "../../services/registro/registro.service";
 import {Animal} from "../../models/animal/animal.model";
 import {BajaService} from "../../services/baja/baja.service";
+import { MatDialog } from '@angular/material/dialog';
+import {ListaAnimalesComponent} from "../../dialog/lista-animales/lista-animales.component";
 
 @Component({
   selector: 'app-baja',
@@ -28,6 +30,7 @@ export class BajaComponent implements OnInit {
 
 
   constructor(
+    public dialogo: MatDialog,
     private operadorService: OperadorService,
     private archivoService: ArchivoService,
     private animalService: AnimalService,
@@ -138,6 +141,43 @@ export class BajaComponent implements OnInit {
     'Edad'
   ]
 
+  animal1 =[
+    "Este es un codigo",
+    "Este es un nombre comun",
+    "Especie",
+    "Sexo",
+    "Edad"
+  ]
+
+  animal2 =[
+    "Este es un codigo2",
+    "Este es un nombre comun",
+    "Especie",
+    "Sexo",
+    "Edad"
+  ]
+
+  listaDialogAnimales = []
+
+
+  openDialog(listaAnm:any) {
+    const dialogRef = this.dialogo.open(ListaAnimalesComponent, {
+      data: listaAnm//aqui se debe poner la lista a mostrar
+    } );
+
+
+    dialogRef.afterClosed().subscribe(res => {
+      // received data from dialog-component
+      this.showFieldsText = true
+      this.seachForm.value.codIdentificacion = res.data[0]
+      this.seachForm.value.especie = res.data[2]
+      this.seachForm.value.nombreComun = res.data[1]
+      this.seachForm.value.sexo =res.data[3]
+      this.seachForm.value.edad = res.data[4]
+
+    });
+  }
+
   showSelectedBox(){
     if (this.getFormSearchValue("selectBox") == ''){
       return {'display' : 'none'};
@@ -188,6 +228,10 @@ export class BajaComponent implements OnInit {
     if (this.seachForm.valid) {//este es donde busca
       console.log(this.seachForm.value);
       this.showFieldsText = true
+      // @ts-ignore
+
+      this.openDialog([this.animal1, this.animal2])//aqui enviar la lista a mostrar
+      /*
       if (this.seachForm.value.selectBox == 'Codigo de identificacion'){
         this.animalService.findBy('id', this.seachForm.value.selectedBox).subscribe(
           data => {
@@ -257,11 +301,13 @@ export class BajaComponent implements OnInit {
             console.log(error)
           })
       }
-
+*/
     } else {
+     // this.openDialog([this.animal2,this.animal1])
       this.seachForm.markAllAsTouched();
     }
   }
+
 
   backToSelect() {
     this.showFieldsText = false;

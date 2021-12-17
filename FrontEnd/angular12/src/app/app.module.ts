@@ -20,7 +20,11 @@ import { SalirComponent } from './screens/salir/salir.component';
 import { LoginComponent } from './screens/login/login.component';
 
 import { CookieService } from 'ngx-cookie-service';
+import { ListaAnimalesComponent } from './dialog/lista-animales/lista-animales.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatDialogModule } from '@angular/material/dialog';
+import { ListaAnimalesMicrochipComponent } from './dialog/lista-animales-microchip/lista-animales-microchip.component';
 
 
 
@@ -39,6 +43,8 @@ import { CookieService } from 'ngx-cookie-service';
     MonitoreoComponent,
     SalirComponent,
     LoginComponent,
+    ListaAnimalesComponent,
+    ListaAnimalesMicrochipComponent,
 
   ],
   imports: [
@@ -47,7 +53,8 @@ import { CookieService } from 'ngx-cookie-service';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers:
     [CookieService],

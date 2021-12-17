@@ -92,14 +92,12 @@ export class LoginComponent implements OnInit {
 
       //Descomentar para poder loguearte sin conectar la bd
 
-      /*
       var temp = "admin"//poner "user" si se quiere ser usuario, si se pone otra cosa s=no dejara
       localStorage.setItem('user',temp)
       this.cookieService.set('logged', temp, 4, "/")
 
       this.router.navigateByUrl('/registro');
       console.log("Log as " + this.cookieService.get('logged'))
-      */
 
 
 
