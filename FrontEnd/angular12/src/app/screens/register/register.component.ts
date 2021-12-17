@@ -89,7 +89,7 @@ export class RegisterComponent implements OnInit {
       uploadDataReg.append('estado_salud', this.form.value.estadoSaludes);
       uploadDataReg.append('detalles_salud', this.form.value.detalleSaludes);
       uploadDataReg.append('cod_int_id', this.form.value.microchip);
-      uploadDataReg.append('especie_id', this.form.value.taxonomia);
+      uploadDataReg.append('especie_id', this.form.value.especie);
       uploadDataReg.append('ruta_archivo_id', 'C:\\Users\\hpzbook15\\PycharmProjects\\DJANG-OS\\media\\covers\\' + this.imagen?.name + '\\' + this.imagen?.name)
 
       // @ts-ignore

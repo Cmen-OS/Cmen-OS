@@ -58,13 +58,13 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       console.log(this.form.value);//con este te da lo del forms de una
       this.email = this.form.value.user;
-      this.getOperadorByEmail()
-
-
-      // @ts-ignore
-      if (this.operador[0].password == this.form.value.password){
-        // @ts-ignore
-        if (this.operador[0].root){
+      this.operadorService.findByEmail(this.email)
+        .subscribe(
+          data => {
+            this.operador = data;
+            if (this.operador[0].password == this.form.value.password){
+              // @ts-ignore
+              if (this.operador[0].root){
 
           localStorage.setItem('user','admin')
           this.cookieService.set('logged', "admin", 4, "/")
@@ -81,13 +81,12 @@ export class LoginComponent implements OnInit {
         }
       }else {
 
-
-        this.showError = true
-      }
-
-
-
-
+              this.showError = true
+            }
+            console.log(data);},
+          error => {
+            console.log(error)
+          })
 
     } else {
 
