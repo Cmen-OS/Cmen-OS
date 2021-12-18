@@ -9,10 +9,12 @@ from db.models import Operador
 from db.models import Archivo
 from db.models import Registro
 from db.models import Taxonomia
+from db.models import Microchip
 from db.serializers import TaxonomiaSerializer
 from db.serializers import AnimalSerializer
 from db.serializers import OperadorSerializer
 from db.serializers import ArchivoSerializer
+from db.serializers import MicrochipSerializer
 from rest_framework.decorators import api_view
 
 
@@ -114,6 +116,14 @@ def animal(request):
                         nombre = request.GET.get('sexo', None)
                         if nombre is not None:
                             animals = animals.filter(sexo__icontains=nombre)
+                        else:
+                            nombre = request.GET.get('nombre_propio', None)
+                            if nombre is not None:
+                                animals = animals.filter(nombre_propio__icontains=nombre)
+                            else:
+                                nombre = request.GET.get('nombre_criollo', None)
+                                if nombre is not None:
+                                    animals = animals.filter(nombre_criollo__icontains=nombre)
 
         animal_serializer = AnimalSerializer(animals, many=True)
         return JsonResponse(animal_serializer.data, safe=False)
@@ -288,3 +298,47 @@ def taxonomia_detail(request, pk):
     elif request.method == 'DELETE':
         taxonomi.delete()
         return JsonResponse({'message': 'La taxonomia fue eliminado correctamente!'}, status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['POST'])
+def microchip(request):
+    if request.method == 'POST':
+
+        nro = request.data['nro']
+        fecha = request.data['fecha']
+        peso = request.data['peso']
+        tamano = request.data['tamano']
+        caracteristicas_fenotipicas = request.data['caracteristicas_fenotipicas']
+        datos_vacunacion = request.data['datos_vacunacion']
+        observaciones = request.data['observaciones']
+        nombre = request.data['nombre']
+
+        encargado = Operador.objects.get(nombre=nombre)
+
+        c = Microchip.objects.create(nro=nro, fecha=fecha, peso=peso, tamano=tamano,
+                                     caracteristicas_fenotipicas=caracteristicas_fenotipicas,
+                                     datos_vacunacion=datos_vacunacion, observaciones=observaciones,
+                                     ci=encargado)
+        return JsonResponse(data=c, status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def animal_detail(request, pk):
+    try:
+        animal = Animal.objects.get(pk=pk)
+    except Animal.DoesNotExist:
+        return JsonResponse({'message': 'El animal no existe'}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        animal_serializer = AnimalSerializer(animal)
+        return JsonResponse(animal_serializer.data)
+    elif request.method == 'PUT':
+        animal_data = JSONParser().parse(request)
+        animal_serializer = AnimalSerializer(animal, data=animal_data)
+        if animal_serializer.is_valid():
+            animal_serializer.save()
+            return JsonResponse(animal_serializer.data)
+        return JsonResponse(animal_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        animal.delete()
+        return JsonResponse({'message': 'El animal fue eliminado correctamente!'}, status=status.HTTP_204_NO_CONTENT)

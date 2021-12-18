@@ -4,12 +4,13 @@ from db.models import Operador
 from db.models import Registro
 from db.models import Archivo
 from db.models import Taxonomia
+from db.models import Microchip
 
 
 class AnimalSerializer(serializers.ModelSerializer):
-    ruta_archivo_id = serializers.RelatedField(source='archivo', read_only=True)
-    cod_int_id = serializers.RelatedField(source='microchip', read_only=True)
-    especie_id = serializers.RelatedField(source='taxonomia', read_only=True)
+    #ruta_archivo_id = serializers.RelatedField(source='archivo', read_only=True)
+    #cod_int_id = serializers.RelatedField(source='microchip', read_only=True)
+    #especie_id = serializers.RelatedField(source='taxonomia', read_only=True)
 
     class Meta:
         model = Animal
@@ -65,6 +66,20 @@ class TaxonomiaSerializer(serializers.ModelSerializer):
                   'orden',
                   'genero',
                   'subespecie'
+                  )
+
+
+class MicrochipSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Microchip
+        fields = ('nro',
+                  'fecha',
+                  'peso',
+                  'tamano',
+                  'caracteristicas_fenotipicas',
+                  'datos_vacunacion',
+                  'observaciones',
+                  'ci_id'
                   )
 
 
