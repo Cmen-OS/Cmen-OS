@@ -20,4 +20,8 @@ export class AnimalService {
   findBy(select: any, selected: any): Observable<Animal[]> {
     return this.http.get<Animal[]>(`${baseUrl}/animal?${select}=${selected}`);
   }
+
+  update(id: any, data: any): Observable<any> {
+    return this.http.put(`${baseUrl}/animal/${id}`, data);
+  }
 }

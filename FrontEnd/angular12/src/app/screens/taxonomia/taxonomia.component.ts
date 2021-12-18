@@ -5,6 +5,8 @@ import { TaxonomiaService } from "../../services/taxonomia/taxonomia.service";
 import { MatDialog } from '@angular/material/dialog';
 import {ListaAnimalesComponent} from "../../dialog/lista-animales/lista-animales.component";
 import {CambiarAnimalComponent} from "../../dialog/cambiar-animal/cambiar-animal.component";
+import {AnimalService} from "../../services/animal/animal.service";
+import {Animal} from "../../models/animal/animal.model";
 
 
 @Component({
@@ -16,6 +18,9 @@ export class TaxonomiaComponent implements OnInit {
   form!: FormGroup;
   seachForm!: FormGroup;
   showFieldsText:Boolean = false;
+  animales: Animal[] = [];
+
+  animal?: Animal;
 
   taxonomia: Taxonomia = {
     especie: '',
@@ -25,11 +30,12 @@ export class TaxonomiaComponent implements OnInit {
     subespecie: ''
   }
 
+
   message = '';
 
   constructor(
     public dialogo: MatDialog,
-
+    private animalService: AnimalService,
     private formBuilder: FormBuilder,
     private taxonomiaService: TaxonomiaService
   ) {
@@ -62,6 +68,9 @@ export class TaxonomiaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(res => {
       // received data from dialog-component
+
+      this.animal = res;
+
       this.showFieldsText = true
       this.seachForm.value.codIdentificacion = res.data[0]
       this.seachForm.value.especie = res.data[2]
@@ -174,10 +183,90 @@ export class TaxonomiaComponent implements OnInit {
       this.showFieldsText = true
       // @ts-ignore
 
+      if (this.seachForm.value.selectBox == 'Codigo de identificacion'){
+        this.animalService.findBy('id', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animales = data;
+            var aux: string[][]=[];
 
-      //todo aqui buscar  el animal como en baja y que te de una lista  y ponerlo en el open dialog de aca abajo, luego ir a modificarAnimal()
-      this.openDialog([this.animal1, this.animal2])//aqui enviar la lista a mostrar
+            for(let i of this.animales){
+              // @ts-ignore
+              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+            }
 
+            this.openDialog(aux)//aqui enviar la lista a mostrar
+            console.log(data);},
+          error => {
+            console.log(error)
+          })
+      }else if(this.seachForm.value.selectBox == 'Nombre comun'){
+        this.animalService.findBy('nombre_comun', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animales = data;
+            var aux: string[][]=[];
+
+            for(let i of this.animales){
+              // @ts-ignore
+              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+            }
+
+            this.openDialog(aux)
+            console.log(data);},
+          error => {
+            console.log(error)
+          })
+      }else if(this.seachForm.value.selectBox == 'Especie') {
+        this.animalService.findBy('especie', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animales = data;
+            var aux: string[][]=[];
+
+            for(let i of this.animales){
+              // @ts-ignore
+              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+            }
+
+            this.openDialog(aux)
+            console.log(data);
+          },
+          error => {
+            console.log(error)
+          })
+      }else if(this.seachForm.value.selectBox == 'Sexo') {
+        this.animalService.findBy('sexo', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animales = data;
+            var aux: string[][]=[];
+
+            for(let i of this.animales){
+              // @ts-ignore
+              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+            }
+
+            this.openDialog(aux)
+            console.log(data);
+          },
+          error => {
+            console.log(error)
+          })
+      }else if(this.seachForm.value.selectBox == 'Edad') {
+        this.animalService.findBy('edad', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animales = data;
+            var aux: string[][]=[];
+
+            for(let i of this.animales){
+              // @ts-ignore
+              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+            }
+
+            this.openDialog(aux)
+            console.log(data);
+          },
+          error => {
+            console.log(error)
+          })
+      }
 
     } else {
      // this.openDialog([this.animal2,this.animal1])
@@ -246,6 +335,7 @@ export class TaxonomiaComponent implements OnInit {
         console.log(error);
       });
   }
+
   showComboBox(){
     if(this.showFieldsText == true){
       return {'display' : 'none'};
@@ -272,7 +362,25 @@ export class TaxonomiaComponent implements OnInit {
   ]
 
   modificarAnimal() {
-    //todo aqui modoficar el animal los campos son microchip y taxonomia de form, no son obligatorios
-    //esto pasa cuando presionas modificar animal
+    if (this.form.valid) {
+      console.log(this.form.value);
+
+      const uploadDataReg = new FormData();
+      uploadDataReg.append('especie', this.form.value.taxonomia);
+      uploadDataReg.append('cod_id', this.form.value.microchip);
+
+
+      // @ts-ignore
+      this.animalService.update(this.animal[0].id, uploadDataReg).subscribe(response => {
+          console.log(response);
+          this.message = response.message ? response.message : 'La taxonomia fue actualizada';
+        },
+        error => {
+          console.log(error);
+        });
+    } else {
+      this.form.markAllAsTouched();
+
+    }
   }
 }
