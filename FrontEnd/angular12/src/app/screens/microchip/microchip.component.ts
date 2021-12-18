@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+//import { MatDialog } from '@angular/material/dialog/dialog';
 import {ListaAnimalesComponent} from "../../dialog/lista-animales/lista-animales.component";
 import {ListaAnimalesMicrochipComponent} from "../../dialog/lista-animales-microchip/lista-animales-microchip.component";
+
+import { MicrochipService } from "../../services/microchip/microchip.service";
 
 @Component({
   selector: 'app-microchip',
@@ -13,6 +16,7 @@ export class MicrochipComponent implements OnInit {
   form!: FormGroup;
   seachForm!: FormGroup;
   showFieldsText:Boolean = false;
+  date: Date = new Date();
 
   animal1 =[
     "Este es un nama",
@@ -33,6 +37,7 @@ export class MicrochipComponent implements OnInit {
   listaDialogAnimales = [this.animal1, this.animal2]
   constructor(      public dialogo: MatDialog,
                     private formBuilder: FormBuilder,
+                    private microchipService: MicrochipService,
   ) {
     this.buildForm();
 
@@ -195,12 +200,32 @@ export class MicrochipComponent implements OnInit {
       console.log(this.form.value);
 
 
+      const uploadDataReg = new FormData();
+      uploadDataReg.append('nro', this.form.value.numMicrochip);
+      uploadDataReg.append('fecha', this.date.getFullYear().toString()+'-'+this.date.getMonth().toString()+'-'+this.date.getDate().toString());
+      uploadDataReg.append('peso', this.form.value.peso);
+      uploadDataReg.append('tamano', this.form.value.tamanio);
+      uploadDataReg.append('caracteristicas_fenotipicas', this.form.value.caracteristicasFenotipicas);
+      uploadDataReg.append('datos_vacunacion', this.form.value.rabia+', '+this.form.value.desparacitacion
+        + ' se desparasito, ' + this.form.value.tiposDesparacitacion + ', ' + this.form.value.otros);
+      uploadDataReg.append('observaciones', this.form.value.observaciones);
+      uploadDataReg.append('nombre', this.form.value.encargado);
+
+
+      this.microchipService.create(uploadDataReg).subscribe(response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        });
+
 
 
     } else {
       this.form.markAllAsTouched();
     }
   }
+
 
   onSearch($event: any) {
     if (this.seachForm.valid ) {

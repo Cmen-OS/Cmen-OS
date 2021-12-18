@@ -226,21 +226,22 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         data => {
           this.aux = data;
+          if (this.aux[0].autorizado) {
+            this.verificado = true
+            this.showVerifyText = true
+
+          }else{
+            this.verificado = false
+            this.showVerifyText = true
+
+          }
           console.log(data);},
         error => {
           console.log(error)
         })
 
     // @ts-ignore
-    if (this.aux[0].autorizado) {
-      this.verificado = true
-      this.showVerifyText = true
 
-    }else{
-      this.verificado = false
-      this.showVerifyText = true
-
-    }
     console.log(this.showVerifyText)
     console.log(this.verificado)
 
