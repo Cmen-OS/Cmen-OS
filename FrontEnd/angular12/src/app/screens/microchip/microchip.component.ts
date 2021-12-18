@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import {ListaAnimalesComponent} from "../../dialog/lista-animales/lista-animales.component";
+import {ListaAnimalesMicrochipComponent} from "../../dialog/lista-animales-microchip/lista-animales-microchip.component";
 
 @Component({
   selector: 'app-microchip',
@@ -40,7 +41,7 @@ export class MicrochipComponent implements OnInit {
 
 
   openDialog(listAnm:any) {
-    const dialogRef = this.dialogo.open(ListaAnimalesComponent, {
+    const dialogRef = this.dialogo.open(ListaAnimalesMicrochipComponent, {
       data: listAnm//aqui se debe poner la lista a mostrar
     } );
 

@@ -1,0 +1,23 @@
+<p>cambiar-animal works!</p>
+<table>
+  <tr  >
+
+    <td>  Codigo de identificacion</td>
+    <td>  Nombre comun</td>
+    <td>  Especie</td>
+    <td>  Sexo</td>
+    <td>  Edad</td>
+
+  </tr>
+
+  <tr class="highlight" *ngFor="let animal of listaAnimales" [id]="animal[0]" (click)="getAnimal(animal)">
+    <td>{{animal[0]}}</td>
+    <td>{{animal[1]}}</td>
+    <td>{{animal[2]}}</td>
+    <td>{{animal[3]}}</td>
+    <td>{{animal[4]}}</td>
+  </tr>
+
+
+
+</table>

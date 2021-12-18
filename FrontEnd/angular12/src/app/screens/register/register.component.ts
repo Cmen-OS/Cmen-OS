@@ -110,7 +110,7 @@ export class RegisterComponent implements OnInit {
   private buildForm() {
     this.form = this.formBuilder.group({
       ccfs: ['', Validators.required],
-      especie: ['', Validators.required],
+      especie: [''],
       lugarExp: ['', Validators.required],
       precedencia: ['', Validators.required],
       numActa: ['', Validators.required],
