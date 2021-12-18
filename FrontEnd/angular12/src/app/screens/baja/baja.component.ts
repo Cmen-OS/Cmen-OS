@@ -237,7 +237,14 @@ export class BajaComponent implements OnInit {
         this.animalService.findBy('id', this.seachForm.value.selectedBox).subscribe(
           data => {
             this.animal = data;
-            this.openDialog(this.animal)
+            var aux: string[][]=[];
+
+            for(let i of this.animal){
+              // @ts-ignore
+              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+            }
+
+            this.openDialog(aux)//aqui enviar la lista a mostrar
             console.log(data);},
           error => {
             console.log(error)
@@ -246,7 +253,14 @@ export class BajaComponent implements OnInit {
         this.animalService.findBy('nombre_comun', this.seachForm.value.selectedBox).subscribe(
           data => {
             this.animal = data;
-            this.openDialog(this.animal)
+            var aux: string[][]=[];
+
+            for(let i of this.animal){
+              // @ts-ignore
+              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+            }
+
+            this.openDialog(aux)
             console.log(data);},
           error => {
             console.log(error)
@@ -255,7 +269,14 @@ export class BajaComponent implements OnInit {
         this.animalService.findBy('especie', this.seachForm.value.selectedBox).subscribe(
           data => {
             this.animal = data;
-            this.openDialog(this.animal)
+            var aux: string[][]=[];
+
+            for(let i of this.animal){
+              // @ts-ignore
+              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+            }
+
+            this.openDialog(aux)
             console.log(data);
           },
           error => {
@@ -265,7 +286,14 @@ export class BajaComponent implements OnInit {
         this.animalService.findBy('sexo', this.seachForm.value.selectedBox).subscribe(
           data => {
             this.animal = data;
-            this.openDialog(this.animal)
+            var aux: string[][]=[];
+
+            for(let i of this.animal){
+              // @ts-ignore
+              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+            }
+
+            this.openDialog(aux)
             console.log(data);
           },
           error => {
@@ -275,7 +303,14 @@ export class BajaComponent implements OnInit {
         this.animalService.findBy('edad', this.seachForm.value.selectedBox).subscribe(
           data => {
             this.animal = data;
-            this.openDialog(this.animal)
+            var aux: string[][]=[];
+
+            for(let i of this.animal){
+              // @ts-ignore
+              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+            }
+
+            this.openDialog(aux)
             console.log(data);
           },
           error => {

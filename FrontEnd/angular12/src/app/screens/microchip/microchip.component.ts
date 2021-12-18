@@ -6,6 +6,8 @@ import {ListaAnimalesComponent} from "../../dialog/lista-animales/lista-animales
 import {ListaAnimalesMicrochipComponent} from "../../dialog/lista-animales-microchip/lista-animales-microchip.component";
 
 import { MicrochipService } from "../../services/microchip/microchip.service";
+import {AnimalService} from "../../services/animal/animal.service";
+import {Animal} from "../../models/animal/animal.model";
 
 @Component({
   selector: 'app-microchip',
@@ -17,6 +19,8 @@ export class MicrochipComponent implements OnInit {
   seachForm!: FormGroup;
   showFieldsText:Boolean = false;
   date: Date = new Date();
+
+  animal: Animal[] = [];
 
   animal1 =[
     "Este es un nama",
@@ -38,6 +42,7 @@ export class MicrochipComponent implements OnInit {
   constructor(      public dialogo: MatDialog,
                     private formBuilder: FormBuilder,
                     private microchipService: MicrochipService,
+                    private animalService: AnimalService,
   ) {
     this.buildForm();
 
@@ -231,7 +236,90 @@ export class MicrochipComponent implements OnInit {
     if (this.seachForm.valid ) {
       console.log(this.seachForm.value);
 
-      this.openDialog([this.animal2,this.animal1])//aqui poner la lista a mostrar
+      if (this.seachForm.value.selectBox == 'Nombre'){
+        this.animalService.findBy('nombre_propio', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animal = data;
+            var aux: string[][]=[];
+
+            for(let i of this.animal){
+              // @ts-ignore
+              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+            }
+
+            this.openDialog(aux)//aqui enviar la lista a mostrar
+            console.log(data);},
+          error => {
+            console.log(error)
+          })
+      }else if(this.seachForm.value.selectBox == 'Nombre cientifico'){
+        this.animalService.findBy('nombre_criollo', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animal = data;
+            var aux: string[][]=[];
+
+            for(let i of this.animal){
+              // @ts-ignore
+              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+            }
+
+            this.openDialog(aux)
+            console.log(data);},
+          error => {
+            console.log(error)
+          })
+      }else if(this.seachForm.value.selectBox == 'Especie') {
+        this.animalService.findBy('especie', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animal = data;
+            var aux: string[][]=[];
+
+            for(let i of this.animal){
+              // @ts-ignore
+              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+            }
+
+            this.openDialog(aux)
+            console.log(data);
+          },
+          error => {
+            console.log(error)
+          })
+      }else if(this.seachForm.value.selectBox == 'Sexo') {
+        this.animalService.findBy('sexo', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animal = data;
+            var aux: string[][]=[];
+
+            for(let i of this.animal){
+              // @ts-ignore
+              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+            }
+
+            this.openDialog(aux)
+            console.log(data);
+          },
+          error => {
+            console.log(error)
+          })
+      }else if(this.seachForm.value.selectBox == 'Edad') {
+        this.animalService.findBy('edad', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animal = data;
+            var aux: string[][]=[];
+
+            for(let i of this.animal){
+              // @ts-ignore
+              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+            }
+
+            this.openDialog(aux)
+            console.log(data);
+          },
+          error => {
+            console.log(error)
+          })
+      }
 
     } else {
       //this.openDialog([this.animal2,this.animal1])
