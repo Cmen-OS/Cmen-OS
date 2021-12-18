@@ -229,18 +229,15 @@ export class BajaComponent implements OnInit {
       console.log(this.seachForm.value);
       this.showFieldsText = true
       // @ts-ignore
+      //var aux: string[][] = [this.animal1, this.animal2]
 
-      this.openDialog([this.animal1, this.animal2])//aqui enviar la lista a mostrar
-      /*
+      //this.openDialog(aux)//aqui enviar la lista a mostrar
+
       if (this.seachForm.value.selectBox == 'Codigo de identificacion'){
         this.animalService.findBy('id', this.seachForm.value.selectedBox).subscribe(
           data => {
             this.animal = data;
-            this.seachForm.value.codIdentificacion = this.animal[0].id;
-            this.seachForm.value.especie = this.animal[0].especie_id;
-            this.seachForm.value.nombreComun = this.animal[0].nombre_comun;
-            this.seachForm.value.sexo = this.animal[0].sexo;
-            this.seachForm.value.edad = this.animal[0].edad;
+            this.openDialog(this.animal)
             console.log(data);},
           error => {
             console.log(error)
@@ -249,11 +246,7 @@ export class BajaComponent implements OnInit {
         this.animalService.findBy('nombre_comun', this.seachForm.value.selectedBox).subscribe(
           data => {
             this.animal = data;
-            this.seachForm.value.codIdentificacion = this.animal[0].id;
-            this.seachForm.value.especie = this.animal[0].especie_id;
-            this.seachForm.value.nombreComun = this.animal[0].nombre_comun;
-            this.seachForm.value.sexo = this.animal[0].sexo;
-            this.seachForm.value.edad = this.animal[0].edad;
+            this.openDialog(this.animal)
             console.log(data);},
           error => {
             console.log(error)
@@ -262,11 +255,7 @@ export class BajaComponent implements OnInit {
         this.animalService.findBy('especie', this.seachForm.value.selectedBox).subscribe(
           data => {
             this.animal = data;
-            this.seachForm.value.codIdentificacion = this.animal[0].id;
-            this.seachForm.value.especie = this.animal[0].especie_id;
-            this.seachForm.value.nombreComun = this.animal[0].nombre_comun;
-            this.seachForm.value.sexo = this.animal[0].sexo;
-            this.seachForm.value.edad = this.animal[0].edad;
+            this.openDialog(this.animal)
             console.log(data);
           },
           error => {
@@ -276,11 +265,7 @@ export class BajaComponent implements OnInit {
         this.animalService.findBy('sexo', this.seachForm.value.selectedBox).subscribe(
           data => {
             this.animal = data;
-            this.seachForm.value.codIdentificacion = this.animal[0].id;
-            this.seachForm.value.especie = this.animal[0].especie_id;
-            this.seachForm.value.nombreComun = this.animal[0].nombre_comun;
-            this.seachForm.value.sexo = this.animal[0].sexo;
-            this.seachForm.value.edad = this.animal[0].edad;
+            this.openDialog(this.animal)
             console.log(data);
           },
           error => {
@@ -290,18 +275,14 @@ export class BajaComponent implements OnInit {
         this.animalService.findBy('edad', this.seachForm.value.selectedBox).subscribe(
           data => {
             this.animal = data;
-            this.seachForm.value.codIdentificacion = this.animal[0].id;
-            this.seachForm.value.especie = this.animal[0].especie_id;
-            this.seachForm.value.nombreComun = this.animal[0].nombre_comun;
-            this.seachForm.value.sexo = this.animal[0].sexo;
-            this.seachForm.value.edad = this.animal[0].edad;
+            this.openDialog(this.animal)
             console.log(data);
           },
           error => {
             console.log(error)
           })
       }
-*/
+
     } else {
      // this.openDialog([this.animal2,this.animal1])
       this.seachForm.markAllAsTouched();
