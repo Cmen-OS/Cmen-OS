@@ -59,6 +59,7 @@ export class MicrochipComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       // received data from dialog-component
       this.showFieldsText = true
+      this.animal[0].id = res.data[5]
       this.seachForm.value.nombre = res.data[0]
       this.seachForm.value.especie = res.data[2]
       this.seachForm.value.nombreCientifico = res.data[1]
@@ -216,7 +217,8 @@ export class MicrochipComponent implements OnInit {
       uploadDataReg.append('datos_vacunacion', this.form.value.rabia+', '+this.form.value.desparacitacion
         + ' se desparasito, ' + this.form.value.tiposDesparacitacion + ', ' + this.form.value.otros);
       uploadDataReg.append('observaciones', this.form.value.observaciones);
-      uploadDataReg.append('nombre', this.form.value.encargado);
+      uploadDataReg.append('ci', this.form.value.ciEncargado);
+      uploadDataReg.append('id_animal', this.animal[0].id)
 
 
       this.microchipService.create(uploadDataReg).subscribe(response => {
@@ -246,7 +248,7 @@ export class MicrochipComponent implements OnInit {
 
             for(let i of this.animal){
               // @ts-ignore
-              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString(), i.id.toString()])
             }
 
             this.openDialog(aux)//aqui enviar la lista a mostrar
@@ -262,7 +264,7 @@ export class MicrochipComponent implements OnInit {
 
             for(let i of this.animal){
               // @ts-ignore
-              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString(), i.id.toString()])
             }
 
             this.openDialog(aux)
@@ -278,7 +280,7 @@ export class MicrochipComponent implements OnInit {
 
             for(let i of this.animal){
               // @ts-ignore
-              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString(), i.id.toString()])
             }
 
             this.openDialog(aux)
@@ -295,7 +297,7 @@ export class MicrochipComponent implements OnInit {
 
             for(let i of this.animal){
               // @ts-ignore
-              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString(), i.id.toString()])
             }
 
             this.openDialog(aux)
@@ -312,7 +314,7 @@ export class MicrochipComponent implements OnInit {
 
             for(let i of this.animal){
               // @ts-ignore
-              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString(), i.id.toString()])
             }
 
             this.openDialog(aux)

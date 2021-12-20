@@ -20,7 +20,6 @@ export class TaxonomiaComponent implements OnInit {
   showFieldsText:Boolean = false;
   animales: Animal[] = [];
 
-  animal?: Animal;
 
   taxonomia: Taxonomia = {
     especie: '',
@@ -69,7 +68,8 @@ export class TaxonomiaComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       // received data from dialog-component
 
-      this.animal = res.data;
+
+      this.animales[0].id = res.data[0];
 
       this.showFieldsText = true
       this.seachForm.value.codIdentificacion = res.data[0]
@@ -368,10 +368,11 @@ export class TaxonomiaComponent implements OnInit {
       const uploadDataReg = new FormData();
       uploadDataReg.append('especie', this.form.value.taxonomia);
       uploadDataReg.append('cod_id', this.form.value.microchip);
+      uploadDataReg.append('id', this.animales[0].id);
 
 
       // @ts-ignore
-      this.animalService.update(this.animal[0].id, uploadDataReg).subscribe(response => {
+      this.animalService.updateTax(uploadDataReg).subscribe(response => {
           console.log(response);
           this.message = response.message ? response.message : 'La taxonomia fue actualizada';
         },
