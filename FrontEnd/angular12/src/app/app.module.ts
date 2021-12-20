@@ -26,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ListaAnimalesMicrochipComponent } from './dialog/lista-animales-microchip/lista-animales-microchip.component';
 import { CambiarAnimalComponent } from './dialog/cambiar-animal/cambiar-animal.component';
+import {ChartsModule } from 'ng2-charts';
 
 
 
@@ -56,7 +57,8 @@ import { CambiarAnimalComponent } from './dialog/cambiar-animal/cambiar-animal.c
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    ChartsModule
   ],
   providers:
     [CookieService],

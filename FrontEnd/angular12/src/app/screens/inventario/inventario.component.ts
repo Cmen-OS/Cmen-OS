@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Archivo} from "../../models/archivo/archivo.model";
 import {File} from "@angular/compiler-cli/src/ngtsc/file_system/testing/src/mock_file_system";
 import {ArchivoService} from "../../services/archivo/archivo.service";
+import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import { Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-inventario',
@@ -10,6 +12,24 @@ import {ArchivoService} from "../../services/archivo/archivo.service";
   styleUrls: ['./inventario.component.css']
 })
 export class InventarioComponent implements OnInit {
+  datosBar=[]
+
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+  };
+
+  public barChartLabels: Label[] = ['2015', '2016', '2017', '2018', '2019', '2020'];//aqui poner la lista de las opciones
+  public barChartType: ChartType = 'bar';
+  public barChartLegend = true;
+  public barChartPlugins = [];
+
+  public barChartData: ChartDataSets[] = [
+    { data: this.datosBar, label: 'animal' },//aqui poner los valores
+    //{ data: [200, 67, 70, 75, 80, 90], label: 'animal' },//se pone uno igual si quieres de doble bar por cada opcion y asi
+
+
+  ];
+
   form!: FormGroup;
   seachForm!: FormGroup;
   showFieldsText: Boolean = false;
@@ -125,9 +145,15 @@ export class InventarioComponent implements OnInit {
             console.log(error)
           })
     } else {
-      this.myVar =this.mamifero
+      // @ts-ignore
+      // this.barChartData= [
+      //   { data: [100, 67, 70, 75, 80, 90], label: 'animal' },//aqui poner los valores
+      //   //{ data: [200, 67, 70, 75, 80, 90], label: 'animal' },//se pone uno igual si quieres de doble bar por cada opcion y asi]
+//todo asi puedes volver a asignarle
 
-      this.seachForm.markAllAsTouched();
+
+
+        this.seachForm.markAllAsTouched();
     }
   }
 

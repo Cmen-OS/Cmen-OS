@@ -10,8 +10,14 @@
 
 
       <div >
-
-        <img [src]=myVar>
+        <canvas baseChart
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+        </canvas>
       </div>
 
 
