@@ -26,4 +26,8 @@ export class TaxonomiaService {
   delete(especie: any): Observable<any> {
     return this.http.delete(`${baseUrl}/taxonomia/${especie}`);
   }
+
+  updateAnimal(especie: any, data: any): Observable<any> {
+    return this.http.put(`${baseUrl}/taxonomia/${especie}`, data);
+  }
 }

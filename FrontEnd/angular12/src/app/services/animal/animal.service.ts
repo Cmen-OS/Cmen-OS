@@ -24,4 +24,8 @@ export class AnimalService {
   update(id: any, data: any): Observable<any> {
     return this.http.put(`${baseUrl}/animal/${id}`, data);
   }
+
+  updateTax(data: any): Observable<any> {
+    return this.http.put(`${baseUrl}/animal`, data);
+  }
 }
