@@ -168,6 +168,8 @@ export class BajaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(res => {
       // received data from dialog-component
+
+      this.animal[0].id=res.data[0];
       this.showFieldsText = true
       this.seachForm.value.codIdentificacion = res.data[0]
       this.seachForm.value.especie = res.data[2]

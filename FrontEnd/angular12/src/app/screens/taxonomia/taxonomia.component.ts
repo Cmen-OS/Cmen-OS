@@ -69,7 +69,7 @@ export class TaxonomiaComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       // received data from dialog-component
 
-      this.animal = res;
+      this.animal = res.data;
 
       this.showFieldsText = true
       this.seachForm.value.codIdentificacion = res.data[0]
