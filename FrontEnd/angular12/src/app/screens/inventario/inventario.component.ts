@@ -99,10 +99,12 @@ export class InventarioComponent implements OnInit {
   }
 
   onSearch(event: Event) {
-    if (this.form.valid) {
+    if (this.seachForm.valid) {
       console.log(this.seachForm.value);
       this.myVar = this.mamifero
     } else {
+      this.myVar =this.mamifero
+
       this.seachForm.markAllAsTouched();
     }
   }
