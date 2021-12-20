@@ -64,6 +64,8 @@ export class MicrochipComponent implements OnInit {
       this.seachForm.value.nombreCientifico = res.data[1]
       this.seachForm.value.sexo =res.data[3]
       this.seachForm.value.edad = res.data[4]
+      this.seachForm.value.codigoId = res.data[5]
+
 
     });
   }
@@ -99,6 +101,8 @@ export class MicrochipComponent implements OnInit {
       nombreCientifico: [''],
       sexo: [''],
       edad: [''],
+      codigoId: [''],
+
 
     });
 
@@ -158,6 +162,10 @@ export class MicrochipComponent implements OnInit {
     return this.seachForm.value.nombre
   }
 
+  getTextFielValueCod(){
+    return this.seachForm.value.codigoId
+  }
+
   getTextFielValueEspecie(){
     return this.seachForm.value.especie
   }
@@ -199,6 +207,7 @@ export class MicrochipComponent implements OnInit {
     'Especie',
     'Sexo',
     'Edad'
+
   ]
   save(event: Event) {
     if (this.form.valid ) {

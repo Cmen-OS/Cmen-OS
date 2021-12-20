@@ -2,6 +2,8 @@
 
 <table>
   <tr>
+    <th>Codigo de identificacion </th>
+
     <th>Nombre </th>
     <th>Nombre cientifico</th>
     <th>Especie</th>
@@ -11,6 +13,8 @@
   </tr>
 
   <tr class="highlight" *ngFor="let animal of listaAnimales" [id]="animal[0]" (click)="getAnimal(animal)">
+    <td>{{animal[5]}}</td>
+
     <td>{{animal[0]}}</td>
     <td>{{animal[1]}}</td>
     <td>{{animal[2]}}</td>
