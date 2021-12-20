@@ -96,13 +96,6 @@ export class MicrochipComponent implements OnInit {
       selectBox: ['', Validators.required],
       selectedBox: ['', Validators.required],
 
-      nombre: [''],
-      especie: [''],
-      nombreCientifico: [''],
-      sexo: [''],
-      edad: [''],
-      codigoId: [''],
-
 
     });
 
