@@ -1,14 +1,17 @@
 from django.db import models
 
+
 def upload_path(instance, filename):
     return '/'.join(['covers', str(instance.nombre), filename])
 
+
 class Taxonomia(models.Model):
-    especie = models.CharField(max_length=255, help_text="Especie del animal", primary_key=True)
+    especie = models.CharField(max_length=255, help_text="Especie del animal")
     familia = models.CharField(max_length=255, help_text="Familia del animal")
     orden = models.CharField(max_length=255, help_text="Orden del animal")
     genero = models.CharField(max_length=255, help_text="Genero del animal")
-    subespecie = models.CharField(max_length=255, help_text="Subespecie del animal")
+    subespecie = models.CharField(max_length=255, help_text="Subespecie del animal", primary_key=True)
+    clase = models.CharField(max_length=255, help_text="Clase del animal")
 
 
 class Archivo(models.Model):
@@ -51,12 +54,13 @@ class Animal(models.Model):
     ruta_archivo = models.ForeignKey(Archivo, on_delete=models.CASCADE)
     edad = models.CharField(max_length=255)
     procedencia = models.CharField(max_length=255)
-    especie = models.ForeignKey(Taxonomia, on_delete=models.SET_NULL, null=True, blank=True)
+    sub_especie = models.ForeignKey(Taxonomia, on_delete=models.SET_NULL, null=True, blank=True)
     cod_int = models.ForeignKey(Microchip, on_delete=models.SET_NULL, null=True, blank=True)
     fecha_recepcion = models.DateField()
     sexo = models.CharField(max_length=20)
     estado_salud = models.CharField(max_length=255)
     detalles_salud = models.TextField()
+    vivo = models.BooleanField()
 
 
 class Registro(models.Model):
@@ -67,8 +71,10 @@ class Registro(models.Model):
     area = models.CharField(max_length=255)
     lugar_exposicion = models.CharField(max_length=255)
     motivo_recepcion = models.CharField(max_length=255)
-    ci_recibido_por = models.ForeignKey(Operador, on_delete=models.SET_NULL, null=True, blank=True, related_name="recibidor")
-    ci_autorizado_por = models.ForeignKey(Operador, on_delete=models.SET_NULL, null=True, blank=True, related_name="autorizador")
+    ci_recibido_por = models.ForeignKey(Operador, on_delete=models.SET_NULL, null=True, blank=True,
+                                        related_name="recibidor")
+    ci_autorizado_por = models.ForeignKey(Operador, on_delete=models.SET_NULL, null=True, blank=True,
+                                          related_name="autorizador")
     nro_acta_traslado = models.IntegerField()
     nro_MMAA = models.IntegerField()
     id_animal = models.ForeignKey(Animal, on_delete=models.SET_NULL, null=True, blank=True)
@@ -80,7 +86,10 @@ class Baja(models.Model):
     CCFS = models.CharField(max_length=255)
     modalidad_funcionamiento = models.CharField(max_length=255)
     ci = models.ForeignKey(Operador, on_delete=models.SET_NULL, null=True, blank=True)
-    direccion_archivo = models.ForeignKey(Archivo, on_delete=models.SET_NULL, null=True, blank=True)
+    direccion_archivo = models.ForeignKey(Archivo, on_delete=models.SET_NULL, null=True, blank=True,
+                                          related_name="forense")
+    direccion_archivo_laboratorio = models.ForeignKey(Archivo, on_delete=models.SET_NULL, null=True, blank=True,
+                                                      related_name="laboratorio")
     nombre_guarda_fauna = models.CharField(max_length=255)
     nombre_veterinario = models.CharField(max_length=255)
     nombre_director = models.CharField(max_length=255)
