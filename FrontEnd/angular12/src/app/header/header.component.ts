@@ -55,7 +55,7 @@ export class HeaderComponent implements OnInit {
   }
 
   showBar() {
-    if ( window.location.href.toString() == "http://localhost:4200/login" || window.location.href.toString() == "http://localhost:8081/login" || window.location.href.toString() == "34.139.8.186"){
+    if ( window.location.href.toString() == "http://localhost:4200/login" || window.location.href.toString() == "http://localhost:8081/login" || window.location.href.toString() == "34.139.8.186"|| window.location.href.toString() == "https://djang-os.github.io/DJANG-OS/login"  ){
       return {'display' : 'none'};
 
     } else {
