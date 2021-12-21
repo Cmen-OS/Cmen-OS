@@ -87,6 +87,8 @@ export class TaxonomiaComponent implements OnInit {
       genero: ['', Validators.required],
       especie: ['', Validators.required],
       subespecie: ['', Validators.required],
+      clase: ['', Validators.required],
+
 
       microchip: [''],
       taxonomia: [''],

@@ -50,8 +50,11 @@
         <input class="box" type="text" formControlName="subespecie"/>
       </div>
       <div class="container">
-
-
+        <div class="texts">
+          <div class="name">Clase</div>
+          <strong class="error" *ngIf="isBoxValid('clase')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="clase"/>
       </div>
 
       <form class="wrapper" [formGroup]="seachForm" (ngSubmit)="onSearch($event)">
