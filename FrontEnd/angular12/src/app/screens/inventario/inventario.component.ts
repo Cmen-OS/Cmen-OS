@@ -24,8 +24,8 @@ export class InventarioComponent implements OnInit {
   public barChartPlugins = [];
 
   public barChartData: ChartDataSets[] = [
-    { data: this.datosBar, label: 'animal' },//aqui poner los valores
-    //{ data: [200, 67, 70, 75, 80, 90], label: 'animal' },//se pone uno igual si quieres de doble bar por cada opcion y asi
+    //{ data: this.datosBar, label: 'animal' },//aqui poner los valores
+    { data: [200, 67, 70, 75, 80, 90], label: 'animal' },//se pone uno igual si quieres de doble bar por cada opcion y asi
 
 
   ];
