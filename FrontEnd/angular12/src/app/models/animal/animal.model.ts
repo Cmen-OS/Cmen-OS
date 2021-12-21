@@ -14,6 +14,6 @@ export class Animal {
   estado_salud?: string;
   detalles_salud?: string;
   cod_int_id?: string;
-  especie_id?: string;
+  sub_especie_id?: string;
   ruta_archivo_id?: string;
 }

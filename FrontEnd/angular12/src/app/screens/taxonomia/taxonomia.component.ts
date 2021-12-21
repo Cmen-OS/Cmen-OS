@@ -138,12 +138,13 @@ export class TaxonomiaComponent implements OnInit {
         familia: this.form.value.familia,
         orden: this.form.value.orden,
         genero: this.form.value.genero,
-        subespecie: this.form.value.subespecie
+        subespecie: this.form.value.subespecie,
+        clase: this.form.value.clase
       }
 
       this.message = '';
 
-      this.taxonomiaService.update(data.especie, data).subscribe(response => {
+      this.taxonomiaService.update(data.subespecie, data).subscribe(response => {
           console.log(response);
           this.message = response.message ? response.message : 'La taxonomia fue actualizada';
         },
@@ -159,12 +160,12 @@ export class TaxonomiaComponent implements OnInit {
   baja() {
     if (this.form.valid) {
       console.log(this.form.value);
-      this.taxonomiaService.get(this.form.value.especie)
+      this.taxonomiaService.get(this.form.value.subespecie)
         .subscribe(
           data => {
             this.taxonomia = data;
             console.log(data);
-            this.taxonomiaService.delete(this.taxonomia.especie).subscribe(response => {
+            this.taxonomiaService.delete(this.taxonomia.subespecie).subscribe(response => {
                 console.log(response);
               },
               error => {
@@ -194,7 +195,14 @@ export class TaxonomiaComponent implements OnInit {
 
             for(let i of this.animales){
               // @ts-ignore
-              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), '', i.sexo.toString(), i.edad.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              }
+
             }
 
             this.openDialog(aux)//aqui enviar la lista a mostrar
@@ -210,7 +218,13 @@ export class TaxonomiaComponent implements OnInit {
 
             for(let i of this.animales){
               // @ts-ignore
-              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), '', i.sexo.toString(), i.edad.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              }
             }
 
             this.openDialog(aux)
@@ -226,7 +240,13 @@ export class TaxonomiaComponent implements OnInit {
 
             for(let i of this.animales){
               // @ts-ignore
-              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), '', i.sexo.toString(), i.edad.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              }
             }
 
             this.openDialog(aux)
@@ -243,7 +263,13 @@ export class TaxonomiaComponent implements OnInit {
 
             for(let i of this.animales){
               // @ts-ignore
-              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), '', i.sexo.toString(), i.edad.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              }
             }
 
             this.openDialog(aux)
@@ -260,7 +286,13 @@ export class TaxonomiaComponent implements OnInit {
 
             for(let i of this.animales){
               // @ts-ignore
-              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), '', i.sexo.toString(), i.edad.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              }
             }
 
             this.openDialog(aux)
@@ -328,7 +360,8 @@ export class TaxonomiaComponent implements OnInit {
       familia: this.form.value.familia,
       orden: this.form.value.orden,
       genero: this.form.value.genero,
-      subespecie: this.form.value.subespecie
+      subespecie: this.form.value.subespecie,
+      clase: this.form.value.clase
     }
 
     this.taxonomiaService.create(data).subscribe(response => {

@@ -5,6 +5,9 @@ import {File} from "@angular/compiler-cli/src/ngtsc/file_system/testing/src/mock
 import {ArchivoService} from "../../services/archivo/archivo.service";
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
+import {AnimalService} from "../../services/animal/animal.service";
+import {TaxonomiaService} from "../../services/taxonomia/taxonomia.service";
+import {Animal} from "../../models/animal/animal.model";
 
 @Component({
   selector: 'app-inventario',
@@ -13,19 +16,20 @@ import { Label } from 'ng2-charts';
 })
 export class InventarioComponent implements OnInit {
   datosBar=[]
+  animals: Animal[] = [];
 
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
 
-  public barChartLabels: Label[] = ['2015', '2016', '2017', '2018', '2019', '2020'];//aqui poner la lista de las opciones
+  public barChartLabels: Label[] = ['2016', '2017', '2018', '2019', '2020', '2021'];//aqui poner la lista de las opciones
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
 
   public barChartData: ChartDataSets[] = [
     //{ data: this.datosBar, label: 'animal' },//aqui poner los valores
-    { data: [200, 67, 70, 75, 80, 90], label: 'animal' },//se pone uno igual si quieres de doble bar por cada opcion y asi
+    { data: [5, 6, 7, 8, 9, 10], label: 'animal' },//se pone uno igual si quieres de doble bar por cada opcion y asi
 
 
   ];
@@ -57,7 +61,7 @@ export class InventarioComponent implements OnInit {
   animalTipo: String = "Tigre"
 
   constructor(private formBuilder: FormBuilder,
-              private archvioService: ArchivoService,
+              private taxonomiaService: TaxonomiaService,
   ) {
     this.buildForm();
 
@@ -134,11 +138,50 @@ export class InventarioComponent implements OnInit {
   onSearch(event: Event) {
     if (this.seachForm.valid) {
       console.log(this.seachForm.value);
-      this.archvioService.get(this.seachForm.value.selectedBox)
+      this.taxonomiaService.findBy("subespecie", this.seachForm.value.selectBox)
         .subscribe(
           data => {
-            this.file = data;
-            this.myVar = 'https://media.discordapp.net/attachments/909985614848487466/918001910684987462/Screenshot_278.png';
+            this.animals = data
+
+            let uno: number = 0;
+            let dos: number = 0;
+            let tres: number = 0;
+            let cuatro: number = 0;
+            let cinco: number = 0;
+            let seis: number = 0;
+
+            for(let i of this.animals){
+
+              // @ts-ignore
+              if (+(i.fecha_recepcion?.substr(0,4)) == 2016){
+                uno = uno + 1;
+              }else { // @ts-ignore
+                if (+(i.fecha_recepcion?.substr(0,4)) == 2017){
+                                dos = dos + 1;
+                              }else { // @ts-ignore
+                  if (+(i.fecha_recepcion?.substr(0,4)) == 2018){
+                                                  tres = tres + 1;
+                                                }else { // @ts-ignore
+                    if (+(i.fecha_recepcion?.substr(0,4)) == 2019){
+                                                                      cuatro = cuatro + 1;
+                                                                    }else { // @ts-ignore
+                      if (+(i.fecha_recepcion?.substr(0,4)) == 2020){
+                                                                                            cinco = cinco + 1;
+                                                                                          }else { // @ts-ignore
+                        if (+(i.fecha_recepcion?.substr(0,4)) == 2021){
+                                                                                                                    seis = seis + 1;
+                                                                                                                  }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
+            this.barChartData = [
+              //{ data: this.datosBar, label: 'animal' },//aqui poner los valores
+              { data: [uno, dos, tres, cuatro, cinco, seis], label: 'animal' },//se pone uno igual si quieres de doble bar por cada opcion y asi
+            ];
 
             console.log(data);},
           error => {

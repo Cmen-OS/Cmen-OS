@@ -247,8 +247,13 @@ export class MicrochipComponent implements OnInit {
             var aux: string[][]=[];
 
             for(let i of this.animal){
-              // @ts-ignore
-              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString(), i.id.toString()])
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), '', i.sexo.toString(), i.edad.toString(), i.id.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString(), i.id.toString()])
+              }
             }
 
             this.openDialog(aux)//aqui enviar la lista a mostrar
@@ -264,7 +269,13 @@ export class MicrochipComponent implements OnInit {
 
             for(let i of this.animal){
               // @ts-ignore
-              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString(), i.id.toString()])
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), '', i.sexo.toString(), i.edad.toString(), i.id.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString(), i.id.toString()])
+              }
             }
 
             this.openDialog(aux)
@@ -280,7 +291,13 @@ export class MicrochipComponent implements OnInit {
 
             for(let i of this.animal){
               // @ts-ignore
-              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString(), i.id.toString()])
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), '', i.sexo.toString(), i.edad.toString(), i.id.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString(), i.id.toString()])
+              }
             }
 
             this.openDialog(aux)
@@ -297,7 +314,13 @@ export class MicrochipComponent implements OnInit {
 
             for(let i of this.animal){
               // @ts-ignore
-              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString(), i.id.toString()])
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), '', i.sexo.toString(), i.edad.toString(), i.id.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString(), i.id.toString()])
+              }
             }
 
             this.openDialog(aux)
@@ -314,7 +337,13 @@ export class MicrochipComponent implements OnInit {
 
             for(let i of this.animal){
               // @ts-ignore
-              aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString(), i.id.toString()])
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), '', i.sexo.toString(), i.edad.toString(), i.id.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.nombre_propio.toString(), i.nombre_criollo.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString(), i.id.toString()])
+              }
             }
 
             this.openDialog(aux)

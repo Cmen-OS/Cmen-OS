@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { Taxonomia } from "../../models/taxonomia/taxonomia.model";
+import {Animal} from "../../models/animal/animal.model";
 
 const baseUrl = 'http://localhost:8080'
 @Injectable({
@@ -27,7 +28,7 @@ export class TaxonomiaService {
     return this.http.delete(`${baseUrl}/taxonomia/${especie}`);
   }
 
-  updateAnimal(especie: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/taxonomia/${especie}`, data);
+  findBy(select: any, selected: any): Observable<Animal[]> {
+    return this.http.get<Animal[]>(`${baseUrl}/taxonomia?${select}=${selected}`);
   }
 }

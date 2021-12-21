@@ -243,7 +243,13 @@ export class BajaComponent implements OnInit {
 
             for(let i of this.animal){
               // @ts-ignore
-              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), '', i.sexo.toString(), i.edad.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              }
             }
 
             this.openDialog(aux)//aqui enviar la lista a mostrar
@@ -259,7 +265,13 @@ export class BajaComponent implements OnInit {
 
             for(let i of this.animal){
               // @ts-ignore
-              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), '', i.sexo.toString(), i.edad.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              }
             }
 
             this.openDialog(aux)
@@ -275,7 +287,13 @@ export class BajaComponent implements OnInit {
 
             for(let i of this.animal){
               // @ts-ignore
-              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), '', i.sexo.toString(), i.edad.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              }
             }
 
             this.openDialog(aux)
@@ -291,8 +309,13 @@ export class BajaComponent implements OnInit {
             var aux: string[][]=[];
 
             for(let i of this.animal){
-              // @ts-ignore
-              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), '', i.sexo.toString(), i.edad.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              }
             }
 
             this.openDialog(aux)
@@ -309,7 +332,13 @@ export class BajaComponent implements OnInit {
 
             for(let i of this.animal){
               // @ts-ignore
-              aux.push([i.id.toString(), i.nombre_comun.toString(), i.especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), '', i.sexo.toString(), i.edad.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              }
             }
 
             this.openDialog(aux)
