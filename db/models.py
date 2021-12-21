@@ -6,11 +6,12 @@ def upload_path(instance, filename):
 
 
 class Taxonomia(models.Model):
-    especie = models.CharField(max_length=255, help_text="Especie del animal", primary_key=True)
+    especie = models.CharField(max_length=255, help_text="Especie del animal")
     familia = models.CharField(max_length=255, help_text="Familia del animal")
     orden = models.CharField(max_length=255, help_text="Orden del animal")
     genero = models.CharField(max_length=255, help_text="Genero del animal")
-    subespecie = models.CharField(max_length=255, help_text="Subespecie del animal")
+    subespecie = models.CharField(max_length=255, help_text="Subespecie del animal", primary_key=True)
+    clase = models.CharField(max_length=255, help_text="Clase del animal")
 
 
 class Archivo(models.Model):
@@ -53,7 +54,7 @@ class Animal(models.Model):
     ruta_archivo = models.ForeignKey(Archivo, on_delete=models.CASCADE)
     edad = models.CharField(max_length=255)
     procedencia = models.CharField(max_length=255)
-    especie = models.ForeignKey(Taxonomia, on_delete=models.SET_NULL, null=True, blank=True)
+    sub_especie = models.ForeignKey(Taxonomia, on_delete=models.SET_NULL, null=True, blank=True)
     cod_int = models.ForeignKey(Microchip, on_delete=models.SET_NULL, null=True, blank=True)
     fecha_recepcion = models.DateField()
     sexo = models.CharField(max_length=20)

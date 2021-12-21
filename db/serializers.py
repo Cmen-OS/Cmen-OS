@@ -25,7 +25,7 @@ class AnimalSerializer(serializers.ModelSerializer):
                   'estado_salud',
                   'detalles_salud',
                   'cod_int_id',
-                  'especie_id',
+                  'sub_especie_id',
                   'ruta_archivo_id'
                   )
 
@@ -65,7 +65,8 @@ class TaxonomiaSerializer(serializers.ModelSerializer):
                   'familia',
                   'orden',
                   'genero',
-                  'subespecie'
+                  'subespecie',
+                  'clase'
                   )
 
 

@@ -55,11 +55,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'djangodb.urls'
 
-CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8081',
-    'http://localhost:4200'
-)
+CORS_ORIGIN_ALLOW_ALL = True
+#CORS_ORIGIN_WHITELIST = (
+ #   'http://localhost:8081',
+  #  'http://localhost:4200'
+#)
 
 TEMPLATES = [
     {

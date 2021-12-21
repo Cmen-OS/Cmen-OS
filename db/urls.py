@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^taxonomia/(?P<pk>[a-zA-Z0-9_]+)$', views.taxonomia_detail),
     url(r'^microchip$', views.microchip),
     url(r'^animal/(?P<pk>[0-9]+)$', views.animal_detail),
+    url(r'^archivo/(?P<pk>[a-zA-Z0-9_\s,.]+)$', views.archivo_detail),
 ]
