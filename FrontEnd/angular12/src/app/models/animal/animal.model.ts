@@ -13,7 +13,7 @@ export class Animal {
   sexo?: string;
   estado_salud?: string;
   detalles_salud?: string;
-  cod_int_id?: Microchip;
-  especie_id?: Taxonomia;
-  ruta_archivo_id?: Archivo;
+  cod_int_id?: string;
+  sub_especie_id?: string;
+  ruta_archivo_id?: string;
 }

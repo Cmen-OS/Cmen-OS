@@ -7,6 +7,8 @@ import {AnimalService} from "../../services/animal/animal.service";
 import {RegistroService} from "../../services/registro/registro.service";
 import {Animal} from "../../models/animal/animal.model";
 import {BajaService} from "../../services/baja/baja.service";
+import { MatDialog } from '@angular/material/dialog';
+import {ListaAnimalesComponent} from "../../dialog/lista-animales/lista-animales.component";
 
 @Component({
   selector: 'app-baja',
@@ -28,6 +30,7 @@ export class BajaComponent implements OnInit {
 
 
   constructor(
+    public dialogo: MatDialog,
     private operadorService: OperadorService,
     private archivoService: ArchivoService,
     private animalService: AnimalService,
@@ -52,11 +55,11 @@ export class BajaComponent implements OnInit {
       uploadDataReg.append('CCFS', this.form.value.ccfs);
       uploadDataReg.append('fecha', this.date.getFullYear().toString()+'-'+this.date.getMonth().toString()+'-'+this.date.getDate().toString());
       uploadDataReg.append('fecha_deceso', this.form.value.fechaDeceso);
-      uploadDataReg.append('modalidad_funcionamiento', this.form.value.modFuncionamiento);
+      uploadDataReg.append('modalidad_funcionamiento', this.form.value.modalidadFun);
       uploadDataReg.append('nombre_guarda_fauna', this.form.value.nombreGuarda);
       uploadDataReg.append('nombre_veterinario', this.form.value.nombreVeterinario);
       uploadDataReg.append('nombre_director', this.form.value.nombreDirector);
-      uploadDataReg.append('nro_MMAA', this.form.value.numFormMMAA);
+      uploadDataReg.append('nro_MMAA', this.form.value.numMMAA);
       uploadDataReg.append('motivo_salida', this.form.value.motivoSalida);
       uploadDataReg.append('causa_deceso', this.form.value.causasDeceso);
       uploadDataReg.append('lesiones', this.form.value.lesionesEncontradas);
@@ -138,6 +141,45 @@ export class BajaComponent implements OnInit {
     'Edad'
   ]
 
+  animal1 =[
+    "Este es un codigo",
+    "Este es un nombre comun",
+    "Especie",
+    "Sexo",
+    "Edad"
+  ]
+
+  animal2 =[
+    "Este es un codigo2",
+    "Este es un nombre comun",
+    "Especie",
+    "Sexo",
+    "Edad"
+  ]
+
+  listaDialogAnimales = []
+
+
+  openDialog(listaAnm:any) {
+    const dialogRef = this.dialogo.open(ListaAnimalesComponent, {
+      data: listaAnm//aqui se debe poner la lista a mostrar
+    } );
+
+
+    dialogRef.afterClosed().subscribe(res => {
+      // received data from dialog-component
+
+      this.animal[0].id=res.data[0];
+      this.showFieldsText = true
+      this.seachForm.value.codIdentificacion = res.data[0]
+      this.seachForm.value.especie = res.data[2]
+      this.seachForm.value.nombreComun = res.data[1]
+      this.seachForm.value.sexo =res.data[3]
+      this.seachForm.value.edad = res.data[4]
+
+    });
+  }
+
   showSelectedBox(){
     if (this.getFormSearchValue("selectBox") == ''){
       return {'display' : 'none'};
@@ -188,24 +230,131 @@ export class BajaComponent implements OnInit {
     if (this.seachForm.valid) {//este es donde busca
       console.log(this.seachForm.value);
       this.showFieldsText = true
+      // @ts-ignore
+      //var aux: string[][] = [this.animal1, this.animal2]
 
-      this.animalService.findBy(this.seachForm.value.selectedBox).subscribe(
-        data => {
-          this.animal = data;
-          this.seachForm.value.codIdentificacion = this.animal[0].id;
-          this.seachForm.value.especie = this.animal[0].especie_id;
-          this.seachForm.value.nombreComun = this.animal[0].nombre_comun;
-          this.seachForm.value.sexo = this.animal[0].sexo;
-          this.seachForm.value.edad = this.animal[0].edad;
-          console.log(data);},
-        error => {
-          console.log(error)
-        })
+      //this.openDialog(aux)//aqui enviar la lista a mostrar
+
+      if (this.seachForm.value.selectBox == 'Codigo de identificacion'){
+        this.animalService.findBy('id', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animal = data;
+            var aux: string[][]=[];
+
+            for(let i of this.animal){
+              // @ts-ignore
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), '', i.sexo.toString(), i.edad.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              }
+            }
+
+            this.openDialog(aux)//aqui enviar la lista a mostrar
+            console.log(data);},
+          error => {
+            console.log(error)
+          })
+      }else if(this.seachForm.value.selectBox == 'Nombre comun'){
+        this.animalService.findBy('nombre_comun', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animal = data;
+            var aux: string[][]=[];
+
+            for(let i of this.animal){
+              // @ts-ignore
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), '', i.sexo.toString(), i.edad.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              }
+            }
+
+            this.openDialog(aux)
+            console.log(data);},
+          error => {
+            console.log(error)
+          })
+      }else if(this.seachForm.value.selectBox == 'Especie') {
+        this.animalService.findBy('especie', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animal = data;
+            var aux: string[][]=[];
+
+            for(let i of this.animal){
+              // @ts-ignore
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), '', i.sexo.toString(), i.edad.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              }
+            }
+
+            this.openDialog(aux)
+            console.log(data);
+          },
+          error => {
+            console.log(error)
+          })
+      }else if(this.seachForm.value.selectBox == 'Sexo') {
+        this.animalService.findBy('sexo', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animal = data;
+            var aux: string[][]=[];
+
+            for(let i of this.animal){
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), '', i.sexo.toString(), i.edad.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              }
+            }
+
+            this.openDialog(aux)
+            console.log(data);
+          },
+          error => {
+            console.log(error)
+          })
+      }else if(this.seachForm.value.selectBox == 'Edad') {
+        this.animalService.findBy('edad', this.seachForm.value.selectedBox).subscribe(
+          data => {
+            this.animal = data;
+            var aux: string[][]=[];
+
+            for(let i of this.animal){
+              // @ts-ignore
+              if (i.sub_especie_id == null){
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), '', i.sexo.toString(), i.edad.toString()])
+              }else{
+                // @ts-ignore
+                aux.push([i.id.toString(), i.nombre_comun.toString(), i.sub_especie_id.toString(), i.sexo.toString(), i.edad.toString()])
+              }
+            }
+
+            this.openDialog(aux)
+            console.log(data);
+          },
+          error => {
+            console.log(error)
+          })
+      }
 
     } else {
+     // this.openDialog([this.animal2,this.animal1])
       this.seachForm.markAllAsTouched();
     }
   }
+
 
   backToSelect() {
     this.showFieldsText = false;

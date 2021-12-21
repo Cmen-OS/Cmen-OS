@@ -1,1 +1,157 @@
-<p>taxonomia works!</p>
+<h1 style="color:#E7DBDBFF;   padding-left: 20px;">Gestion de clasificacion taxonomica</h1>
+
+
+
+
+<form [formGroup]="form" (ngSubmit)="save($event)">
+  <div class="wrapper">
+    <div class="wrapperLeft">
+
+      <h2 class="subText">Seleccione su clasificacion</h2>
+      <h2 class="subText">---------------------------</h2>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Orden</div>
+          <strong class="error" *ngIf="isBoxValid('orden')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="orden"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Familia</div>
+          <strong class="error" *ngIf="isBoxValid('familia')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="familia"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Genero</div>
+          <strong class="error" *ngIf="isBoxValid('genero')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="genero"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Especie</div>
+          <strong class="error" *ngIf="isBoxValid('especie')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="especie"/>
+      </div>
+
+      <div class="container">
+        <div class="texts">
+          <div class="name">Subespecie</div>
+          <strong class="error" *ngIf="isBoxValid('subespecie')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="subespecie"/>
+      </div>
+      <div class="container">
+        <div class="texts">
+          <div class="name">Clase</div>
+          <strong class="error" *ngIf="isBoxValid('clase')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="clase"/>
+      </div>
+
+      <form class="wrapper" [formGroup]="seachForm" (ngSubmit)="onSearch($event)">
+
+        <h2 class="subText">Modificar animal</h2>
+        <h2 class="subText">---------------------------</h2>
+
+        <div class="boxLarge" [ngStyle]="showComboBox()">
+          <div class="texts">
+            <div class="name">Escoger opcion</div>
+            <strong class="error" *ngIf="isBoxSearchValid('selectBox')">Este campo es requerido</strong>
+          </div>
+          <select class="box" formControlName="selectBox">
+            <option *ngFor="let selected of selectBoxes"
+                    [value]="selected">
+              {{selected}}
+            </option>
+          </select>
+        </div>
+
+        <div class="boxLarge" id="SelectedBox" [ngStyle]="showSelectedBox()">
+          <div class="texts">
+            <div class="name">  {{  getFormSearchValue("selectBox") }} </div>
+            <strong class="error" *ngIf="isBoxSearchValid('selectedBox')">Este campo es requerido</strong>
+          </div>
+          <input class="box" type="text" formControlName="selectedBox"/>
+        </div>
+
+
+
+
+        <p class="boxLarge"  [ngStyle]="showSelectedBox()" >
+          <button class="buttonSubmit" type="submit" >Buscar</button>
+        </p>
+
+
+
+
+
+
+
+
+
+
+
+      </form>
+
+      <h5 class="subText" [ngStyle]="showFieldText()"> Codigo de identificacion: {{ getTextFielValueID() }} </h5>
+      <h5 class="subText" [ngStyle]="showFieldText()"> Nombre comun: {{ getTextFielValueNombreComun() }} </h5>
+      <h5 class="subText" [ngStyle]="showFieldText()"> Especie: {{ getTextFielValueEspecie() }} </h5>
+      <h5 class="subText" [ngStyle]="showFieldText()"> Sexo: {{ getTextFielValueSexo() }} </h5>
+      <h5 class="subText" [ngStyle]="showFieldText()"> Edad: {{ getTextFielValueEdad() }} </h5>
+
+
+      <div class="container" [ngStyle]="showFieldText()">
+        <div class="texts">
+          <div class="name">Microchip</div>
+          <strong class="error" *ngIf="isBoxValid('microchip')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="microchip"/>
+      </div>
+
+      <div class="container" [ngStyle]="showFieldText()">
+        <div class="texts">
+          <div class="name">Taxonomia</div>
+          <strong class="error" *ngIf="isBoxValid('taxonomia')">Este campo es requerido</strong>
+        </div>
+        <input class="box" type="text" formControlName="taxonomia"/>
+      </div>
+
+      <p class="container" [ngStyle]="showFieldText()"  >
+        <button (click)="modificarAnimal()"  class="buttonSubmit" type="button" >Modificar</button>
+      </p>
+
+      <p class="container" [ngStyle]="showFieldText()"  >
+        <button (click)="backToSelect()"  class="buttonSubmit" type="button" >Volver a elegir</button>
+      </p>
+
+
+    </div>
+
+
+    <div class="wrapperRigth">
+
+
+    <p class="containerRight">
+        <button class="buttonSubmit" type="submit">Agregar</button>
+      </p>
+
+      <p class="containerRight">
+        <button (click)="modificar()" class="buttonSubmit" type="button">Modificar</button>
+      </p>
+
+      <p class="containerRight">
+        <button (click)="baja()" class="buttonSubmit" type="button">Dar de baja</button>
+      </p>
+
+    </div>
+  </div>
+</form>

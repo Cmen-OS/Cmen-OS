@@ -27,6 +27,10 @@ export class RegisterComponent implements OnInit {
   form!: FormGroup;
   imagen?: File;
   count = 0;
+  verificado = false
+  showVerifyText = false
+
+  aux?: Operador[];
 
   date: Date = new Date();
 
@@ -59,7 +63,7 @@ export class RegisterComponent implements OnInit {
   }
 
   save(event: Event) {
-    if (this.form.valid) {
+    if (this.form.valid && this.verificado) {
       console.log(this.form.value);
 
 
@@ -85,7 +89,7 @@ export class RegisterComponent implements OnInit {
       uploadDataReg.append('estado_salud', this.form.value.estadoSaludes);
       uploadDataReg.append('detalles_salud', this.form.value.detalleSaludes);
       uploadDataReg.append('cod_int_id', this.form.value.microchip);
-      uploadDataReg.append('especie_id', this.form.value.taxonomia);
+      uploadDataReg.append('especie_id', this.form.value.especie);
       uploadDataReg.append('ruta_archivo_id', 'C:\\Users\\hpzbook15\\PycharmProjects\\DJANG-OS\\media\\covers\\' + this.imagen?.name + '\\' + this.imagen?.name)
 
       // @ts-ignore
@@ -106,12 +110,12 @@ export class RegisterComponent implements OnInit {
   private buildForm() {
     this.form = this.formBuilder.group({
       ccfs: ['', Validators.required],
-      especie: ['', Validators.required],
+      especie: [''],
       lugarExp: ['', Validators.required],
       precedencia: ['', Validators.required],
       numActa: ['', Validators.required],
       modFuncionamiento: [''],
-      codIdentificacion: ['', Validators.required],
+      codIdentificacion: ['', ],
       areaIngreso: ['', Validators.required],
       motivoIngreso: ['', Validators.required],
       numAutorizacion: ['', Validators.required],
@@ -217,4 +221,43 @@ export class RegisterComponent implements OnInit {
     console.log(this.count)
   }
 
+  BtnVerificar() {
+    this.operadorService.findByEmail(this.form.value.autorizadoPor)
+      .subscribe(
+        data => {
+          this.aux = data;
+          if (this.aux[0].autorizado) {
+            this.verificado = true
+            this.showVerifyText = true
+
+          }else{
+            this.verificado = false
+            this.showVerifyText = true
+
+          }
+          console.log(data);},
+        error => {
+          console.log(error)
+        })
+
+    // @ts-ignore
+
+    console.log(this.showVerifyText)
+    console.log(this.verificado)
+
+  }
+
+  isVerified() {
+    return this.verificado
+  }
+
+  showVerifiedText(){
+    if (this.showVerifyText == false){
+      return {'display' : 'none'};
+
+    }else {
+      return {'display' : ''};
+    }
+
+  }
 }

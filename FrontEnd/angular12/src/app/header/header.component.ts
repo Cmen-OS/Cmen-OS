@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from "../data.service";
 
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -17,6 +19,9 @@ export class HeaderComponent implements OnInit {
 
 
   constructor(
+    private router: Router,
+
+    private  cookieService:CookieService,
     private data:DataService,
   ) {
   }
@@ -50,7 +55,7 @@ export class HeaderComponent implements OnInit {
   }
 
   showBar() {
-    if ( window.location.href.toString() == "http://localhost:4200/login" || window.location.href.toString() == "http://localhost:8081/login"){
+    if ( window.location.href.toString() == "http://localhost:4200/login" || window.location.href.toString() == "http://localhost:8081/login" || window.location.href.toString() == "34.139.8.186"){
       return {'display' : 'none'};
 
     } else {
@@ -59,5 +64,9 @@ export class HeaderComponent implements OnInit {
   }
 
 
+  salir() {
+    this.cookieService.delete('logged')
+    this.router.navigateByUrl('/login');
 
+  }
 }

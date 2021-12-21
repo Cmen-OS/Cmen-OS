@@ -4,4 +4,5 @@ export class Taxonomia {
   orden?: string;
   genero?: string;
   subespecie?: string;
+  clase?: string;
 }

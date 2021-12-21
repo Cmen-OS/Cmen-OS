@@ -1,0 +1,33 @@
+table {
+  width: 100%;
+}
+th, td {
+  width: 25%;
+}
+table {
+  width: 100%;
+  border: 1px solid #999;
+  text-align: left;
+  border-collapse: collapse;
+  margin: 0 0 1em 0;
+  caption-side: top;
+  font-size: 30px;
+  line-height : 35px;
+}
+caption, td, th {
+  padding: 0.3em;
+}
+th, td {
+  border-bottom: 1px solid #999;
+  width: 25%;
+}
+caption {
+  font-weight: bold;
+  font-style: italic;
+}
+
+
+
+.highlight:hover {
+  background-color: rgba(177, 223, 234, 0.85);
+}

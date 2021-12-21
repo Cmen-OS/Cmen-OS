@@ -19,6 +19,14 @@ import { MonitoreoComponent } from './screens/monitoreo/monitoreo.component';
 import { SalirComponent } from './screens/salir/salir.component';
 import { LoginComponent } from './screens/login/login.component';
 
+import { CookieService } from 'ngx-cookie-service';
+import { ListaAnimalesComponent } from './dialog/lista-animales/lista-animales.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatDialogModule } from '@angular/material/dialog';
+import { ListaAnimalesMicrochipComponent } from './dialog/lista-animales-microchip/lista-animales-microchip.component';
+import { CambiarAnimalComponent } from './dialog/cambiar-animal/cambiar-animal.component';
+import {ChartsModule } from 'ng2-charts';
 
 
 
@@ -37,6 +45,9 @@ import { LoginComponent } from './screens/login/login.component';
     MonitoreoComponent,
     SalirComponent,
     LoginComponent,
+    ListaAnimalesComponent,
+    ListaAnimalesMicrochipComponent,
+    CambiarAnimalComponent,
 
   ],
   imports: [
@@ -45,9 +56,13 @@ import { LoginComponent } from './screens/login/login.component';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-
+    BrowserAnimationsModule,
+    MatDialogModule,
+    ChartsModule
   ],
-  providers: [],
+  providers:
+    [CookieService],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }
