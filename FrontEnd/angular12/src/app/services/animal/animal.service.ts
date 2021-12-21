@@ -4,7 +4,7 @@ import {Observable} from "rxjs";
 import {Operador} from "../../models/operador/operador.model";
 import {Animal} from "../../models/animal/animal.model";
 
-const baseUrl = 'http://localhost:8080'
+const baseUrl = 'http://34.139.8.186:8080'
 
 @Injectable({
   providedIn: 'root'
