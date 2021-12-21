@@ -26,7 +26,8 @@ export class TaxonomiaComponent implements OnInit {
     familia: '',
     orden: '',
     genero: '',
-    subespecie: ''
+    subespecie: '',
+    clase: ''
   }
 
 
